@@ -1,0 +1,13 @@
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
+
+@include md-register-theme("default", (
+  primary: md-get-palette-color(green, A700), // The primary color of your application
+  accent: md-get-palette-color(yellow, A700) // The accent and secondary color
+));
+
+@import "~vue-material/dist/theme/all"; // Apply the theme
+
+.md-card {
+  display: flex;
+  margin: 8px;
+}
