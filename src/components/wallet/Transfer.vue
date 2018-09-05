@@ -73,10 +73,8 @@ export default {
     transferValidation() {
       if (this.amount && this.toAccount && !this.accountError && !this.memoError &&
         !this.amountError) {
-        console.log(false);
         return false;
       }
-      console.log(true);
       return true;
     },
   },

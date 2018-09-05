@@ -92,7 +92,6 @@ export default {
     doOnLogin() {
       if (this.scatter) {
         this.scatter.getIdentity({
-          personal: ['firstname', 'lastname'],
           accounts: [this.eosConfig],
         }).then((identity) => {
           if (this.initIdentity(identity)) {

@@ -9,6 +9,8 @@ services:
     logging:
       options:
         max-size: 50m
+    env_file:
+      - .env
 
   nginx:
     restart: always

@@ -48,8 +48,19 @@ const getters = {
     sign: true,
   }),
   getAccountName: currentState => ((currentState.eosAccount) ? currentState.eosAccount.account_name : ''),
-  userFullName: currentState => ((currentState.identity)
-    ? `${currentState.identity.personal.firstname} ${currentState.identity.personal.lastname}` : ''),
+  userFullName: (currentState) => {
+    let res = '';
+    if (!currentState.identity)
+      return res;
+    if (currentState.identity.personal.firstname) {
+      res += currentState.identity.personal.firstname;
+      res += ' ';
+    }
+    if (currentState.identity.personal.lastname) {
+      res += currentState.identity.personal.lastname;
+    }
+    return res;
+  },
   getBalance: currentState => bl.getFirstBalance(currentState.balance),
   getStacked: (currentState) => {
     if (currentState.eosAccount) {
