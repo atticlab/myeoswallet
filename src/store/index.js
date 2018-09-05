@@ -50,8 +50,9 @@ const getters = {
   getAccountName: currentState => ((currentState.eosAccount) ? currentState.eosAccount.account_name : ''),
   userFullName: (currentState) => {
     let res = '';
-    if (!currentState.identity)
+    if (!currentState.identity || !currentState.identity.personal) {
       return res;
+    }
     if (currentState.identity.personal.firstname) {
       res += currentState.identity.personal.firstname;
       res += ' ';
