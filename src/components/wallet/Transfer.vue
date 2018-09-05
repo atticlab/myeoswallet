@@ -36,8 +36,8 @@
     </md-card-content>
 
     <md-card-content class="alw-buttons">
-      <md-button @click="onTransfer" style="color: #ffffff;
-      box-shadow: none; width: 260px; " class="md-raised md-primary">TRANSFER
+      <md-button @click="onTransfer" style="color: #ffffff; box-shadow: none; width: 260px; "
+                 class="md-raised md-primary" :disabled="transferValidation">TRANSFER
       </md-button>
     </md-card-content>
   </md-card>
@@ -70,6 +70,15 @@ export default {
       'getAccountName',
       'getBalance',
     ]),
+    transferValidation() {
+      if (this.amount && this.toAccount && !this.accountError && !this.memoError &&
+        !this.amountError) {
+        console.log(false);
+        return false;
+      }
+      console.log(true);
+      return true;
+    },
   },
   methods: {
     ...mapActions([

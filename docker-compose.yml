@@ -17,7 +17,6 @@ services:
     dns: 8.8.8.8
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./:/src
       - ./logs/nginx/:/logs
