@@ -85,8 +85,8 @@ export default {
     ]),
     onChangeAmount() {
       const rg = /^\d{1,10}(\.\d{0,4})?$/;
-      if (!this.amount || this.amount < 0 ||
-        this.amount > parseFloat(this.getBalance) || !rg.test(this.amount)) {
+      if (!this.amount || !parseFloat(this.amount) || parseFloat(this.amount) < 0 ||
+        parseFloat(this.amount) > parseFloat(this.getBalance) || !rg.test(this.amount)) {
         this.amountError = true;
       } else {
         this.amountError = false;
@@ -115,7 +115,6 @@ export default {
     validateMemo() {
       return this.lengthInUtf8Bytes(this.memo) <= 255;
     },
-    validateAmount: () => true,
     onTransfer() {
       this.eos.transfer(
         this.getAccountName,

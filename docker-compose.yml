@@ -23,8 +23,6 @@ services:
       - ./dist:/dist
       - ./logs/nginx/:/logs
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
-    links:
-     - nodejs
     logging:
       options:
         max-size: 50m

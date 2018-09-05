@@ -67,7 +67,7 @@ const getters = {
     if (currentState.eosAccount) {
       if (currentState.eosAccount.voter_info) {
         if (currentState.eosAccount.voter_info.staked) {
-          return currentState.eosAccount.voter_info.staked;
+          return currentState.eosAccount.voter_info.staked / 1000;
         }
       } else {
         console.debug('getStacked => eosAccount.voter_info is null...');
