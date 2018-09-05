@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import * as bl from '@/bl';
+import bl from '@/bl';
 
 import mutations from './mutations';
 import actions from './actions';

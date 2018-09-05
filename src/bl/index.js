@@ -1,16 +1,24 @@
 import JSONFormatter from 'json-formatter-js';
 
-export default {
-  composeCurrencyBalanceRequest: identityAccount => ({
+function composeCurrencyBalanceRequest(identityAccount) {
+  return {
     code: 'eosio.token',
     account: identityAccount.account_name,
     symbol: 'EOS',
-  }),
+  };
+}
 
+// composeCurrencyBalanceRequest: identityAccount => ({
+//   code: 'eosio.token',
+//   account: identityAccount.account_name,
+//   symbol: 'EOS',
+// }),
+
+export default {
   requestBalance: (eos, identityAccount) => {
     let args;
     if (identityAccount) {
-      args = this.composeCurrencyBalanceRequest(identityAccount);
+      args = composeCurrencyBalanceRequest(identityAccount);
     }
     return eos.getCurrencyBalance(args.code, args.account, args.symbol)
       .catch((e) => {
@@ -34,8 +42,10 @@ export default {
   },
 
   lengthInUtf8Bytes: (str) => {
-    const m = encodeURIComponent(str).match(/%[89ABab]/g);
+    const m = encodeURIComponent(str)
+      .match(/%[89ABab]/g);
     return str.length + (m ? m.length : 0);
   },
 
+  validateKeyLength: key => (typeof key === 'string' && key.length === 64),
 };

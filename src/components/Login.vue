@@ -39,7 +39,7 @@
 import { mapActions, mapGetters, mapState } from 'vuex';
 import Eos from 'eosjs';
 import ActionType from '@/store/constants';
-import * as bl from '@/bl';
+import bl from '@/bl';
 
 export default {
   name: 'Login',

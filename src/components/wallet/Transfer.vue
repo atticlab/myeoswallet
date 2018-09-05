@@ -44,9 +44,9 @@
 </template>
 
 <script>
+import bl from '@/bl';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '../../store/constants';
-import * as bl from '../../bl/index';
 
 export default {
   name: 'Transfer',
@@ -110,9 +110,6 @@ export default {
       } else {
         this.accountError = true;
       }
-    },
-    validateMemo() {
-      return bl.lengthInUtf8Bytes(this.memo) <= 255;
     },
     onTransfer() {
       this.eos.transfer(

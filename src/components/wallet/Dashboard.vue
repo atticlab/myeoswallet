@@ -2,7 +2,7 @@
   <div class="column">
     <div class="content">
       <Resources/>
-      <Transfer/>
+      <CreateAccount/>
     </div>
     <md-card class="column md-card-style">
       <md-toolbar class="md-transparent" :md-elevation="0">
@@ -18,10 +18,11 @@
 import { mapState } from 'vuex';
 import Resources from './Resources';
 import Transfer from './Transfer';
+import CreateAccount from './CreateAccount';
 
 export default {
   name: 'Dashboard',
-  components: { Transfer, Resources },
+  components: { CreateAccount, Transfer, Resources },
   computed: {
     ...mapState([
       'transaction',
