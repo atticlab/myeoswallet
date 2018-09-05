@@ -45,7 +45,6 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import JSONFormatter from 'json-formatter-js';
 import ActionType from '../../store/constants';
 import * as bl from '../../bl/index';
 
@@ -93,7 +92,7 @@ export default {
       }
     },
     onChangeMemo() {
-      if (this.lengthInUtf8Bytes(this.memo) <= 255) {
+      if (bl.lengthInUtf8Bytes(this.memo) <= 255) {
         this.memoError = false;
       } else {
         this.memoError = true;
@@ -113,7 +112,7 @@ export default {
       }
     },
     validateMemo() {
-      return this.lengthInUtf8Bytes(this.memo) <= 255;
+      return bl.lengthInUtf8Bytes(this.memo) <= 255;
     },
     onTransfer() {
       this.eos.transfer(
@@ -124,7 +123,7 @@ export default {
       ).then((transactionResult) => {
         console.debug('TRANSACTION RESULT', transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
-        this.renderJSON(transactionResult);
+        bl.renderJSON(transactionResult, 'place-for-transaction');
         bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
           this[ActionType.SET_BALANCE](respBalance);
           bl.logDebug('bl.requestBalance(eos).then...', respBalance);
@@ -135,91 +134,13 @@ export default {
         if (typeof e === 'string') {
           error = JSON.parse(e);
         }
-        this.renderJSON(error);
+        bl.renderJSON(error, 'place-for-transaction');
       });
-    },
-    renderJSON(json) {
-      const formatter = new JSONFormatter(json, 1);
-      const placeForTransaction = document.getElementById('place-for-transaction');
-      placeForTransaction.textContent = '';
-      placeForTransaction.appendChild(formatter.render());
-    },
-    lengthInUtf8Bytes(str) {
-      const m = encodeURIComponent(str).match(/%[89ABab]/g);
-      return str.length + (m ? m.length : 0);
     },
   },
 };
 </script>
 
 <style scoped>
-  .md-card {
-    display: inline-flex;
-    display: -webkit-flex; /* Safari */
-    -webkit-flex-direction: column; /* Safari 6.1+ */
-    flex-direction: column;
-    -ms-flex-direction: column;
-
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    flex: 1 1 0;
-
-    align-items: center;
-
-    -webkit-align-self: stretch;
-    align-self: stretch;
-    -ms-flex-item-align: stretch;
-  }
-
-  .md-card-content {
-    display: flex;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex: 1 1 0;
-    -webkit-flex: 1 1 0;
-    -ms-flex: 1 1 0;
-
-    justify-content: flex-start;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
-
-    align-items: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-
-    align-self: stretch;
-    -webkit-align-self: stretch;
-    -ms-flex-item-align: stretch;
-
-    padding: 8px;
-  }
-
-  .md-title {
-    font-size: 20px;
-    color: rgb(156, 164, 171);
-  }
-
-  .md-field {
-    margin: 8px;
-  }
-
-  .alw-first-child {
-    border-top: 1px lightgray solid;
-  }
-
-  .alw-buttons {
-    justify-content: flex-end;
-    -webkit-justify-content: center;
-    -ms-flex-pack: end;
-  }
-  .md-card-style {
-    border: 2px rgb(233, 236, 239) solid;
-    box-shadow: none;
-    border-radius: 2px;
-    overflow-x: unset;
-  }
+  @import '../../assets/css/walletaction.css';
 </style>
