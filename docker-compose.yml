@@ -20,7 +20,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./:/src
+      - ./dist:/dist
       - ./logs/nginx/:/logs
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     links:
