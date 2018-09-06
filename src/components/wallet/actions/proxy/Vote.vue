@@ -1,20 +1,15 @@
 <template>
   <md-card class="md-card-style">
     <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">Unset proxy</div>
+      <div class="md-title">Vote producer</div>
     </md-toolbar>
 
-    <md-card-content class="alw-first-child">
-      <md-field>
-        <label>Account</label>
-        <span class="md-prefix">@ </span>
-        <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-      </md-field>
-    </md-card-content>
-
     <md-card-content>
-      <md-button @click="onSetProxy" style="color: #ffffff; box-shadow: none; width: 260px; "
-                 class="md-raised md-primary">Unset Account
+      <md-button @click="producers = []" style="color: #ffffff; box-shadow: none; width: 260px; "
+                 class="md-raised md-primary">Reset
+      </md-button>
+      <md-button @click="Vote" style="color: #ffffff; box-shadow: none; width: 260px; "
+                 class="md-raised md-primary">Vote
       </md-button>
     </md-card-content>
   </md-card>
@@ -26,7 +21,12 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '../../../../store/constants';
 
 export default {
-  name: 'UnsetProxy',
+  name: 'Vote',
+  data() {
+    return {
+      producers: [],
+    };
+  },
   computed: {
     ...mapState([
       'eos',
@@ -40,7 +40,7 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onSetProxy() {
-      this.eos.regproxy(this.getAccountName, 0)
+      this.eos.voteproducerss(this.getAccountName, '', this.producers)
         .then((res) => {
           console.debug(`${this.$options.name} RESULT`, res);
           this[ActionType.SET_TRANSACTION](res);
@@ -51,9 +51,22 @@ export default {
         });
     },
   },
+  created() {
+    this.eos.getProducers({
+      json: true,
+      limit: 700,
+    })
+      .then((res) => {
+        this.producers = res.rows;
+        for (let i = 0; i < this.producers.length; i++) {
+          this.producers[i].h = 1
+        }
+      })
+      .catch(e => console.log(e));
+  },
 };
 </script>
 
 <style scoped>
-  @import '../../../../assets/css/walletaction.css';
+
 </style>

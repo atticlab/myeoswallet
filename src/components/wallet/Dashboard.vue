@@ -10,6 +10,7 @@
       <md-menu md-direction="bottom-start">
         <md-button md-menu-trigger>Voting</md-button>
         <md-menu-content>
+          <md-menu-item @click="currentComponent = 'Vote'">Vote producers</md-menu-item>
           <md-menu-item @click="currentComponent = 'SetProxy'">Set Proxy</md-menu-item>
           <md-menu-item @click="currentComponent = 'AssignProxy'">Assign Proxy</md-menu-item>
           <md-menu-item @click="currentComponent = 'UnsetProxy'">Unset Proxy</md-menu-item>
@@ -38,10 +39,18 @@ import CreateAccount from './actions/CreateAccount';
 import SetProxy from './actions/proxy/SetProxy';
 import AssignProxy from './actions/proxy/AssignProxy';
 import UnsetProxy from './actions/proxy/UnsetProxy';
+import Vote from './actions/proxy/Vote';
 
 export default {
   name: 'Dashboard',
-  components: { CreateAccount, Transfer, Resources, SetProxy, AssignProxy, UnsetProxy },
+  components: { CreateAccount,
+    Transfer,
+    Resources,
+    SetProxy,
+    AssignProxy,
+    UnsetProxy,
+    Vote,
+  },
   computed: {
     ...mapState([
       'transaction',
