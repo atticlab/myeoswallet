@@ -1,8 +1,24 @@
 <template>
   <div class="column">
     <div class="content">
+      <md-menu md-direction="bottom-start">
+        <md-button @click="currentComponent = 'Transfer'">Transfer</md-button>
+      </md-menu>
+      <md-menu>
+        <md-button @click="currentComponent = 'CreateAccount'">CreateAccount</md-button>
+      </md-menu>
+      <md-menu md-direction="bottom-start">
+        <md-button md-menu-trigger>Voting</md-button>
+        <md-menu-content>
+          <md-menu-item @click="currentComponent = 'SetProxy'">Set Proxy</md-menu-item>
+          <md-menu-item @click="currentComponent = 'AssignProxy'">Assign Proxy</md-menu-item>
+          <md-menu-item @click="currentComponent = 'UnsetProxy'">Unset Proxy</md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+    <div class="content actions">
       <Resources/>
-      <CreateAccount/>
+      <component :is="currentComponent"></component>
     </div>
     <md-card class="column md-card-style">
       <md-toolbar class="md-transparent" :md-elevation="0">
@@ -17,16 +33,24 @@
 <script>
 import { mapState } from 'vuex';
 import Resources from './Resources';
-import Transfer from './Transfer';
-import CreateAccount from './CreateAccount';
+import Transfer from './actions/Transfer';
+import CreateAccount from './actions/CreateAccount';
+import SetProxy from './actions/proxy/SetProxy';
+import AssignProxy from './actions/proxy/AssignProxy';
+import UnsetProxy from './actions/proxy/UnsetProxy';
 
 export default {
   name: 'Dashboard',
-  components: { CreateAccount, Transfer, Resources },
+  components: { CreateAccount, Transfer, Resources, SetProxy, AssignProxy, UnsetProxy },
   computed: {
     ...mapState([
       'transaction',
     ]),
+  },
+  data() {
+    return {
+      currentComponent: 'Transfer',
+    };
   },
 };
 </script>
@@ -41,9 +65,11 @@ export default {
   }
 
   .content {
+    margin-top: 5px;
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
+    height: auto;
     /*flex-grow: 1;*/
     background-color: rgba(255, 255, 255, 0);
   }
@@ -64,6 +90,9 @@ export default {
   }
   .md-title {
     font-size: 20px;
+  }
+  .actions {
+    height: 500px; /* TODO: review */
   }
 
 </style>

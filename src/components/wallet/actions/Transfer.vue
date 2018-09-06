@@ -25,13 +25,13 @@
         <span class="md-error">Invalid amount</span>
         <md-input
           v-model="amount"
-          type="number" min="0" required @change="onChangeAmount">
+          type="number" min="0" required @change="validateAmount">
         </md-input>
       </md-field>
       <md-field :class="memoError ? 'md-invalid' : ''">
         <label>Memo</label>
         <span class="md-error">Memo is too long</span>
-        <md-input v-model="memo" @change="onChangeMemo"></md-input>
+        <md-input v-model="memo" @change="validateMemo"></md-input>
       </md-field>
     </md-card-content>
 
@@ -46,7 +46,7 @@
 <script>
 import bl from '@/bl';
 import { mapState, mapGetters, mapActions } from 'vuex';
-import ActionType from '../../store/constants';
+import ActionType from '../../../store/constants';
 
 export default {
   name: 'Transfer',
@@ -82,7 +82,7 @@ export default {
       ActionType.SET_TRANSACTION,
       ActionType.SET_BALANCE,
     ]),
-    onChangeAmount() {
+    validateAmount() {
       const rg = /^\d{1,10}(\.\d{0,4})?$/;
       if (!this.amount || !parseFloat(this.amount) || parseFloat(this.amount) < 0 ||
         parseFloat(this.amount) > parseFloat(this.getBalance) || !rg.test(this.amount)) {
@@ -91,7 +91,7 @@ export default {
         this.amountError = false;
       }
     },
-    onChangeMemo() {
+    validateMemo() {
       if (bl.lengthInUtf8Bytes(this.memo) <= 255) {
         this.memoError = false;
       } else {
@@ -118,7 +118,7 @@ export default {
         `${parseFloat(this.amount).toFixed(4)} EOS`,
         this.memo || 'memo',
       ).then((transactionResult) => {
-        console.debug('TRANSACTION RESULT', transactionResult);
+        console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
         bl.renderJSON(transactionResult, 'place-for-transaction');
         bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
@@ -126,12 +126,7 @@ export default {
           bl.logDebug('bl.requestBalance(eos).then...', respBalance);
         });
       }).catch((e) => {
-        console.error(e);
-        let error = e;
-        if (typeof e === 'string') {
-          error = JSON.parse(e);
-        }
-        bl.renderJSON(error, 'place-for-transaction');
+        bl.handleError(e, 'place-for-transaction');
       });
     },
   },
@@ -139,5 +134,5 @@ export default {
 </script>
 
 <style scoped>
-  @import '../../assets/css/walletaction.css';
+  @import '../../../assets/css/walletaction.css';
 </style>

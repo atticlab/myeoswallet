@@ -8,6 +8,13 @@ function composeCurrencyBalanceRequest(identityAccount) {
   };
 }
 
+function renderJSON(json, idForInsert) {
+  const formatter = new JSONFormatter(json, 1);
+  const placeForTransaction = document.getElementById(idForInsert);
+  placeForTransaction.textContent = '';
+  placeForTransaction.appendChild(formatter.render());
+}
+
 // composeCurrencyBalanceRequest: identityAccount => ({
 //   code: 'eosio.token',
 //   account: identityAccount.account_name,
@@ -34,11 +41,15 @@ export default {
     console.debug(obj);
   },
 
-  renderJSON: (json, idForInsert) => {
-    const formatter = new JSONFormatter(json, 1);
-    const placeForTransaction = document.getElementById(idForInsert);
-    placeForTransaction.textContent = '';
-    placeForTransaction.appendChild(formatter.render());
+  renderJSON,
+
+  handleError: (e, idForInsert) => {
+    console.error(e);
+    let error = e;
+    if (typeof e === 'string') {
+      error = JSON.parse(e);
+    }
+    renderJSON(error, idForInsert);
   },
 
   lengthInUtf8Bytes: (str) => {
@@ -47,5 +58,6 @@ export default {
     return str.length + (m ? m.length : 0);
   },
 
-  validateKeyLength: key => (typeof key === 'string' && key.length === 64),
+  validatePublicKey: key => (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS'),
+  validatePrivateKey: key => (typeof key === 'string' && key.length === 51 && key.substr(0, 3) !== 'EOS'),
 };
