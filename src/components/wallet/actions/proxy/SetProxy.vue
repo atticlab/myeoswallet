@@ -23,7 +23,7 @@
 <script>
 import bl from '@/bl';
 import { mapState, mapGetters, mapActions } from 'vuex';
-import ActionType from '../../../../store/constants';
+import ActionType from '@/store/constants';
 
 export default {
   name: 'SetProxy',

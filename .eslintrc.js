@@ -27,7 +27,7 @@ module.exports = {
   rules: {
     'no-console': 0,
     'max-len': 0,
-    'no-pluspluss': false,
+    'allowForLoopAfterthoughts': true,
     'import/prefer-default-export': 0,
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {

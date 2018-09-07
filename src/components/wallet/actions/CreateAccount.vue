@@ -102,7 +102,8 @@ export default {
       ActionType.SET_BALANCE,
     ]),
     validateAccount() {
-      if (this.accountNameError.length === 12) {
+      const rg = /^[a-z1-5]{12}$/;
+      if (this.accountName.length === 12 && rg.test(this.accountName)) {
         this.eos.getAccount(this.accountName)
           .then(() => {
             this.accountNameError = true;
@@ -147,11 +148,11 @@ export default {
         });
 
         tr.delegatebw({
-          from: 'eosio',
+          from: this.getAccountName,
           receiver: this.accountName,
           stake_net_quantity: `${parseFloat(this.cpuStake).toFixed(4)} EOS`,
           stake_cpu_quantity: `${parseFloat(this.netStake).toFixed(4)} EOS`,
-          transfer: 0,
+          transfer: 1,
         });
       })
         .then((res) => {

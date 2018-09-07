@@ -58,8 +58,9 @@ export default {
     })
       .then((res) => {
         this.producers = res.rows;
+        // eslint-disable-next-line
         for (let i = 0; i < this.producers.length; i++) {
-          this.producers[i].h = 1
+          this.producers[i].h = 1;
         }
       })
       .catch(e => console.log(e));

@@ -19,7 +19,9 @@
     </div>
     <div class="content actions">
       <Resources/>
-      <component :is="currentComponent"></component>
+      <keep-alive>
+        <component :is="currentComponent"></component>
+      </keep-alive>
     </div>
     <md-card class="column md-card-style">
       <md-toolbar class="md-transparent" :md-elevation="0">
