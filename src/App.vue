@@ -6,6 +6,19 @@
 
 <script>
 export default {
+  name: 'App',
+  methods: {
+    isMobileDevice() {
+      return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    },
+  },
+  created() {
+    if (this.isMobileDevice()) {
+      this.$router.push({
+        name: 'MobileDevice',
+      });
+    }
+  },
 };
 </script>
 
