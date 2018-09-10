@@ -9,7 +9,7 @@
 
     <md-card-media>
       <div style="text-align: center">
-      <img src="@/assets/Artwork.png" alt="phone">
+      <img src="@/assets/phone.png" alt="phone">
       </div>
     </md-card-media>
     </md-card-content>
@@ -26,6 +26,7 @@ export default {
 <style scoped>
   #main {
     margin-top: 50px;
+    text-align: center;
   }
   img {
     width: 20vh;
