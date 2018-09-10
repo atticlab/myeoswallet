@@ -50,6 +50,9 @@
         <span class="md-error">Invalid value</span>
         <md-input type="number" v-model="ram" required @change="validateRam"></md-input>
       </md-field>
+      <md-switch v-model="transfer">Transfer</md-switch>
+    </md-card-content>
+    <md-card-content>
       <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 260px; "
                  class="md-raised md-primary" :disabled="createAccountValidation">Create Account
       </md-button>
@@ -78,6 +81,7 @@ export default {
       cpuStake: '0.1',
       netStake: '0.1',
       ram: '8192',
+      transfer: 0
     };
   },
   computed: {
@@ -152,7 +156,7 @@ export default {
           receiver: this.accountName,
           stake_net_quantity: `${parseFloat(this.cpuStake).toFixed(4)} EOS`,
           stake_cpu_quantity: `${parseFloat(this.netStake).toFixed(4)} EOS`,
-          transfer: 1,
+          transfer: this.transfer ? 1 : 0,
         });
       })
         .then((res) => {
