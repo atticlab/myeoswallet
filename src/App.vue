@@ -40,6 +40,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     display: flex;
     justify-content: center;
+  }
+  body {
     background-color: rgb(245, 247, 251);
   }
 
