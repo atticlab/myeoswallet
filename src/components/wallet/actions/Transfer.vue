@@ -116,7 +116,7 @@ export default {
         this.getAccountName,
         this.toAccount,
         `${parseFloat(this.amount).toFixed(4)} EOS`,
-        this.memo || 'memo',
+        this.memo,
       ).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);

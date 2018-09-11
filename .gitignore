@@ -19,4 +19,4 @@ selenium-debug.log
 /.home/
 /package-lock.json
 .env
-.npm/
+.npm

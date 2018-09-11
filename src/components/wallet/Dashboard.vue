@@ -5,7 +5,7 @@
         <md-button @click="currentComponent = 'Transfer'">Transfer</md-button>
       </md-menu>
       <md-menu>
-        <md-button @click="currentComponent = 'CreateAccount'">CreateAccount</md-button>
+        <md-button @click="currentComponent = 'CreateAccount'">Create Account</md-button>
       </md-menu>
       <md-menu md-direction="bottom-start">
         <md-button md-menu-trigger>Voting</md-button>
@@ -16,9 +16,25 @@
           <md-menu-item @click="currentComponent = 'UnsetProxy'">Unset Proxy</md-menu-item>
         </md-menu-content>
       </md-menu>
+      <md-menu md-direction="bottom-start">
+        <md-button md-menu-trigger>Stake</md-button>
+        <md-menu-content md-menu>
+          <md-menu-item @click="currentComponent = 'AdvancedPermissions'">Advanced Permissions</md-menu-item>
+          <md-menu-item @click="currentComponent = 'LinkAuth'">Link Auth</md-menu-item>
+          <md-menu-item @click="currentComponent = 'Permissions'">Permissions</md-menu-item>
+          <md-menu-item @click="currentComponent = 'Ram'">Ram</md-menu-item>
+          <md-menu-item @click="currentComponent = 'Refund'">Refund</md-menu-item>
+          <md-menu-item @click="currentComponent = 'Stake'">Stake</md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <md-menu>
+        <md-button @click="currentComponent = 'ClaimRewards'">Claim Rewards</md-button>
+      </md-menu>
     </div>
-    <div class="content actions">
+    <div class="column actions">
       <Resources/>
+    </div>
+    <div class="column actions">
       <keep-alive>
         <component :is="currentComponent"></component>
       </keep-alive>
@@ -42,16 +58,26 @@ import SetProxy from './actions/proxy/SetProxy';
 import AssignProxy from './actions/proxy/AssignProxy';
 import UnsetProxy from './actions/proxy/UnsetProxy';
 import Vote from './actions/proxy/Vote';
+import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake } from './actions/stake';
+import ClaimRewards from './actions/blockProducer/ClaimRewards';
 
 export default {
   name: 'Dashboard',
-  components: { CreateAccount,
+  components: {
+    CreateAccount,
     Transfer,
     Resources,
     SetProxy,
     AssignProxy,
     UnsetProxy,
     Vote,
+    AdvancedPermissions,
+    LinkAuth,
+    Permissions,
+    Ram,
+    Refund,
+    Stake,
+    ClaimRewards,
   },
   computed: {
     ...mapState([
@@ -77,9 +103,9 @@ export default {
 
   .content {
     margin-top: 5px;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
+    display: block;
+    /*justify-content: flex-start;*/
+    /*flex-direction: row;*/
     height: auto;
     /*flex-grow: 1;*/
     background-color: rgba(255, 255, 255, 0);
@@ -103,7 +129,7 @@ export default {
     font-size: 20px;
   }
   .actions {
-    height: 500px; /* TODO: review */
+    height: 370px; /* TODO: review */
   }
 
 </style>

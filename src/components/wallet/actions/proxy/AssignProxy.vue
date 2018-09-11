@@ -17,7 +17,7 @@
       </md-field>
     </md-card-content>
 
-    <md-card-content>
+    <md-card-content class="alw-buttons">
       <md-button @click="onAssignProxy" style="color: #ffffff; box-shadow: none; width: 260px; "
                  class="md-raised md-primary" :disabled="validate">Assign Account
       </md-button>

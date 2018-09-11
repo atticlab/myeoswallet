@@ -15,6 +15,7 @@
   -webkit-align-self: stretch;
   align-self: stretch;
   -ms-flex-item-align: stretch;
+  height: 100%;
 }
 
 .md-card-content {

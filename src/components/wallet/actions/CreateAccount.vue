@@ -52,7 +52,7 @@
       </md-field>
       <md-switch v-model="transfer">Transfer</md-switch>
     </md-card-content>
-    <md-card-content>
+    <md-card-content class="alw-buttons">
       <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 260px; "
                  class="md-raised md-primary" :disabled="createAccountValidation">Create Account
       </md-button>
@@ -62,8 +62,8 @@
 
 <script>
 import bl from '@/bl';
+import ActionType from '@/store/constants';
 import { mapState, mapGetters, mapActions } from 'vuex';
-import ActionType from '../../../store/constants';
 
 export default {
   name: 'CreateAccount',
@@ -81,7 +81,7 @@ export default {
       cpuStake: '0.1',
       netStake: '0.1',
       ram: '8192',
-      transfer: 0
+      transfer: false,
     };
   },
   computed: {
@@ -93,7 +93,7 @@ export default {
       'getAccountName',
     ]),
     createAccountValidation() {
-      if (this.accountName && this.ownerKey && this.activeKey && this.cpuStake && this.netStake && this.ram &&
+      if (this.accountName && this.ownerKey && this.activeKey && parseFloat(this.cpuStake) && parseFloat(this.netStake) && parseInt(this.ram, 10) &&
         !this.accountNameError && !this.ownerKeyError && !this.activeKeyError && !this.cpuStakeError && !this.netStakeError && !this.ramError) {
         return false;
       }
@@ -109,32 +109,26 @@ export default {
       const rg = /^[a-z1-5]{12}$/;
       if (this.accountName.length === 12 && rg.test(this.accountName)) {
         this.eos.getAccount(this.accountName)
-          .then(() => {
-            this.accountNameError = true;
-          })
-          .catch(() => {
-            this.accountNameError = false;
-          });
+          .then(() => { this.accountNameError = true; })
+          .catch(() => { this.accountNameError = false; });
       } else {
         this.accountNameError = true;
       }
     },
     validateActiveKey() {
-      console.log(this.getAccountName);
-      console.log(this.eosAccount);
       this.activeKeyError = !bl.validatePublicKey(this.activeKey) || this.activeKey === this.ownerKey;
     },
     validateOwnerKey() {
       this.ownerKeyError = !bl.validatePublicKey(this.ownerKey) || this.activeKey === this.ownerKey;
     },
     validateCpuStake() {
-      this.cpuStakeError = this.cpuStake < 0;
+      this.cpuStakeError = parseFloat(this.cpuStake) < 0;
     },
     validateNetStake() {
-      this.netStakeError = this.netStake < 0;
+      this.netStakeError = parseFloat(this.netStake) < 0;
     },
     validateRam() {
-      this.ramError = this.ram < 0;
+      this.ramError = parseFloat(this.ram) < 0;
     },
     onCreateAccount() {
       this.eos.transaction((tr) => {
