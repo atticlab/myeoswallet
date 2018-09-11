@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
+import MobileDevice from '@/components/MobileDevice';
 import Wallet from '@/components/Wallet';
 import Dashboard from '@/components/wallet/Dashboard';
 
@@ -29,6 +30,11 @@ export default new Router({
           component: Dashboard,
         },
       ],
+    },
+    {
+      path: '/mobile',
+      name: 'MobileDevice',
+      component: MobileDevice,
     },
   ],
 });
