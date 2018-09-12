@@ -5,7 +5,7 @@
         <img class="logo" src="./../../assets/eos_logo.png">
         <div class="md-display title">EOS WALLET</div>
       </div>
-      <div class="flex-item-mid md-body-2">{{ userFullName }}</div>
+      <div class="flex-item-mid md-body-2">{{ getAccountName }}</div>
       <div class="flex-item-right">
 <md-button
     style="
@@ -31,7 +31,7 @@ export default {
       'scatter',
     ]),
     ...mapGetters([
-      'userFullName',
+      'getAccountName',
     ]),
   },
   methods: {

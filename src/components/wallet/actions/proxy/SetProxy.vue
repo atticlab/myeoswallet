@@ -111,6 +111,7 @@ export default {
   name: 'SetProxy',
   data() {
     return {
+      proxyNameError: false,
       proxyName: '',
       slogan: '',
       philosophy: '',
