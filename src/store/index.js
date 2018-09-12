@@ -48,6 +48,7 @@ const getters = {
     sign: true,
   }),
   getAccountName: currentState => ((currentState.eosAccount) ? currentState.eosAccount.account_name : ''),
+  getAuthority: currentState => ((currentState.identityAccount) ? currentState.identityAccount.authority : ''),
   userFullName: (currentState) => {
     let res = '';
     if (!currentState.identity || !currentState.identity.personal) {
@@ -85,6 +86,20 @@ const getters = {
     return getRestPercent(
       currentState.eosAccount, currentState.eosAccount.ram_usage, currentState.eosAccount.ram_quota,
     );
+  },
+  getRamInBytes: (currentState) => {
+    if (!currentState.eosAccount) {
+      console.debug('getRamInBytes => currentState.eosAccount is null...');
+      return 0;
+    }
+    return currentState.eosAccount.ram_quota;
+  },
+  getFreeRamInBytes: (currentState) => {
+    if (!currentState.eosAccount) {
+      console.debug('getFreeRamInBytes => currentState.eosAccount is null...');
+      return 0;
+    }
+    return currentState.eosAccount.ram_quota - currentState.eosAccount.ram_usage;
   },
   getNet: (currentState) => {
     if (!currentState.eosAccount) {

@@ -17,7 +17,7 @@
         </md-menu-content>
       </md-menu>
       <md-menu md-direction="bottom-start">
-        <md-button md-menu-trigger>Stake</md-button>
+        <md-button md-menu-trigger>Account</md-button>
         <md-menu-content md-menu>
           <md-menu-item @click="currentComponent = 'AdvancedPermissions'">Advanced Permissions</md-menu-item>
           <md-menu-item @click="currentComponent = 'LinkAuth'">Link Auth</md-menu-item>
@@ -31,15 +31,15 @@
         <md-button @click="currentComponent = 'ClaimRewards'">Claim Rewards</md-button>
       </md-menu>
     </div>
-    <div class="column actions">
+    <div class="content actions">
       <Resources/>
     </div>
-    <div class="column actions">
+    <div class="content actions">
       <keep-alive>
         <component :is="currentComponent"></component>
       </keep-alive>
     </div>
-    <md-card class="column md-card-style">
+    <md-card class="content md-card-style">
       <md-toolbar class="md-transparent" :md-elevation="0">
         <div class="md-title">Blockchain Raw Data</div>
       </md-toolbar>
@@ -104,8 +104,8 @@ export default {
   .content {
     margin-top: 5px;
     display: block;
-    /*justify-content: flex-start;*/
-    /*flex-direction: row;*/
+    justify-content: flex-start;
+    flex-direction: row;
     height: auto;
     /*flex-grow: 1;*/
     background-color: rgba(255, 255, 255, 0);
@@ -128,8 +128,8 @@ export default {
   .md-title {
     font-size: 20px;
   }
-  .actions {
-    height: 370px; /* TODO: review */
-  }
+  /*.actions {*/
+    /*height: 370px; !* TODO: review *!*/
+  /*}*/
 
 </style>
