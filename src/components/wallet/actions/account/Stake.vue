@@ -194,9 +194,9 @@ export default {
       }
       return true;
     },
-    undelegateValidation() { // TODO
+    undelegateValidation() {
       if (this.stakeHolder && (parseFloat(this.cpuUnStake) || parseFloat(this.netUnStake)) &&
-        !this.recipientError && !this.cpuStakeError && !this.netStakeError) {
+        !this.stakeHolderError && !this.cpuUnStakeError && !this.netUnStakeError) {
         return false;
       }
       return true;

@@ -1,36 +1,6 @@
 <template>
   <div class="column">
-    <div class="content">
-      <md-menu md-direction="bottom-start">
-        <md-button @click="currentComponent = 'Transfer'">Transfer</md-button>
-      </md-menu>
-      <md-menu>
-        <md-button @click="currentComponent = 'CreateAccount'">Create Account</md-button>
-      </md-menu>
-      <md-menu md-direction="bottom-start">
-        <md-button md-menu-trigger>Voting</md-button>
-        <md-menu-content>
-          <md-menu-item @click="currentComponent = 'Vote'">Vote producers</md-menu-item>
-          <md-menu-item @click="currentComponent = 'SetProxy'">Set Proxy</md-menu-item>
-          <md-menu-item @click="currentComponent = 'AssignProxy'">Assign Proxy</md-menu-item>
-          <md-menu-item @click="currentComponent = 'UnsetProxy'">Unset Proxy</md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      <md-menu md-direction="bottom-start">
-        <md-button md-menu-trigger>Account</md-button>
-        <md-menu-content md-menu>
-          <md-menu-item @click="currentComponent = 'AdvancedPermissions'">Advanced Permissions</md-menu-item>
-          <md-menu-item @click="currentComponent = 'LinkAuth'">Link Auth</md-menu-item>
-          <md-menu-item @click="currentComponent = 'Permissions'">Permissions</md-menu-item>
-          <md-menu-item @click="currentComponent = 'Ram'">Ram</md-menu-item>
-          <md-menu-item @click="currentComponent = 'Refund'">Refund</md-menu-item>
-          <md-menu-item @click="currentComponent = 'Stake'">Stake</md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      <md-menu>
-        <md-button @click="currentComponent = 'ClaimRewards'">Claim Rewards</md-button>
-      </md-menu>
-    </div>
+    <Menu @changeMenu="menuChange" />
     <div class="content actions">
       <Resources/>
     </div>
@@ -52,21 +22,24 @@
 <script>
 import { mapState } from 'vuex';
 import Resources from './Resources';
+import Menu from './Menu';
 import Transfer from './actions/Transfer';
 import CreateAccount from './actions/CreateAccount';
 import SetProxy from './actions/proxy/SetProxy';
 import AssignProxy from './actions/proxy/AssignProxy';
 import UnsetProxy from './actions/proxy/UnsetProxy';
 import Vote from './actions/proxy/Vote';
-import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake } from './actions/stake';
+import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake } from './actions/account';
 import ClaimRewards from './actions/blockProducer/ClaimRewards';
+import RegisterProducer from './actions/blockProducer/RegisterProducer';
 
 export default {
   name: 'Dashboard',
   components: {
+    Menu,
+    Resources,
     CreateAccount,
     Transfer,
-    Resources,
     SetProxy,
     AssignProxy,
     UnsetProxy,
@@ -78,6 +51,7 @@ export default {
     Refund,
     Stake,
     ClaimRewards,
+    RegisterProducer,
   },
   computed: {
     ...mapState([
@@ -88,6 +62,11 @@ export default {
     return {
       currentComponent: 'Transfer',
     };
+  },
+  methods: {
+    menuChange(val) {
+      this.currentComponent = val;
+    },
   },
 };
 </script>
@@ -128,8 +107,4 @@ export default {
   .md-title {
     font-size: 20px;
   }
-  /*.actions {*/
-    /*height: 370px; !* TODO: review *!*/
-  /*}*/
-
 </style>
