@@ -50,7 +50,7 @@
         <span class="md-error">Invalid value</span>
         <md-input type="number" v-model="ram" required @change="validateRam"></md-input>
       </md-field>
-      <md-switch v-model="transfer">Transfer</md-switch>
+      <md-switch v-model="transfer" class="md-primary">Transfer</md-switch>
     </md-card-content>
     <md-card-content class="alw-buttons">
       <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 260px; "

@@ -20,7 +20,7 @@
       </md-card-content>
 
       <md-card-content>
-        <md-switch @change="validateRamToBuy" v-model="inEos">In bytes / In EOS</md-switch>
+        <md-switch @change="validateRamToBuy" v-model="inEos" class="md-primary">In bytes / In EOS</md-switch>
         <md-field :class="ramToBuyError ? 'md-invalid' : ''">
           <label>Ram in <span v-if="inEos">EOS</span> <span v-else>bytes</span></label>
           <span class="md-error">Invalid value</span>

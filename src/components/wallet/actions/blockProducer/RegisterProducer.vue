@@ -66,7 +66,7 @@ export default {
         });
     },
     validateKey() {
-      this.producerKeyError = !bl.validatePublicKey(this.producerKey)
+      this.producerKeyError = !bl.validatePublicKey(this.producerKey);
     },
   },
   computed: {
