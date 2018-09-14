@@ -6,7 +6,7 @@
 
     <md-card-content>
       <div>Selected producers ({{ prodToVote.length }}/30): </div>
-      <md-chip class="md-primary" md-deletable v-for="(prod, i) in prodToVote" :key="i">{{prod}}</md-chip>
+      <md-chip class="md-primary" md-deletable v-for="(prod, i) in prodToVote" :key="i" @md-delete="prodDeleteHandler(prod)">{{prod}}</md-chip>
     </md-card-content>
 
     <md-card-content>
@@ -91,6 +91,13 @@ export default {
         })
         .catch(e => bl.handleError(e, 'place-for-transaction'));
     },
+    prodDeleteHandler(prod) {
+      const index = this.prodToVote.indexOf(prod);
+
+      if (index > -1) {
+        this.prodToVote.splice(index, 1);
+      }
+    },
   },
   created() {
     if (this.eosAccount.voter_info && this.eosAccount.voter_info.producers) {
@@ -146,8 +153,7 @@ export default {
       .catch(e => bl.handleError(e, 'place-for-transaction'));
   },
   watch: {
-    prodToVote(val) {
-      console.log(val);
+    prodToVote() {
       if (this.prodToVote.length > 30) {
         this.prodToVote.splice(-1);
       }
