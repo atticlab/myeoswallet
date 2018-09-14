@@ -11,7 +11,7 @@
 
       <md-card-actions style="padding: 0px 20px 20px">
         <md-button
-          @click="testNewLogin"
+          @click="doOnLoginDesktop"
           class="md-raised md-primary"
           style="color: #ffffff; text-transform: none; padding: 8px"
         >
@@ -22,10 +22,10 @@
     </md-card>
 
     <md-dialog :md-active.sync="noScatterAlert">
-      <md-dialog-title>No scatter plugin detected!</md-dialog-title>
+      <md-dialog-title>No scatter detected!</md-dialog-title>
 
       <md-dialog-content>
-        Please <a href="https://get-scatter.com/" target="_blank">install Scatter plugin</a> and refresh this page.
+        Please <a href="https://get-scatter.com/" target="_blank">install Scatter plugin or desktop application</a> and refresh this page.
       </md-dialog-content>
 
       <md-dialog-actions>
@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      ActionType.SET_SCATTER,
       ActionType.SET_IDENTITY,
       ActionType.SET_IDENTITY_ACCOUNT,
       ActionType.SET_EOS_JS,
@@ -86,7 +87,8 @@ export default {
       return false;
     },
     initEos() {
-      const eos = this.scatter.eos(this.eosConfig, Eos, {});
+      const eosOptions = { expireInSeconds: 60 };
+      const eos = this.scatter.eos(this.eosConfig, Eos, eosOptions);
       this[ActionType.SET_EOS_JS](eos);
       return eos;
     },
@@ -126,29 +128,43 @@ export default {
         this.noScatterAlert = true;
       }
     },
-    testNewLogin() {
+    doOnLoginDesktop() {
       ScatterJS.scatter.connect('Attic Wallet').then((connected) => {
-        if (!connected) return false;
-        console.log(connected);
+        if (!connected) {
+          this.noScatterAlert = true;
+          return false;
+        }
 
         const scatter = ScatterJS.scatter;
         window.scatter = null;
+        this[ActionType.SET_SCATTER](scatter);
 
-        const requiredFields = {accounts: [this.eosConfig]};
-        scatter.getIdentity(requiredFields).then(() => {
+        const requiredFields = { accounts: [this.eosConfig] };
+        scatter.getIdentity(requiredFields).then((identity) => {
+          if (this.initIdentity(identity)) {
+            const identityAccount = this.initIdentityAccount(identity);
 
-          // Always use the accounts you got back from Scatter. Never hardcode them even if you are prompting
-          // the user for their account name beforehand. They could still give you a different account.
-          const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
-          console.log(account);
-          // You can pass in any additional options you want into the eosjs reference.
-          const eosOptions = {expireInSeconds: 60};
+            if (identityAccount) {
+              const eos = this.initEos();
 
-          // Get a proxy reference to eosjs which you can use to sign transactions with a user's Scatter.
-          const eos = scatter.eos(this.eosConfig, Eos, eosOptions);
-          console.log(eos);
+              if (eos && identityAccount.name) {
+                eos.getAccount(identityAccount.name).then((respEosAccount) => {
+                  bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
+                  this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
+
+                  bl.requestBalance(eos, respEosAccount).then((respBalance) => {
+                    this[ActionType.SET_BALANCE](respBalance);
+                    bl.logDebug('bl.requestBalance(eos).then...', respBalance);
+
+                    this.$router.push('/wallet');
+                  });
+                });
+              }
+            }
+          }
         })
           .catch(error => console.error(error));
+        return true;
       });
     },
   },

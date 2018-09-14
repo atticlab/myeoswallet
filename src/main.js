@@ -23,12 +23,12 @@ Vue.component('BottomBar', BottomBar);
 
 Vue.config.productionTip = false;
 
-document.addEventListener('scatterLoaded', () => {
-  window.scatter.requireVersion(3.0);
-  store.dispatch(ActionType.SET_SCATTER, window.scatter);
-  store.dispatch(ActionType.SET_IDENTITY, window.scatter.identity);
-  window.scatter = null;
-});
+// document.addEventListener('scatterLoaded', () => {
+//   window.scatter.requireVersion(3.0);
+//   store.dispatch(ActionType.SET_SCATTER, window.scatter);
+//   store.dispatch(ActionType.SET_IDENTITY, window.scatter.identity);
+//   window.scatter = null;
+// });
 
 /* eslint-disable no-new */
 new Vue({
