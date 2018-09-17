@@ -125,6 +125,20 @@ const getters = {
     }
     return currentState.identityAccount.blockchain ? currentState.identityAccount.blockchain.toUpperCase() : 'N/A';
   },
+  getTokens: (currentState) => {
+    if (!currentState.tokenList) {
+      console.debug('getTokens => currentState.tokenList is null...');
+      return [];
+    }
+    return currentState.tokenList.filter(obj => obj.balance && obj.symbol !== 'EOS');
+  },
+  getTokensWithEos: (currentState) => {
+    if (!currentState.tokenList) {
+      console.debug('getTokensWithEos => currentState.tokenList is null...');
+      return [];
+    }
+    return currentState.tokenList.filter(obj => obj.balance);
+  },
 };
 
 export default new Vuex.Store({

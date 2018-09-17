@@ -5,26 +5,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import ActionType from '@/store/constants';
-
 export default {
   name: 'App',
   methods: {
-    ...mapActions([
-      ActionType.SET_TOKENLIST,
-    ]),
     isMobileDevice() {
       return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
-    },
-    getTokenList() {
-      this.$http.get('https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json')
-        .then((res) => {
-          this[ActionType.SET_TOKENLIST](res.body)
-        })
-        .catch((err) => {
-          console.error(err);
-        });
     },
   },
   created() {
@@ -32,8 +17,6 @@ export default {
       this.$router.push({
         name: 'MobileDevice',
       });
-    } else {
-      this.getTokenList();
     }
   },
 };

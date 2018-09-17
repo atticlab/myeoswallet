@@ -110,24 +110,14 @@ export default {
       ActionType.SET_BALANCE,
     ]),
     validateAccount() {
-      const rg = /^[a-z1-5]{12}$/;
-      if (this.recipient.length === 12 && rg.test(this.recipient)) {
-        this.eos.getAccount(this.recipient)
-          .then(() => { this.recipientError = false; })
-          .catch(() => { this.recipientError = true; });
-      } else {
-        this.recipientError = true;
-      }
+      this.eos.getAccount(this.recipient)
+        .then(() => { this.recipientError = false; })
+        .catch(() => { this.recipientError = true; });
     },
     validateStakeHolder() {
-      const rg = /^[a-z1-5]{12}$/;
-      if (this.stakeHolder.length === 12 && rg.test(this.stakeHolder)) {
-        this.eos.getAccount(this.stakeHolder)
-          .then(() => { this.stakeHolderError = false; })
-          .catch(() => { this.stakeHolderError = true; });
-      } else {
-        this.stakeHolderError = true;
-      }
+      this.eos.getAccount(this.stakeHolder)
+        .then(() => { this.stakeHolderError = false; })
+        .catch(() => { this.stakeHolderError = true; });
     },
     validateCpuStake() {
       this.cpuStakeError = parseFloat(this.cpuStake) < 0;

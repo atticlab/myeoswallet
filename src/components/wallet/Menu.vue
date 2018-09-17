@@ -31,7 +31,12 @@
       <md-menu-content>
         <md-menu-item @click="$emit('changeMenu', 'ClaimRewards')">Claim Rewards</md-menu-item>
         <md-menu-item @click="$emit('changeMenu', 'RegisterProducer')">Reg Producer</md-menu-item>
+        <md-menu-item @click="$emit('changeMenu', 'UnregisterProducer')">Unreg Producer</md-menu-item>
       </md-menu-content>
+    </md-menu>
+
+    <md-menu md-direction="bottom-start">
+      <md-button @click="$emit('changeMenu', 'AirgrabTokens')">Airgrab Tokens</md-button>
     </md-menu>
   </div>
 </template>

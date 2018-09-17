@@ -20,4 +20,6 @@ export default {
     ({ commit }, transaction) => commit(ActionType.SET_TRANSACTION, transaction),
 
   [ActionType.SET_TOKENLIST]: ({ commit }, val) => commit(ActionType.SET_TOKENLIST, val),
+
+  [ActionType.SET_TOKENBALANCE]: ({ commit }, val) => commit(ActionType.SET_TOKENBALANCE, val),
 };

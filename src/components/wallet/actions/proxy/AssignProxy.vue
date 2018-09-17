@@ -57,16 +57,13 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     validateAccount() {
-      if (this.proxy.length === 12) {
-        this.eos.getAccount(this.proxy)
-          .then(() => {
-            this.proxyError = false;
-          })
-          .catch(() => {
-            this.proxyError = true;
-          });
-      }
-      this.proxyError = true;
+      this.eos.getAccount(this.proxy)
+        .then(() => {
+          this.proxyError = false;
+        })
+        .catch(() => {
+          this.proxyError = true;
+        });
     },
     onAssignProxy() {
       this.eos.voteproducer(this.getAccountName, this.proxy, [])

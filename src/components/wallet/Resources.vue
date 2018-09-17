@@ -41,6 +41,13 @@
       </md-table-cell>
       <md-table-cell align="right">{{ getNet }}%</md-table-cell>
     </md-table-row>
+
+    <md-table-row>
+      <md-table-cell align="left">Tokens</md-table-cell>
+      <md-table-cell>
+        <md-chip class="md-primary" v-for="(token, i) in getTokens" :key="i">{{token.balance}}</md-chip>
+      </md-table-cell>
+    </md-table-row>
   </md-table>
 </template>
 
@@ -60,6 +67,7 @@ export default {
       'getNet',
       'getCpu',
       'getSymbol',
+      'getTokens',
     ]),
     stackedPercent() {
       return 100;

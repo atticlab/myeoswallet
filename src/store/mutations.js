@@ -32,4 +32,10 @@ export default {
   [ActionType.SET_TOKENLIST]: (state, val) => {
     state.tokenList = val;
   },
+
+  [ActionType.SET_TOKENBALANCE]: (state, val) => {
+    if (!val) return;
+    const tokenObj = state.tokenList.find(obj => obj.symbol === val.symbol);
+    tokenObj.balance = val.balance.length ? val.balance[0] : null;
+  },
 };

@@ -36,11 +36,12 @@
 </template>
 
 <script>
+import bl from '@/bl';
+import axios from 'axios';
 import { mapActions, mapGetters, mapState } from 'vuex';
 import Eos from 'eosjs';
 import ScatterJS from 'scatter-js/dist/scatter.esm';
 import ActionType from '@/store/constants';
-import bl from '@/bl';
 
 export default {
   name: 'Login',
@@ -53,6 +54,9 @@ export default {
     ...mapState([
       'scatter',
       'identity',
+      'eos',
+      'eosAccount',
+      'tokenList',
     ]),
     ...mapGetters([
       'httpEndpoint',
@@ -67,6 +71,8 @@ export default {
       ActionType.SET_EOS_JS,
       ActionType.SET_EOS_ACCOUNT,
       ActionType.SET_BALANCE,
+      ActionType.SET_TOKENLIST,
+      ActionType.SET_TOKENBALANCE,
     ]),
     initIdentity(identity) {
       if (identity) {
@@ -92,42 +98,6 @@ export default {
       this[ActionType.SET_EOS_JS](eos);
       return eos;
     },
-    doOnLogin() {
-      if (this.scatter) {
-        this.scatter.getIdentity({
-          accounts: [this.eosConfig],
-        }).then((identity) => {
-          if (this.initIdentity(identity)) {
-            this.scatter.authenticate().then((authResult) => {
-              bl.logDebug('AUTH RESULT...', authResult);
-
-              const identityAccount = this.initIdentityAccount(identity);
-              if (identityAccount) {
-                const eos = this.initEos();
-
-                if (eos && identityAccount.name) {
-                  eos.getAccount(identityAccount.name).then((respEosAccount) => {
-                    bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
-                    this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
-
-                    bl.requestBalance(eos, respEosAccount).then((respBalance) => {
-                      this[ActionType.SET_BALANCE](respBalance);
-                      bl.logDebug('bl.requestBalance(eos).then...', respBalance);
-
-                      this.$router.push('/wallet');
-                    });
-                  });
-                }
-              }
-            });
-          }
-        }).catch((e) => {
-          console.error(e);
-        });
-      } else {
-        this.noScatterAlert = true;
-      }
-    },
     doOnLoginDesktop() {
       ScatterJS.scatter.connect('Attic Wallet').then((connected) => {
         if (!connected) {
@@ -152,6 +122,8 @@ export default {
                   bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
                   this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
 
+                  this.getTokenList();
+                  // this.$router.push('/wallet');
                   bl.requestBalance(eos, respEosAccount).then((respBalance) => {
                     this[ActionType.SET_BALANCE](respBalance);
                     bl.logDebug('bl.requestBalance(eos).then...', respBalance);
@@ -166,6 +138,28 @@ export default {
           .catch(error => console.error(error));
         return true;
       });
+    },
+    getTokenList() {
+      axios.get('https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json')
+        .then((res) => {
+          let data = res.data;
+          data.push({ account: 'eosio.token', symbol: 'EOS' });
+          data = data.map(val => Object.assign(val, { balance: 0 }));
+          this[ActionType.SET_TOKENLIST](data);
+          this.getTokenBalances();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    getTokenBalances() {
+      this.tokenList.forEach((token) => {
+        bl.requestBalance(this.eos, this.eosAccount, token).then((respBalance) => {
+          this[ActionType.SET_TOKENBALANCE]({ balance: respBalance, symbol: token.symbol });
+          bl.logDebug(`bl.requestBalance(${token.symbol}).then...`, respBalance);
+        });
+      });
+      // setInterval(this.getTokenBalances, 40000);
     },
   },
 };

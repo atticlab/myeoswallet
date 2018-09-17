@@ -7,4 +7,5 @@ export default {
   SET_BALANCE: 'setBalance',
   SET_TRANSACTION: 'setTransaction',
   SET_TOKENLIST: 'setTokenList',
+  SET_TOKENBALANCE: 'setTokenBalance',
 };

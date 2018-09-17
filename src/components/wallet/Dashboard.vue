@@ -32,6 +32,8 @@ import Vote from './actions/proxy/Vote';
 import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake } from './actions/account';
 import ClaimRewards from './actions/blockProducer/ClaimRewards';
 import RegisterProducer from './actions/blockProducer/RegisterProducer';
+import AirgrabTokens from './actions/AirgrabTokens';
+import UnregisterProducer from './actions/blockProducer/UnregisterProducer';
 
 export default {
   name: 'Dashboard',
@@ -52,6 +54,8 @@ export default {
     Stake,
     ClaimRewards,
     RegisterProducer,
+    AirgrabTokens,
+    UnregisterProducer,
   },
   computed: {
     ...mapState([

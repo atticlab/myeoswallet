@@ -149,14 +149,9 @@ export default {
       this.ramToSellError = parseFloat(this.ramToSell) < 0 || parseFloat(this.ramToSell) > this.getFreeRamInBytes;
     },
     validateAccount() {
-      const rg = /^[a-z1-5]{12}$/;
-      if (this.receiver.length === 12 && rg.test(this.receiver)) {
-        this.eos.getAccount(this.receiver)
-          .then(() => { this.receiverError = false; })
-          .catch(() => { this.receiverError = true; });
-      } else {
-        this.receiverError = true;
-      }
+      this.eos.getAccount(this.receiver)
+        .then(() => { this.receiverError = false; })
+        .catch(() => { this.receiverError = true; });
     },
   },
   computed: {
