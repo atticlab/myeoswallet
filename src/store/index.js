@@ -32,6 +32,7 @@ const state = {
   eosAccount: null,
   balance: [],
   transaction: null,
+  tokenList: null,
 };
 
 const getters = {

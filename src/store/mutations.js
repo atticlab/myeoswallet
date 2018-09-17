@@ -28,4 +28,8 @@ export default {
   [ActionType.SET_TRANSACTION]: (state, transaction) => {
     state.transaction = transaction;
   },
+
+  [ActionType.SET_TOKENLIST]: (state, val) => {
+    state.tokenList = val;
+  },
 };

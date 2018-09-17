@@ -6,4 +6,5 @@ export default {
   SET_EOS_ACCOUNT: 'setEosAccount',
   SET_BALANCE: 'setBalance',
   SET_TRANSACTION: 'setTransaction',
+  SET_TOKENLIST: 'setTokenList',
 };
