@@ -1,7 +1,7 @@
 version: '2'
 services:
   nodejs:
-    container_name: eoswallet-frontend-nodejs
+    container_name: eoswallet-frontend-nodejs-dev
     build: docker/nodejs
     volumes:
       - ./:/src
@@ -14,7 +14,7 @@ services:
 
   nginx:
     restart: always
-    container_name: eoswallet-frontend-nginx
+    container_name: eoswallet-frontend-nginx-dev
     image: nginx:latest
     dns: 8.8.8.8
     ports:
