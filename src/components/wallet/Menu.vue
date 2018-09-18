@@ -24,6 +24,7 @@
         <md-menu-item @click="$emit('changeMenu', 'Ram')">Ram</md-menu-item>
         <md-menu-item @click="$emit('changeMenu', 'Refund')">Refund</md-menu-item>
         <md-menu-item @click="$emit('changeMenu', 'Stake')">Stake</md-menu-item>
+        <md-menu-item @click="$emit('changeMenu', 'NameAuction')">Name Auction</md-menu-item>
       </md-menu-content>
     </md-menu>
     <md-menu md-direction="bottom-start">
@@ -37,6 +38,17 @@
 
     <md-menu md-direction="bottom-start">
       <md-button @click="$emit('changeMenu', 'AirgrabTokens')">Airgrab Tokens</md-button>
+    </md-menu>
+
+    <md-menu md-direction="bottom-start">
+      <md-button md-menu-trigger>Community Features</md-button>
+      <md-menu-content>
+        <md-menu-item @click="$emit('changeMenu', 'ForumStatus')">Forum Status</md-menu-item>
+        <!--<md-menu-item @click="$emit('changeMenu', 'ForumPost')">Forum Post</md-menu-item>-->
+        <!--<md-menu-item @click="$emit('changeMenu', 'ForumProposal')">Forum Proposal</md-menu-item>-->
+        <!--<md-menu-item @click="$emit('changeMenu', 'ForumVote')">Forum Vote</md-menu-item>-->
+        <md-menu-item @click="$emit('changeMenu', 'Tweet')">Tweet</md-menu-item>
+      </md-menu-content>
     </md-menu>
   </div>
 </template>

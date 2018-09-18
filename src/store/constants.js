@@ -8,4 +8,5 @@ export default {
   SET_TRANSACTION: 'setTransaction',
   SET_TOKENLIST: 'setTokenList',
   SET_TOKENBALANCE: 'setTokenBalance',
+  SET_AIRGRABS: 'setAirgrabs',
 };

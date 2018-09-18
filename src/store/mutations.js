@@ -38,4 +38,8 @@ export default {
     const tokenObj = state.tokenList.find(obj => obj.symbol === val.symbol);
     tokenObj.balance = val.balance.length ? val.balance[0] : null;
   },
+
+  [ActionType.SET_AIRGRABS]: (state, val) => {
+    state.airgrabs = val;
+  },
 };

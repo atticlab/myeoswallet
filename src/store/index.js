@@ -33,6 +33,7 @@ const state = {
   balance: [],
   transaction: null,
   tokenList: null,
+  airgrabs: null,
 };
 
 const getters = {

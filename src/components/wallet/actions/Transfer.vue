@@ -55,7 +55,7 @@
 <script>
 import bl from '@/bl';
 import { mapState, mapGetters, mapActions } from 'vuex';
-import ActionType from '../../../store/constants';
+import ActionType from '@/store/constants';
 
 export default {
   name: 'Transfer',
@@ -100,7 +100,7 @@ export default {
     validateAmount() {
       const rg = /^\d{1,10}(\.\d{0,4})?$/;
       if (!this.amount || !parseFloat(this.amount) || parseFloat(this.amount) < 0 ||
-        parseFloat(this.amount) > parseFloat(this.getBalance) || !rg.test(this.amount)) {
+        (parseFloat(this.amount) > parseFloat(this.getBalance) && this.currentToken === 'EOS') || !rg.test(this.amount)) {
         this.amountError = true;
       } else {
         this.amountError = false;
@@ -123,22 +123,6 @@ export default {
         });
     },
     onTransfer() {
-      // this.eos.transfer(
-      //   this.getAccountName,
-      //   this.toAccount,
-      //   `${parseFloat(this.amount).toFixed(4)} ${this.currentToken}`,
-      //   this.memo,
-      // ).then((transactionResult) => {
-      //   console.debug(`${this.$options.name} RESULT`, transactionResult);
-      //   this[ActionType.SET_TRANSACTION](transactionResult);
-      //   bl.renderJSON(transactionResult, 'place-for-transaction');
-      //   bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
-      //     this[ActionType.SET_BALANCE](respBalance);
-      //     bl.logDebug('bl.requestBalance(eos).then...', respBalance);
-      //   });
-      // }).catch((e) => {
-      //   bl.handleError(e, 'place-for-transaction');
-      // });
       const tokenObj = this.tokenList.find(token => token.symbol === this.currentToken);
       if (!tokenObj) return;
       this.eos.transaction(

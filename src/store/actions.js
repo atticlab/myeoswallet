@@ -22,4 +22,6 @@ export default {
   [ActionType.SET_TOKENLIST]: ({ commit }, val) => commit(ActionType.SET_TOKENLIST, val),
 
   [ActionType.SET_TOKENBALANCE]: ({ commit }, val) => commit(ActionType.SET_TOKENBALANCE, val),
+
+  [ActionType.SET_AIRGRABS]: ({ commit }, val) => commit(ActionType.SET_AIRGRABS, val),
 };

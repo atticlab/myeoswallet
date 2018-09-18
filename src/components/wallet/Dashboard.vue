@@ -29,7 +29,8 @@ import SetProxy from './actions/proxy/SetProxy';
 import AssignProxy from './actions/proxy/AssignProxy';
 import UnsetProxy from './actions/proxy/UnsetProxy';
 import Vote from './actions/proxy/Vote';
-import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake } from './actions/account';
+import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake, NameAuction } from './actions/account';
+import { ForumPost, ForumProposal, ForumStatus, ForumVote, Tweet } from './actions/communityFeatures';
 import ClaimRewards from './actions/blockProducer/ClaimRewards';
 import RegisterProducer from './actions/blockProducer/RegisterProducer';
 import AirgrabTokens from './actions/AirgrabTokens';
@@ -52,10 +53,16 @@ export default {
     Ram,
     Refund,
     Stake,
+    NameAuction,
     ClaimRewards,
     RegisterProducer,
     AirgrabTokens,
     UnregisterProducer,
+    ForumPost,
+    ForumProposal,
+    ForumStatus,
+    ForumVote,
+    Tweet,
   },
   computed: {
     ...mapState([

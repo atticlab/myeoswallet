@@ -5,6 +5,9 @@
       <md-tab id="tab-dashboard" md-label="Dashboard" to="/wallet/dashboard">
         <router-view/>
       </md-tab>
+      <md-tab id="tab-faq" md-label="FAQ" to="/wallet/faq">
+        <router-view/>
+      </md-tab>
     </md-tabs>
     <BottomBar/>
   </div>

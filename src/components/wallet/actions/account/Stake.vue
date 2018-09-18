@@ -23,11 +23,13 @@
         <md-field :class="cpuStakeError ? 'md-invalid' : ''">
           <label>Cpu stake (in EOS)</label>
           <span class="md-error">Invalid value</span>
+          <span class="md-prefix">EOS </span>
           <md-input type="number" v-model="cpuStake" required @change="validateCpuStake"></md-input>
         </md-field>
         <md-field :class="netStakeError ? 'md-invalid' : ''">
           <label>Net stake (in EOS)</label>
           <span class="md-error">Invalid value</span>
+          <span class="md-prefix">EOS </span>
           <md-input type="number" v-model="netStake" required @change="validateNetStake"></md-input>
         </md-field>
       </md-card-content>
@@ -62,10 +64,12 @@
         <md-field :class="cpuUnStakeError ? 'md-invalid' : ''">
           <label>Cpu stake (in EOS)</label>
           <span class="md-error">Invalid value</span>
+          <span class="md-prefix">EOS </span>
           <md-input type="number" v-model="cpuUnStake" required @change="validateCpuUnStake"></md-input>
         </md-field>
         <md-field :class="netUnStakeError ? 'md-invalid' : ''">
           <label>Net stake (in EOS)</label>
+          <span class="md-prefix">EOS </span>
           <span class="md-error">Invalid value</span>
           <md-input type="number" v-model="netUnStake" required @change="validateNetUnStake"></md-input>
         </md-field>

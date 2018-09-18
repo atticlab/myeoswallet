@@ -4,6 +4,7 @@ import Login from '@/components/Login';
 import MobileDevice from '@/components/MobileDevice';
 import Wallet from '@/components/Wallet';
 import Dashboard from '@/components/wallet/Dashboard';
+import Faq from '@/components/wallet/Faq';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
           path: 'dashboard',
           name: 'Dashboard',
           component: Dashboard,
+        },
+        {
+          path: 'faq',
+          name: 'FAQ',
+          component: Faq,
         },
       ],
     },
