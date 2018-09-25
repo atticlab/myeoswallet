@@ -5,6 +5,7 @@ import MobileDevice from '@/components/MobileDevice';
 import Wallet from '@/components/Wallet';
 import Dashboard from '@/components/wallet/Dashboard';
 import Faq from '@/components/wallet/Faq';
+import Transfer from '@/components/wallet/actions/Transfer';
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
           path: 'faq',
           name: 'FAQ',
           component: Faq,
+        },
+        {
+          path: 'transfer',
+          name: 'Transfer',
+          component: Transfer,
         },
       ],
     },

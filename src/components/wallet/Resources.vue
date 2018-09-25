@@ -44,27 +44,33 @@
       <!--</md-table-row>-->
     <!--</md-table>-->
 
-    <div class="md-card-style md-card">
-      <md-toolbar class="flex-title">
-        <div class="md-title flex-title-font-size">Resources Available</div>
+    <md-card class="md-card-style">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">Resources Available</div>
       </md-toolbar>
-      <div class="flex-wrap">
-        <md-content>Balance<br>{{ getBalance }}</md-content>
-        <md-content>Staked<br>{{ getStacked }} {{ getSymbol }}</md-content>
-        <md-content>FREE RAM<br>{{ getRam }}%</md-content>
-        <md-content>FREE CPU<br>{{ getCpu }}%</md-content>
-        <md-content>FREE NET<br>{{ getNet }}%</md-content>
-      </div>
-    </div>
 
-    <div class="md-card-style md-card">
-      <md-toolbar class="flex-title">
-        <div class="md-title flex-title-font-size">Tokens Available</div>
+      <md-card-content>
+        <div class="md-layout md-gutter" style="width: 100%">
+          <div class="md-layout-item">Balance<br>{{ getBalance }}</div>
+          <div class="md-layout-item">Staked<br>{{ getStacked }} {{ getSymbol }}</div>
+          <div class="md-layout-item">FREE RAM<br>{{ getRam }}%</div>
+          <div class="md-layout-item">FREE CPU<br>{{ getCpu }}%</div>
+          <div class="md-layout-item">FREE NET<br>{{ getNet }}%</div>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <md-card class="md-card-style">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">Tokens Available</div>
       </md-toolbar>
-      <div class="flex-wrap">
-        <md-content v-for="(token, i) in getTokens" :key="i">{{token.balance}}<br>{{token.account | toUpper}}</md-content>
-      </div>
-    </div>
+
+      <md-card-content>
+        <div class="md-layout md-gutter flex-wrap">
+          <div class="md-layout-item" v-for="(token, i) in getTokens" :key="i">{{token.balance}}<br>{{token.account | toUpper}}</div>
+        </div>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -106,9 +112,9 @@ export default {
     min-width: 150px;
   }
   .md-card-style {
-    border: 2px rgb(233, 236, 239) solid;
+    /*border: 2px rgb(233, 236, 239) solid;*/
     box-shadow: none;
-    border-radius: 2px;
+    /*border-radius: 2px;*/
   }
   .md-table {
     overflow-x: unset;
@@ -124,22 +130,27 @@ export default {
     /*align-items: center;*/
   }
 
-  .md-content {
-    min-height: 80px;
-    min-width: 190px;
-    margin: 1px 5px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    text-align: center;
-    /*align-self: end;*/
-  }
-  .flex-title {
-    max-width: 190px;
-    flex-wrap: wrap;
-  }
-  .flex-title-font-size {
-    font-size: 15px;
-  }
+  /*.md-content {*/
+    /*min-height: 80px;*/
+    /*min-width: 190px;*/
+    /*margin: 1px 5px;*/
+    /*display: inline-flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*padding: 5px;*/
+    /*text-align: center;*/
+    /*!*align-self: end;*!*/
+  /*}*/
+  /*.flex-title {*/
+    /*max-width: 190px;*/
+    /*flex-wrap: wrap;*/
+  /*}*/
+  /*.flex-title-font-size {*/
+    /*font-size: 15px;*/
+  /*}*/
+
+</style>
+
+<style scoped>
+  @import '../../assets/css/walletaction.css';
 </style>

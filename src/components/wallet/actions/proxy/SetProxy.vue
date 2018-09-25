@@ -1,104 +1,130 @@
 <template>
 <div id="main">
-  <md-card class="md-card-style">
-    <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">Set proxy</div>
-    </md-toolbar>
+  <div class="md-layout twocolumn">
+    <md-card class="md-card-style md-layout-item">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">Set proxy</div>
+      </md-toolbar>
 
-    <md-card-content class="alw-first-child">
-      <md-field>
-        <label>Account</label>
-        <span class="md-prefix">@ </span>
-        <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content class="alw-first-child">
+        <md-field>
+          <label>Account</label>
+          <span class="md-prefix">@ </span>
+          <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content class="alw-buttons">
-      <md-button @click="onSetProxy" style="color: #ffffff; box-shadow: none; width: 260px; "
-                 class="md-raised md-primary">Set Account
-      </md-button>
-    </md-card-content>
-  </md-card>
+      <md-card-content class="alw-buttons">
+        <md-button @click="onSetProxy" style="color: #ffffff; box-shadow: none; width: 260px; "
+                   class="md-raised md-primary">Set Account
+        </md-button>
+      </md-card-content>
+    </md-card>
 
-  <md-card class="md-card-style">
-    <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">Register Proxy Info</div>
-    </md-toolbar>
+    <md-card class="md-card-style md-layout-item help">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">HELP</div>
+      </md-toolbar>
 
-    <md-card-content class="alw-first-child">
-      <md-field>
-        <label>Proxy Account</label>
-        <span class="md-prefix">@ </span>
-        <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-      </md-field>
-      <md-field>
-        <label>Proxy name</label>
-        <span class="md-prefix">@ </span>
-        <span class="md-error">Invalid name</span>
-        <md-input v-model="proxyName" maxlength="64" required></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content class="alw-first-child">
+        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+          you have updated to the latest scatter desktop</div>
+      </md-card-content>
+    </md-card>
+  </div>
 
-    <md-card-content>
-      <md-field>
-        <label>Slogan</label>
-        <md-input v-model="slogan" maxlength="64"></md-input>
-      </md-field>
-    </md-card-content>
+  <div class="md-layout twocolumn">
+    <md-card class="md-card-style md-layout-item">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">Register Proxy Info</div>
+      </md-toolbar>
 
-    <md-card-content>
-      <md-field>
-        <label>Philosophy</label>
-        <md-input v-model="philosophy" maxlength="1024" required></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content class="alw-first-child">
+        <md-field>
+          <label>Proxy Account</label>
+          <span class="md-prefix">@ </span>
+          <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
+        </md-field>
+        <md-field>
+          <label>Proxy name</label>
+          <span class="md-prefix">@ </span>
+          <span class="md-error">Invalid name</span>
+          <md-input v-model="proxyName" maxlength="64" required></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field>
-        <label>Background Information</label>
-        <md-input v-model="backgroundInformation" maxlength="1024" required></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field>
+          <label>Slogan</label>
+          <md-input v-model="slogan" maxlength="64"></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field>
-        <label>Logo URL</label>
-        <md-input v-model="logourl"></md-input>
-      </md-field>
-      <md-field>
-        <label>Website</label>
-        <md-input v-model="website"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field>
+          <label>Philosophy</label>
+          <md-input v-model="philosophy" maxlength="1024" required></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field>
-        <label>Telegram</label>
-        <md-input v-model="telegram"></md-input>
-      </md-field>
-      <md-field>
-        <label>Steemit</label>
-        <md-input v-model="steemit"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field>
+          <label>Background Information</label>
+          <md-input v-model="backgroundInformation" maxlength="1024" required></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field>
-        <label>Twitter</label>
-        <md-input v-model="twitter"></md-input>
-      </md-field>
-      <md-field>
-        <label>WeChat</label>
-        <md-input v-model="wechat"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field>
+          <label>Logo URL</label>
+          <md-input v-model="logourl"></md-input>
+        </md-field>
+        <md-field>
+          <label>Website</label>
+          <md-input v-model="website"></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content class="alw-buttons">
-      <md-button @click="onRegisterProxyInfo" style="color: #ffffff; box-shadow: none; width: 260px; "
-                 class="md-raised md-primary" :disabled="validateRegisterProxyInfo">Register Proxy Info
-      </md-button>
-    </md-card-content>
-  </md-card>
+      <md-card-content>
+        <md-field>
+          <label>Telegram</label>
+          <md-input v-model="telegram"></md-input>
+        </md-field>
+        <md-field>
+          <label>Steemit</label>
+          <md-input v-model="steemit"></md-input>
+        </md-field>
+      </md-card-content>
+
+      <md-card-content>
+        <md-field>
+          <label>Twitter</label>
+          <md-input v-model="twitter"></md-input>
+        </md-field>
+        <md-field>
+          <label>WeChat</label>
+          <md-input v-model="wechat"></md-input>
+        </md-field>
+      </md-card-content>
+
+      <md-card-content class="alw-buttons">
+        <md-button @click="onRegisterProxyInfo" style="color: #ffffff; box-shadow: none; width: 260px; "
+                   class="md-raised md-primary" :disabled="validateRegisterProxyInfo">Register Proxy Info
+        </md-button>
+      </md-card-content>
+    </md-card>
+
+    <md-card class="md-card-style md-layout-item help">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">HELP</div>
+      </md-toolbar>
+
+      <md-card-content class="alw-first-child">
+        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+          you have updated to the latest scatter desktop</div>
+      </md-card-content>
+    </md-card>
+  </div>
 </div>
 </template>
 

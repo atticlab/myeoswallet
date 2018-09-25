@@ -1,72 +1,97 @@
 <template>
   <div id="main">
-    <md-card class="md-card-style">
+    <div class="md-layout twocolumn">
+      <md-card class="md-card-style md-layout-item">
+        <md-toolbar class="md-transparent" :md-elevation="0">
+          <div class="md-title">Link Auth</div>
+        </md-toolbar>
+
+        <md-card-content class="alw-first-child">
+          <md-field>
+            <label>Account name</label>
+            <span class="md-prefix">@ </span>
+            <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
+          </md-field>
+          <md-field>
+            <label>Account Permission</label>
+            <span class="md-prefix">@ </span>
+            <md-input type="text" v-model="accountPermission" required></md-input>
+          </md-field>
+        </md-card-content>
+
+        <md-card-content>
+          <md-field>
+            <label>Contract Name</label>
+            <span class="md-error">Invalid name</span>
+            <md-input type="text" v-model="linkContractName" required></md-input>
+          </md-field>
+          <md-field>
+            <label>Contract Action</label>
+            <md-input type="text" v-model="linkContractAction" required></md-input>
+          </md-field>
+        </md-card-content>
+
+        <md-card-content class="alw-buttons">
+          <md-button @click="onLinkAuth" style="color: #ffffff; box-shadow: none; width: 260px; "
+                     class="md-raised md-primary" :disabled="validateLinkAuth">Link Auth
+          </md-button>
+        </md-card-content>
+      </md-card>
+      <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">Link Auth</div>
+        <div class="md-title">HELP</div>
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <md-field>
-          <label>Account name</label>
-          <span class="md-prefix">@ </span>
-          <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-        </md-field>
-        <md-field>
-          <label>Account Permission</label>
-          <span class="md-prefix">@ </span>
-          <md-input type="text" v-model="accountPermission" required></md-input>
-        </md-field>
-      </md-card-content>
-
-      <md-card-content>
-        <md-field>
-          <label>Contract Name</label>
-          <span class="md-error">Invalid name</span>
-          <md-input type="text" v-model="linkContractName" required></md-input>
-        </md-field>
-        <md-field>
-          <label>Contract Action</label>
-          <md-input type="text" v-model="linkContractAction" required></md-input>
-        </md-field>
-      </md-card-content>
-
-      <md-card-content class="alw-buttons">
-        <md-button @click="onLinkAuth" style="color: #ffffff; box-shadow: none; width: 260px; "
-                   class="md-raised md-primary" :disabled="validateLinkAuth">Link Auth
-        </md-button>
+        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+          you have updated to the latest scatter desktop</div>
       </md-card-content>
     </md-card>
-    <md-card class="md-card-style">
-      <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">Unlink Auth</div>
-      </md-toolbar>
+    </div>
 
-      <md-card-content class="alw-first-child">
-        <md-field>
-          <label>Account Name</label>
-          <span class="md-prefix">@ </span>
-          <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-        </md-field>
-      </md-card-content>
+    <div class="md-layout twocolumn">
+      <md-card class="md-card-style md-layout-item">
+        <md-toolbar class="md-transparent" :md-elevation="0">
+          <div class="md-title">Unlink Auth</div>
+        </md-toolbar>
 
-      <md-card-content>
-        <md-field>
-          <label>Contract Name</label>
-          <span class="md-error">Invalid name</span>
-          <md-input type="text" v-model="unlinkContractName" required></md-input>
-        </md-field>
-        <md-field>
-          <label>Contract Action</label>
-          <md-input type="text" v-model="unlinkContractAction" required></md-input>
-        </md-field>
-      </md-card-content>
+        <md-card-content class="alw-first-child">
+          <md-field>
+            <label>Account Name</label>
+            <span class="md-prefix">@ </span>
+            <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
+          </md-field>
+        </md-card-content>
 
-      <md-card-content class="alw-buttons">
-        <md-button @click="onUnlinkAuth" style="color: #ffffff; box-shadow: none; width: 260px; "
-                   class="md-raised md-primary" :disabled="validateUnlinkAuth">Unlink Auth
-        </md-button>
-      </md-card-content>
-    </md-card>
+        <md-card-content>
+          <md-field>
+            <label>Contract Name</label>
+            <span class="md-error">Invalid name</span>
+            <md-input type="text" v-model="unlinkContractName" required></md-input>
+          </md-field>
+          <md-field>
+            <label>Contract Action</label>
+            <md-input type="text" v-model="unlinkContractAction" required></md-input>
+          </md-field>
+        </md-card-content>
+
+        <md-card-content class="alw-buttons">
+          <md-button @click="onUnlinkAuth" style="color: #ffffff; box-shadow: none; width: 260px; "
+                     class="md-raised md-primary" :disabled="validateUnlinkAuth">Unlink Auth
+          </md-button>
+        </md-card-content>
+      </md-card>
+      <md-card class="md-card-style md-layout-item help">
+        <md-toolbar class="md-transparent" :md-elevation="0">
+          <div class="md-title">HELP</div>
+        </md-toolbar>
+
+        <md-card-content class="alw-first-child">
+          <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+            you have updated to the latest scatter desktop</div>
+        </md-card-content>
+      </md-card>
+    </div>
   </div>
 </template>
 

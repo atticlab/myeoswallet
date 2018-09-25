@@ -1,17 +1,18 @@
 <template>
-  <md-card class="md-card-style">
+<div id="main" class="md-layout twocolumn">
+  <md-card class="md-card-style md-layout-item">
     <md-toolbar class="md-transparent" :md-elevation="0">
       <div class="md-title">Change Permissions</div>
     </md-toolbar>
 
     <md-card-content>
       <md-field :class="activePermissionError ? 'md-invalid' : ''">
-        <label>Active Permission (public key or account name)</label>
+        <label>Active Permission (key or account)</label>
         <span class="md-error">Invalid value</span>
         <md-input type="text" v-model="activePermission" @change="activePermissionError = false"></md-input>
       </md-field>
       <md-field :class="ownerPermissionError ? 'md-invalid' : ''">
-        <label>Owner Permission (public key or account name)</label>
+        <label>Owner Permission (key or account)</label>
         <span class="md-error">Invalid value</span>
         <md-input type="text" v-model="ownerPermission" @change="ownerPermissionError = false"></md-input>
       </md-field>
@@ -23,6 +24,17 @@
       </md-button>
     </md-card-content>
   </md-card>
+  <md-card class="md-card-style md-layout-item help">
+    <md-toolbar class="md-transparent" :md-elevation="0">
+      <div class="md-title">HELP</div>
+    </md-toolbar>
+
+    <md-card-content class="alw-first-child">
+      <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+        you have updated to the latest scatter desktop</div>
+    </md-card-content>
+  </md-card>
+</div>
 </template>
 
 <script>

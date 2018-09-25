@@ -13,14 +13,33 @@
       </md-app-drawer>
 
       <md-app-content>
-        <md-tabs md-sync-route class="md-accent">
-          <md-tab id="tab-dashboard" md-label="Dashboard" to="/wallet/dashboard">
-            <router-view/>
-          </md-tab>
-          <md-tab id="tab-faq" md-label="FAQ" to="/wallet/faq">
-            <router-view/>
-          </md-tab>
-        </md-tabs>
+        <!--<md-tabs md-sync-route class="md-accent">-->
+          <!--<md-tab to="/wallet/dashboard">-->
+        <!--<div class="content">-->
+        <div class="column">
+          <Menu @changeMenu="menuChange" />
+          <div class="content actions">
+            <Resources/>
+          </div>
+          <div class="content actions">
+            <keep-alive>
+              <component :is="currentComponent"></component>
+            </keep-alive>
+          </div>
+          <md-card class="content md-card-style">
+            <md-toolbar class="md-transparent" :md-elevation="0">
+              <div class="md-title">Blockchain Raw Data</div>
+            </md-toolbar>
+            <md-card-content class="transaction-content" id="place-for-transaction">
+            </md-card-content>
+          </md-card>
+        </div>
+        <!--</div>-->
+          <!--</md-tab>-->
+          <!--<md-tab id="tab-faq" md-label="FAQ" to="/wallet/faq">-->
+            <!--<router-view/>-->
+          <!--</md-tab>-->
+        <!--</md-tabs>-->
         <BottomBar/>
       </md-app-content>
     </md-app>
@@ -31,9 +50,28 @@
 import { mapState } from 'vuex';
 import Dashboard from './wallet/Dashboard';
 import TopBar from './wallet/TopBar';
+import Resources from './wallet/Resources';
+import Menu from './wallet/Menu';
+import Transfer from './wallet/actions/Transfer';
+import CreateAccount from './wallet/actions/CreateAccount';
+import SetProxy from './wallet/actions/proxy/SetProxy';
+import AssignProxy from './wallet/actions/proxy/AssignProxy';
+import UnsetProxy from './wallet/actions/proxy/UnsetProxy';
+import Vote from './wallet/actions/proxy/Vote';
+import { AdvancedPermissions, LinkAuth, Permissions, Ram, Refund, Stake, NameAuction } from './wallet/actions/account';
+import { ForumPost, ForumProposal, ForumStatus, ForumVote, Tweet } from './wallet/actions/communityFeatures';
+import ClaimRewards from './wallet/actions/blockProducer/ClaimRewards';
+import RegisterProducer from './wallet/actions/blockProducer/RegisterProducer';
+import AirgrabTokens from './wallet/actions/AirgrabTokens';
+import UnregisterProducer from './wallet/actions/blockProducer/UnregisterProducer';
 
 export default {
   name: 'Wallet',
+  data() {
+    return {
+      currentComponent: 'Transfer',
+    };
+  },
   created() {
     if (this.identity === null) {
       this.$router.push('/');
@@ -44,7 +82,39 @@ export default {
       'identity',
     ]),
   },
-  components: { TopBar, Dashboard },
+  components: {
+    TopBar,
+    Dashboard,
+    Menu,
+    Resources,
+    CreateAccount,
+    Transfer,
+    SetProxy,
+    AssignProxy,
+    UnsetProxy,
+    Vote,
+    AdvancedPermissions,
+    LinkAuth,
+    Permissions,
+    Ram,
+    Refund,
+    Stake,
+    NameAuction,
+    ClaimRewards,
+    RegisterProducer,
+    AirgrabTokens,
+    UnregisterProducer,
+    ForumPost,
+    ForumProposal,
+    ForumStatus,
+    ForumVote,
+    Tweet,
+  },
+  methods: {
+    menuChange(val) {
+      this.currentComponent = val;
+    },
+  },
 };
 </script>
 
@@ -83,4 +153,13 @@ export default {
   .md-drawer{
     width: 260px;
   }
+
+  .md-app-content {
+    padding-left: 4%;
+    padding-right: 4%;
+    background-color: #18191d;
+  }
+  /*.md-app-scroller {*/
+    /*background-color: red !important;*/
+  /*}*/
 </style>

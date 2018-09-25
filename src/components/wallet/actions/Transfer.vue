@@ -1,56 +1,63 @@
 <template>
-  <div id="main">
-  <md-card class="md-card-style">
-    <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">Transfer</div>
-    </md-toolbar>
+  <div id="main" class="md-layout twocolumn">
+    <md-card class="md-card-style md-layout-item">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">Transfer</div>
+      </md-toolbar>
 
-    <md-card-content class="alw-first-child">
-      <md-field>
-        <label>Username</label>
-        <span class="md-prefix">@ </span>
-        <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-      </md-field>
-      <md-field :class="accountError ? 'md-invalid' : ''">
-        <label>Destination account</label>
-        <span class="md-prefix">@ </span>
-        <span class="md-error">Invalid name</span>
-        <md-input v-model="toAccount" maxlength="12" required @change="validateAccount"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content class="alw-first-child">
+        <md-field>
+          <label>Username</label>
+          <span class="md-prefix">@ </span>
+          <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
+        </md-field>
+        <md-field :class="accountError ? 'md-invalid' : ''">
+          <label>Destination account</label>
+          <span class="md-prefix">@ </span>
+          <span class="md-error">Invalid name</span>
+          <md-input v-model="toAccount" maxlength="12" required @change="validateAccount"></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field :class="amountError ? 'md-invalid' : ''">
-        <label>Amount</label>
-        <span class="md-prefix">{{ currentToken }} </span>
-        <span class="md-error">Invalid amount</span>
-        <md-input
-          v-model="amount"
-          type="number" min="0" required @change="validateAmount">
-        </md-input>
-      </md-field>
-      <md-field>
-        <label>Token</label>
-        <md-select v-model="currentToken">
-          <md-option v-for="(token, index) in tokenList" :key="index" :value="token.symbol">{{ token.symbol }}</md-option>
-        </md-select>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field :class="amountError ? 'md-invalid' : ''">
+          <label>Amount</label>
+          <span class="md-prefix">{{ currentToken }} </span>
+          <span class="md-error">Invalid amount</span>
+          <md-input
+            v-model="amount"
+            type="number" min="0" required @change="validateAmount">
+          </md-input>
+        </md-field>
+        <md-field>
+          <label>Token</label>
+          <md-select v-model="currentToken">
+            <md-option v-for="(token, index) in getTokensWithEos" :key="index" :value="token.symbol">{{ token.symbol }}</md-option>
+          </md-select>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field :class="memoError ? 'md-invalid' : ''">
-        <label>Memo</label>
-        <span class="md-error">Memo is too long</span>
-        <md-input v-model="memo" @change="validateMemo"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field :class="memoError ? 'md-invalid' : ''">
+          <label>Memo</label>
+          <span class="md-error">Memo is too long</span>
+          <md-input v-model="memo" @change="validateMemo"></md-input>
+        </md-field>
+        <md-button @click="onTransfer" style="color: #ffffff; box-shadow: none; width: 300px; "
+                   class="md-raised md-primary" :disabled="transferValidation">TRANSFER
+        </md-button>
+      </md-card-content>
+    </md-card>
+    <md-card class="md-card-style md-layout-item help">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">HELP</div>
+      </md-toolbar>
 
-    <md-card-content class="alw-buttons">
-      <md-button @click="onTransfer" style="color: #ffffff; box-shadow: none; width: 260px; "
-                 class="md-raised md-primary" :disabled="transferValidation">TRANSFER
-      </md-button>
-    </md-card-content>
-  </md-card>
+      <md-card-content class="alw-first-child">
+        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+          you have updated to the latest scatter desktop</div>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 

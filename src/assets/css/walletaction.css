@@ -15,6 +15,8 @@
   -webkit-align-self: stretch;
   align-self: stretch;
   -ms-flex-item-align: stretch;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .md-card-content {
@@ -24,9 +26,9 @@
   flex-direction: row;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
-  flex: 1 1;
-  -webkit-flex: 1 1;
-  -ms-flex: 1 1;
+  /*flex: 1 1;*/
+  /*-webkit-flex: 1 1;*/
+  /*-ms-flex: 1 1;*/
 
   justify-content: flex-start;
   -webkit-justify-content: flex-start;
@@ -45,7 +47,7 @@
 
 .md-title {
   font-size: 20px;
-  color: rgb(156, 164, 171);
+  color: #7ac231 !important;
 }
 
 .md-field {
@@ -62,12 +64,29 @@
   -ms-flex-pack: end;
 }
 .md-card-style {
-  border: 2px rgb(233, 236, 239) solid;
+  /*border: 2px rgb(233, 236, 239) solid;*/
   box-shadow: none;
-  border-radius: 2px;
+  /*border-radius: 2px;*/
   overflow-x: unset;
 }
 
 .md-tabs-container {
   background-color: #18191d;
 }
+
+
+
+.help {
+  margin-left: 20px;
+  max-width: 30%;
+  /*flex: 1 1 0;*/
+}
+
+.twocolumn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+

@@ -1,13 +1,13 @@
 <template>
   <md-toolbar class="md-dense md-accent" md-elevation="0">
     <span class="block">
-      <md-button href="https://atticlab.net/" target="_blank" class="link">ATTIC.TECH</md-button>
-      <md-button href="https://atticlab.net/" target="_blank" class="link">STEEMIT</md-button>
-      <md-button href="https://atticlab.net/" target="_blank" class="link">FACEBOOK</md-button>
-      <md-button href="https://atticlab.net/" target="_blank" class="link">REDDIT</md-button>
-      <md-button href="https://atticlab.net/" target="_blank" class="link">TWITTER</md-button>
-      <md-button href="https://atticlab.net/" target="_blank" class="link">YOUTUBE</md-button>
-      <md-button href="https://atticlab.net/" target="_blank" class="link">TELEGRAM</md-button>
+      <md-button href="https://attic.tech/" target="_blank" class="link">ATTIC.TECH</md-button>
+      <md-button href="https://steemit.com/@attic-lab" target="_blank" class="link">STEEMIT</md-button>
+      <md-button href="https://www.facebook.com/atticlab/" target="_blank" class="link">FACEBOOK</md-button>
+      <md-button href="https://www.reddit.com/r/atticlabeosb/" target="_blank" class="link">REDDIT</md-button>
+      <md-button href="https://twitter.com/atticlab_it" target="_blank" class="link">TWITTER</md-button>
+      <md-button href="https://www.youtube.com/channel/UC6ZkKNHc2Vf1x5EJB-1KiqA" target="_blank" class="link">YOUTUBE</md-button>
+      <md-button href="https://t.me/atticlabeosb" target="_blank" class="link">TELEGRAM</md-button>
     </span>
     <span class="block">2018. Attic.tech. All Rights Reserved</span>
   </md-toolbar>

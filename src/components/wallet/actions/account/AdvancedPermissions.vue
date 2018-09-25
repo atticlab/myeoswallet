@@ -1,5 +1,6 @@
 <template>
-  <md-card class="md-card-style">
+<div id="main" class="md-layout twocolumn">
+  <md-card class="md-card-style md-layout-item">
     <md-toolbar class="md-transparent" :md-elevation="0">
       <div class="md-title">Change Advanced Permissions</div>
     </md-toolbar>
@@ -45,17 +46,28 @@
     </md-card-content>
 
     <md-card-content class="alw-buttons">
-      <md-button @click="addRow" style="color: #ffffff; box-shadow: none; width: 260px; "
+      <md-button @click="addRow" style="color: #ffffff; box-shadow: none; width: 200px; "
                  class="md-raised md-primary">Add Row
       </md-button>
-      <md-button @click="deleteRow" style="color: #ffffff; box-shadow: none; width: 260px; "
+      <md-button @click="deleteRow" style="color: #ffffff; box-shadow: none; width: 200px; "
                  class="md-raised md-primary">Delete Row
       </md-button>
-      <md-button @click="onUnpdate" style="color: #ffffff; box-shadow: none; width: 260px; "
+      <md-button @click="onUnpdate" style="color: #ffffff; box-shadow: none; width: 200px; "
                  class="md-raised md-primary" :disabled="validatePermission">Update
       </md-button>
     </md-card-content>
   </md-card>
+  <md-card class="md-card-style md-layout-item help">
+    <md-toolbar class="md-transparent" :md-elevation="0">
+      <div class="md-title">HELP</div>
+    </md-toolbar>
+
+    <md-card-content class="alw-first-child">
+      <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+        you have updated to the latest scatter desktop</div>
+    </md-card-content>
+  </md-card>
+</div>
 </template>
 
 <script>

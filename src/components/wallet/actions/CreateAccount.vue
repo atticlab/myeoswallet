@@ -1,6 +1,6 @@
 <template>
-  <div id="main">
-    <md-card class="md-card-style">
+  <div id="main" class="md-layout twocolumn">
+    <md-card class="md-card-style md-layout-item">
       <md-toolbar class="md-transparent" :md-elevation="0">
         <div class="md-title">Create account</div>
       </md-toolbar>
@@ -54,9 +54,19 @@
         <md-switch v-model="transfer" class="md-primary">Transfer</md-switch>
       </md-card-content>
       <md-card-content class="alw-buttons">
-        <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 260px; "
+        <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 300px; "
                    class="md-raised md-primary" :disabled="createAccountValidation">Create Account
         </md-button>
+      </md-card-content>
+    </md-card>
+    <md-card class="md-card-style md-layout-item help">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">HELP</div>
+      </md-toolbar>
+
+      <md-card-content class="alw-first-child">
+        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
+          you have updated to the latest scatter desktop</div>
       </md-card-content>
     </md-card>
   </div>

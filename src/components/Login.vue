@@ -18,7 +18,10 @@
           Login with Scatter
         </md-button>
       </md-card-actions>
-      <!--<bottom-bar style="border-bottom: none; border-left: none; border-right: none"/>-->
+      <md-card-content>
+        You must have <a href="http://get-scatter.com/" target="_blank">Scatter</a> installed to safely send transactions to the EOS Network.
+        If you have any question - look out our <a href="https://t.me/atticlabeosb" target="_blank">Telegram group</a>
+      </md-card-content>
     </md-card>
 
     <md-dialog :md-active.sync="noScatterAlert">
@@ -166,7 +169,6 @@ export default {
 </script>
 
 <style scoped>
-
   .root {
     min-height: 100vh;
     min-width: 40vw;
@@ -191,7 +193,7 @@ export default {
     border: 0;
     box-shadow: none;
     border-radius: 2px;
-    /*background-color: transparent;*/
+    background-color: transparent;
   }
 
   .logo {
@@ -204,5 +206,9 @@ export default {
     background-position: center;
     background-size: contain;
     text-align: center;
+  }
+  a {
+    color: white !important;
+    text-decoration: underline;
   }
 </style>
