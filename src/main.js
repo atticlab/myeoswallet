@@ -4,7 +4,7 @@ import Vue from 'vue';
 import VueMaterial from 'vue-material';
 // import * as Eos from 'eosjs';
 import 'vue-material/dist/vue-material.min.css';
-import 'vue-material/dist/theme/default.css';
+import 'vue-material/dist/theme/black-green-dark.css';
 import VueAnalytics from 'vue-analytics';
 // import ActionType from './store/constants';
 import App from './App';

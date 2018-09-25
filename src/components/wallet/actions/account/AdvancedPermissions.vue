@@ -1,7 +1,7 @@
 <template>
   <md-card class="md-card-style">
     <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">Change Permissions</div>
+      <div class="md-title">Change Advanced Permissions</div>
     </md-toolbar>
 
     <md-card-content class="alw-first-child">

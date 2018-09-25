@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="root" id="main">
     <md-card class="md-card-style">
       <md-card-content>
         <div>
@@ -7,7 +7,7 @@
         </div>
       </md-card-content>
 
-      <md-card-header class="md-headline">EOS WALLET</md-card-header>
+      <md-card-header class="md-title">EOS WALLET <br><span class="md-subheading">by attic.tech</span></md-card-header>
 
       <md-card-actions style="padding: 0px 20px 20px">
         <md-button
@@ -18,7 +18,7 @@
           Login with Scatter
         </md-button>
       </md-card-actions>
-      <bottom-bar style="border-bottom: none; border-left: none; border-right: none"/>
+      <!--<bottom-bar style="border-bottom: none; border-left: none; border-right: none"/>-->
     </md-card>
 
     <md-dialog :md-active.sync="noScatterAlert">
@@ -169,6 +169,7 @@ export default {
 
   .root {
     min-height: 100vh;
+    min-width: 40vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -187,12 +188,21 @@ export default {
   }
 
   .md-card-style {
-    border: 2px rgb(233, 236, 239) solid;
+    border: 0;
     box-shadow: none;
     border-radius: 2px;
+    /*background-color: transparent;*/
   }
 
   .logo {
     max-height: 200px;
+  }
+
+  #main {
+    background-image: url("../assets/logo_bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    text-align: center;
   }
 </style>

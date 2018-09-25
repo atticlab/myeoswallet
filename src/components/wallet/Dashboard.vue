@@ -98,7 +98,7 @@ export default {
     flex-direction: row;
     height: auto;
     /*flex-grow: 1;*/
-    background-color: rgba(255, 255, 255, 0);
+    /*background-color: rgba(255, 255, 255, 0);*/
   }
 
   .transaction-content {
@@ -113,7 +113,7 @@ export default {
     border: 2px rgb(233, 236, 239) solid;
     box-shadow: none;
     border-radius: 2px;
-    background-color: #fff;
+    /*background-color: #fff;*/
   }
   .md-title {
     font-size: 20px;

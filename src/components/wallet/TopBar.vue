@@ -1,20 +1,18 @@
 <template>
   <div class="md-toolbar">
-    <md-toolbar class="md-dense md-transparent" md-elevation="0">
+    <md-toolbar class="md-dense md-accent" md-elevation="0">
       <div class="flex-item-left">
-        <img class="logo" src="./../../assets/eos_logo.png">
-        <div class="md-display title">EOS WALLET</div>
+        <md-button
+          style="text-transform: none; box-shadow: none;"
+          class="md-raised" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
+        </md-button>
       </div>
       <div class="flex-item-mid md-body-2">{{ getAccountName }}</div>
       <div class="flex-item-right">
-<md-button
-    style="
-    color: #0074D9;
-    border: 1px #0074D9 solid;
-    text-transform: none;
-    box-shadow: none;"
-    class="md-raised" @click="logout">Log out
-    </md-button>
+        <md-button
+          style="text-transform: none; box-shadow: none;"
+          class="md-raised" @click="logout">Log out
+        </md-button>
       </div>
     </md-toolbar>
   </div>
@@ -69,13 +67,11 @@ export default {
   }
   .md-button {
     color: #0074D9;
-    border: 1px #0074D9 solid;
     text-transform: none;
     box-shadow: none;
   }
   .md-raised {
     color: #0074D9;
-    border: 1px #0074D9 solid;
     text-transform: none;
     box-shadow: none;
   }
@@ -104,7 +100,6 @@ export default {
     -webkit-align-items: stretch;
     -ms-flex-align: stretch;
     font-family: 'Open Sans';
-    background-color: rgb(255, 255, 255);
     padding: 8px calc(5% + 16px);
   }
 

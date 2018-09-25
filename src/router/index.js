@@ -42,5 +42,12 @@ export default new Router({
       name: 'MobileDevice',
       component: MobileDevice,
     },
+    {
+      path: '/vote',
+      name: 'Vote',
+      beforeEnter() {
+        window.location = 'https://atticlab.net/vote/';
+      },
+    },
   ],
 });

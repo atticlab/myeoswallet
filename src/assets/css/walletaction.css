@@ -67,3 +67,7 @@
   border-radius: 2px;
   overflow-x: unset;
 }
+
+.md-tabs-container {
+  background-color: #18191d;
+}

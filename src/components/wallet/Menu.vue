@@ -40,16 +40,16 @@
       <md-button @click="$emit('changeMenu', 'AirgrabTokens')">Airgrab Tokens</md-button>
     </md-menu>
 
-    <md-menu md-direction="bottom-start">
-      <md-button md-menu-trigger>Community Features</md-button>
-      <md-menu-content>
-        <md-menu-item @click="$emit('changeMenu', 'ForumStatus')">Forum Status</md-menu-item>
-        <!--<md-menu-item @click="$emit('changeMenu', 'ForumPost')">Forum Post</md-menu-item>-->
-        <!--<md-menu-item @click="$emit('changeMenu', 'ForumProposal')">Forum Proposal</md-menu-item>-->
-        <!--<md-menu-item @click="$emit('changeMenu', 'ForumVote')">Forum Vote</md-menu-item>-->
-        <md-menu-item @click="$emit('changeMenu', 'Tweet')">Tweet</md-menu-item>
-      </md-menu-content>
-    </md-menu>
+    <!--<md-menu md-direction="bottom-start">-->
+      <!--<md-button md-menu-trigger>Community Features</md-button>-->
+      <!--<md-menu-content>-->
+        <!--<md-menu-item @click="$emit('changeMenu', 'ForumStatus')">Forum Status</md-menu-item>-->
+        <!--&lt;!&ndash;<md-menu-item @click="$emit('changeMenu', 'ForumPost')">Forum Post</md-menu-item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-menu-item @click="$emit('changeMenu', 'ForumProposal')">Forum Proposal</md-menu-item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-menu-item @click="$emit('changeMenu', 'ForumVote')">Forum Vote</md-menu-item>&ndash;&gt;-->
+        <!--<md-menu-item @click="$emit('changeMenu', 'Tweet')">Tweet</md-menu-item>-->
+      <!--</md-menu-content>-->
+    <!--</md-menu>-->
   </div>
 </template>
 

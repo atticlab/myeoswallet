@@ -1,4 +1,5 @@
 <template>
+<div id="main">
   <md-card class="md-card-style">
     <md-toolbar class="md-transparent" :md-elevation="0">
       <div class="md-title">Assign proxy</div>
@@ -23,6 +24,7 @@
       </md-button>
     </md-card-content>
   </md-card>
+</div>
 </template>
 
 <script>

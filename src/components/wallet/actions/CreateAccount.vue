@@ -1,63 +1,65 @@
 <template>
-  <md-card class="md-card-style">
-    <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">Create account</div>
-    </md-toolbar>
+  <div id="main">
+    <md-card class="md-card-style">
+      <md-toolbar class="md-transparent" :md-elevation="0">
+        <div class="md-title">Create account</div>
+      </md-toolbar>
 
-    <md-card-content class="alw-first-child">
-      <md-field>
-        <label>Creator</label>
-        <span class="md-prefix">@ </span>
-        <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
-      </md-field>
-      <md-field :class="accountNameError ? 'md-invalid' : ''">
-        <label>Account name</label>
-        <span class="md-prefix">@ </span>
-        <span class="md-error">Invalid name</span>
-        <md-input type="text" v-model="accountName" maxlength="12" required @change="validateAccount"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content class="alw-first-child">
+        <md-field>
+          <label>Creator</label>
+          <span class="md-prefix">@ </span>
+          <md-input :value="getAccountName" maxlength="12" required readonly></md-input>
+        </md-field>
+        <md-field :class="accountNameError ? 'md-invalid' : ''">
+          <label>Account name</label>
+          <span class="md-prefix">@ </span>
+          <span class="md-error">Invalid name</span>
+          <md-input type="text" v-model="accountName" maxlength="12" required @change="validateAccount"></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field :class="ownerKeyError ? 'md-invalid' : ''">
-        <label>Owner key</label>
-        <span class="md-error">Invalid key</span>
-        <md-input type="text" v-model="ownerKey" maxlength="53" required @change="validateOwnerKey"></md-input>
-      </md-field>
-      <md-field :class="activeKeyError ? 'md-invalid' : ''">
-        <label>Active key</label>
-        <span class="md-error">Invalid key</span>
-        <md-input type="text" v-model="activeKey" maxlength="53" required @change="validateActiveKey"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field :class="ownerKeyError ? 'md-invalid' : ''">
+          <label>Owner key</label>
+          <span class="md-error">Invalid key</span>
+          <md-input type="text" v-model="ownerKey" maxlength="53" required @change="validateOwnerKey"></md-input>
+        </md-field>
+        <md-field :class="activeKeyError ? 'md-invalid' : ''">
+          <label>Active key</label>
+          <span class="md-error">Invalid key</span>
+          <md-input type="text" v-model="activeKey" maxlength="53" required @change="validateActiveKey"></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field :class="cpuStakeError ? 'md-invalid' : ''">
-        <label>Cpu stake (in EOS)</label>
-        <span class="md-error">Invalid value</span>
-        <md-input type="number" v-model="cpuStake" required @change="validateCpuStake"></md-input>
-      </md-field>
-      <md-field :class="netStakeError ? 'md-invalid' : ''">
-        <label>Net stake (in EOS)</label>
-        <span class="md-error">Invalid value</span>
-        <md-input type="number" v-model="netStake" required @change="validateNetStake"></md-input>
-      </md-field>
-    </md-card-content>
+      <md-card-content>
+        <md-field :class="cpuStakeError ? 'md-invalid' : ''">
+          <label>Cpu stake (in EOS)</label>
+          <span class="md-error">Invalid value</span>
+          <md-input type="number" v-model="cpuStake" required @change="validateCpuStake"></md-input>
+        </md-field>
+        <md-field :class="netStakeError ? 'md-invalid' : ''">
+          <label>Net stake (in EOS)</label>
+          <span class="md-error">Invalid value</span>
+          <md-input type="number" v-model="netStake" required @change="validateNetStake"></md-input>
+        </md-field>
+      </md-card-content>
 
-    <md-card-content>
-      <md-field :class="ramError ? 'md-invalid' : ''">
-        <label>Ram (in bytes)</label>
-        <span class="md-error">Invalid value</span>
-        <md-input type="number" v-model="ram" required @change="validateRam"></md-input>
-      </md-field>
-      <md-switch v-model="transfer" class="md-primary">Transfer</md-switch>
-    </md-card-content>
-    <md-card-content class="alw-buttons">
-      <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 260px; "
-                 class="md-raised md-primary" :disabled="createAccountValidation">Create Account
-      </md-button>
-    </md-card-content>
-  </md-card>
+      <md-card-content>
+        <md-field :class="ramError ? 'md-invalid' : ''">
+          <label>Ram (in bytes)</label>
+          <span class="md-error">Invalid value</span>
+          <md-input type="number" v-model="ram" required @change="validateRam"></md-input>
+        </md-field>
+        <md-switch v-model="transfer" class="md-primary">Transfer</md-switch>
+      </md-card-content>
+      <md-card-content class="alw-buttons">
+        <md-button @click="onCreateAccount" style="color: #ffffff; box-shadow: none; width: 260px; "
+                   class="md-raised md-primary" :disabled="createAccountValidation">Create Account
+        </md-button>
+      </md-card-content>
+    </md-card>
+  </div>
 </template>
 
 <script>

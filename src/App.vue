@@ -14,7 +14,7 @@ export default {
   },
   created() {
     if (this.isMobileDevice()) {
-      this.$router.push({
+      this.$router.replace({
         name: 'MobileDevice',
       });
     }
@@ -40,9 +40,10 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     display: flex;
     justify-content: center;
+    background-color: #18191d;
   }
   body {
-    background-color: rgb(245, 247, 251);
+    background-color: #18191d;
   }
 
 </style>
