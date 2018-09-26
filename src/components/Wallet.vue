@@ -107,7 +107,7 @@ export default {
   .md-app-content {
     padding-left: 4%;
     padding-right: 4%;
-    background-color: #18191d;
+    background-color: #18191d !important;
   }
 
   .md-title {
