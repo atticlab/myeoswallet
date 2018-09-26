@@ -10,6 +10,10 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
+const fs = require('fs');
+
+console.log('start copying robots.txt')
+fs.createReadStream('robots.txt').pipe(fs.createWriteStream('dist/robots.txt'))
 
 const spinner = ora('building for production...')
 spinner.start()
