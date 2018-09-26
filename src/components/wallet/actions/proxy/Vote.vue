@@ -82,7 +82,8 @@ export default {
       return Math.pow(2, weight);
     },
     onVote() {
-      this.prodToVote.sort((a, b) => parseInt(format.encodeName(a, false), 10) - parseInt(format.encodeName(b, false), 10));
+      console.log(format);
+      this.prodToVote.sort();
       this.eos.voteproducer(this.getAccountName, '', this.prodToVote)
         .then((res) => {
           console.debug(`${this.$options.name} RESULT`, res);
