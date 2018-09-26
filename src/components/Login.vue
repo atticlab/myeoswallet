@@ -3,7 +3,7 @@
     <md-card class="md-card-style">
       <md-card-content>
         <div>
-          <img class="logo" src="./../assets/eos_logo.png">
+          <img class="logo" src="./../assets/eos_logo.png" alt="logo eos">
         </div>
       </md-card-content>
 

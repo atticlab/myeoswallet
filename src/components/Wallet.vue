@@ -7,7 +7,7 @@
 
       <md-app-drawer md-permanent="full">
         <md-toolbar>
-          <div class="center"><img class="logo" src="../assets/logo.png"></div>
+          <div class="center"><img class="logo" src="../assets/logo.png" alt="eos logo"></div>
         </md-toolbar>
         <Menu @changeMenu="menuChange" />
       </md-app-drawer>
