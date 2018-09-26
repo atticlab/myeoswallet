@@ -122,4 +122,7 @@ export default {
 
 <style scoped>
   @import '../../../assets/css/walletaction.css';
+  a {
+    margin-left: 5px;
+  }
 </style>

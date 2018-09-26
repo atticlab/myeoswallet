@@ -37,12 +37,12 @@
       </md-card>
       <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">HELP</div>
+        <div class="md-title">Help</div>
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-          you have updated to the latest scatter desktop</div>
+        <div>RAM can’t be transferred between accounts. Users can only buy, sell or delegate RAM. Please follow all the tips on the background.
+          Note: Amount indicated in bytes</div>
       </md-card-content>
     </md-card>
     </div>

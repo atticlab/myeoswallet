@@ -36,12 +36,12 @@
   </md-card>
   <md-card class="md-card-style md-layout-item help">
     <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">HELP</div>
+      <div class="md-title">Help</div>
     </md-toolbar>
 
     <md-card-content class="alw-first-child">
-      <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-        you have updated to the latest scatter desktop</div>
+      <div>Enter producer key, url and location, following the instructions tipped on the background.
+        Click the button ‘register’.</div>
     </md-card-content>
   </md-card>
 </div>

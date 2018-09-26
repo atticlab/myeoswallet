@@ -1,5 +1,5 @@
 <template>
-  <md-toolbar class="md-dense md-accent" md-elevation="0">
+  <md-toolbar id="main" class="md-dense md-accent" md-elevation="0">
     <span class="block">
       <md-button href="https://attic.tech/" target="_blank" class="link">ATTIC.TECH</md-button>
       <md-button href="https://steemit.com/@attic-lab" target="_blank" class="link">STEEMIT</md-button>

@@ -39,12 +39,13 @@
       </md-card>
       <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">HELP</div>
+        <div class="md-title">Help</div>
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-          you have updated to the latest scatter desktop</div>
+        <div>Special permissions to set some specific actions are available through the option.
+          You can create special permissions on your account that are allowed to execute specific contract actions.
+          Please fill in the info tipped on the background and hit the button ‘link auth’.</div>
       </md-card-content>
     </md-card>
     </div>
@@ -83,12 +84,11 @@
       </md-card>
       <md-card class="md-card-style md-layout-item help">
         <md-toolbar class="md-transparent" :md-elevation="0">
-          <div class="md-title">HELP</div>
+          <div class="md-title">Help</div>
         </md-toolbar>
 
         <md-card-content class="alw-first-child">
-          <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-            you have updated to the latest scatter desktop</div>
+          <div>If you want to remove a link simply, specify correctly the contract name and action.</div>
         </md-card-content>
       </md-card>
     </div>

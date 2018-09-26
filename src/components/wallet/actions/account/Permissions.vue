@@ -26,12 +26,13 @@
   </md-card>
   <md-card class="md-card-style md-layout-item help">
     <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">HELP</div>
+      <div class="md-title">Help</div>
     </md-toolbar>
 
     <md-card-content class="alw-first-child">
-      <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-        you have updated to the latest scatter desktop</div>
+      <div>Pay special attention this action has tangible consequences
+        Control every permission you assign.
+        If you mix up and assign an account instead of a key, as permission, you risk to break down your account </div>
     </md-card-content>
   </md-card>
 </div>

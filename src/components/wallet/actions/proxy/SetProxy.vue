@@ -23,12 +23,11 @@
 
     <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">HELP</div>
+        <div class="md-title">Help</div>
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-          you have updated to the latest scatter desktop</div>
+        <div>Using a proxy option you can vote on behalf of others who set you as their proxy. Please fill in the proxy info that you want to assign. To resign a proxy you just cancel the weight and ability to vote on behalf of others who set you as their proxy.</div>
       </md-card-content>
     </md-card>
   </div>
@@ -116,12 +115,12 @@
 
     <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">HELP</div>
+        <div class="md-title">Help</div>
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-          you have updated to the latest scatter desktop</div>
+        <div>The dApp allows EOS proxy accounts to reg and place useful info about themselves, for instance, name, website, philosophy or slogan. This info is placed on the EOS and free for sharing through the portals.
+          Please follow all the tips mentioned in the background.</div>
       </md-card-content>
     </md-card>
   </div>

@@ -210,8 +210,4 @@ export default {
     background-size: contain;
     text-align: center;
   }
-  a {
-    color: white !important;
-    text-decoration: underline;
-  }
 </style>

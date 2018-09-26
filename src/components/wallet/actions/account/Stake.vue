@@ -44,12 +44,11 @@
       </md-card>
       <md-card class="md-card-style md-layout-item help">
         <md-toolbar class="md-transparent" :md-elevation="0">
-          <div class="md-title">HELP</div>
+          <div class="md-title">Help</div>
         </md-toolbar>
 
         <md-card-content class="alw-first-child">
-          <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-            you have updated to the latest scatter desktop</div>
+          <div> There are 3 Resources CPU, NET and RAM, running on the EOS network. Staking, you delegate some access for CPU and NET.</div>
         </md-card-content>
       </md-card>
     </div>
@@ -97,12 +96,11 @@
     </md-card>
       <md-card class="md-card-style md-layout-item help">
         <md-toolbar class="md-transparent" :md-elevation="0">
-          <div class="md-title">HELP</div>
+          <div class="md-title">Help</div>
         </md-toolbar>
 
         <md-card-content class="alw-first-child">
-          <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-            you have updated to the latest scatter desktop</div>
+          <div>To stake your tokens you need to follow up the instructions tipped on the background. Unstake the tokens you could by using ‘unstake’ button with 3 days period time set since the moment of hitting the button ‘unstake’.</div>
         </md-card-content>
       </md-card>
     </div>

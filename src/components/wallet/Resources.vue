@@ -129,6 +129,9 @@ export default {
     display: flex;
     /*align-items: center;*/
   }
+  .md-card-content .md-layout > .md-layout-item {
+    margin-left: 5px;
+  }
 
   /*.md-content {*/
     /*min-height: 80px;*/
@@ -149,6 +152,9 @@ export default {
     /*font-size: 15px;*/
   /*}*/
 
+  #main .md-card-style {
+    margin-top: 18px;
+  }
 </style>
 
 <style scoped>

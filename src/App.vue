@@ -41,9 +41,17 @@ export default {
     display: flex;
     justify-content: center;
     background-color: #18191d;
+    min-height: 100vh;
+  }
+
+  .md-app {
+    min-height: 100vh;
   }
   body {
     background-color: #18191d;
+  }
+  .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default {
+    background-color: #2a2b31;
   }
 
 </style>

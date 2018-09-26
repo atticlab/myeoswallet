@@ -2,44 +2,64 @@
   <div class="content">
     <md-menu md-direction="bottom-start">
       <!--<md-button @click="$emit('changeMenu', 'Transfer')">Transfer</md-button>-->
-      <md-button @click="$router.push({ name: 'Transfer' })">Transfer</md-button>
+      <md-button @click="$router.push({ name: 'Dashboard' })">
+        <img src="../../assets/icons/dashboard.svg"/> Dashboard</md-button>
+    </md-menu>
+    <md-menu md-direction="bottom-start">
+      <!--<md-button @click="$emit('changeMenu', 'Transfer')">Transfer</md-button>-->
+      <md-button :to="{ name: 'Transfer' }">
+        <img src="../../assets/icons/transfer.svg"/> Transfer</md-button>
     </md-menu>
     <md-menu>
       <!--<md-button @click="$emit('changeMenu', 'CreateAccount')">Create Account</md-button>-->
-      <md-button @click="$router.push({ name: 'CreateAccount' })">Create Account</md-button>
+      <md-button :to="{ name: 'CreateAccount' }">
+        <img src="../../assets/icons/createaccount.svg"/> Create Account</md-button>
     </md-menu>
     <md-menu md-direction="bottom-start">
-      <md-button md-menu-trigger>Voting</md-button>
+      <md-button md-menu-trigger >
+        <img src="../../assets/icons/voting.svg"/> Voting
+        <!--<img class="white" src="../../assets/icons/create_acc.svg"/>-->
+        <md-icon class="fas fa-band-aid"></md-icon>
+      </md-button>
       <md-menu-content>
-        <md-menu-item @click="$emit('changeMenu', 'Vote')">Vote producers</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'SetProxy')">Set Proxy</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'AssignProxy')">Assign Proxy</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'UnsetProxy')">Unset Proxy</md-menu-item>
+        <md-menu-item :to="{ name: 'Vote'}">Vote producers</md-menu-item>
+        <md-menu-item :to="{ name: 'SetProxy'}">Set Proxy</md-menu-item>
+        <md-menu-item :to="{ name: 'AssignProxy'}">Assign Proxy</md-menu-item>
+        <md-menu-item :to="{ name: 'UnsetProxy'}">Unset Proxy</md-menu-item>
       </md-menu-content>
     </md-menu>
     <md-menu md-direction="bottom-start">
-      <md-button md-menu-trigger>Account</md-button>
+      <md-button md-menu-trigger>
+        <img src="../../assets/icons/manage.svg"/> Manage</md-button>
       <md-menu-content md-menu>
-        <md-menu-item @click="$emit('changeMenu', 'AdvancedPermissions')">Advanced Permissions</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'LinkAuth')">Link Auth</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'Permissions')">Permissions</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'Ram')">Ram</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'Refund')">Refund</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'Stake')">Stake</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'NameAuction')">Name Auction</md-menu-item>
+        <md-menu-item :to="{ name: 'AdvancedPermissions'}">Advanced Permissions</md-menu-item>
+        <md-menu-item :to="{ name: 'LinkAuth'}">Link Auth</md-menu-item>
+        <md-menu-item :to="{ name: 'Permissions'}">Permissions</md-menu-item>
+        <md-menu-item :to="{ name: 'Ram'}">Ram</md-menu-item>
+        <md-menu-item :to="{ name: 'Refund'}">Refund</md-menu-item>
+        <md-menu-item :to="{ name: 'Stake'}">Stake</md-menu-item>
+        <md-menu-item :to="{ name: 'NameAuction'}">Name Auction</md-menu-item>
       </md-menu-content>
     </md-menu>
     <md-menu md-direction="bottom-start">
-      <md-button md-menu-trigger>Producer</md-button>
+      <md-button md-menu-trigger>
+        <img src="../../assets/icons/producer.svg"/> Producer</md-button>
       <md-menu-content>
-        <md-menu-item @click="$emit('changeMenu', 'ClaimRewards')">Claim Rewards</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'RegisterProducer')">Reg Producer</md-menu-item>
-        <md-menu-item @click="$emit('changeMenu', 'UnregisterProducer')">Unreg Producer</md-menu-item>
+        <md-menu-item :to="{ name: 'ClaimRewards' }">Claim Rewards</md-menu-item>
+        <md-menu-item :to="{ name: 'RegisterProducer' }">Reg Producer</md-menu-item>
+        <md-menu-item :to="{ name: 'UnregisterProducer' }">Unreg Producer</md-menu-item>
       </md-menu-content>
     </md-menu>
 
     <md-menu md-direction="bottom-start">
-      <md-button @click="$emit('changeMenu', 'AirgrabTokens')">Airgrab Tokens</md-button>
+      <md-button :to="{ name: 'AirgrabTokens' }">
+        <img src="../../assets/icons/airgrabtoken.svg"/> Airgrab Tokens</md-button>
+    </md-menu>
+
+    <md-menu md-direction="bottom-start">
+      <!--<md-button @click="$emit('changeMenu', 'Transfer')">Transfer</md-button>-->
+      <md-button :to="{ name: 'Faq' }">
+        <img src="../../assets/icons/faq.svg"/> Tutorials</md-button>
     </md-menu>
 
     <!--<md-menu md-direction="bottom-start">-->
@@ -62,5 +82,46 @@ export default {
 </script>
 
 <style scoped>
+  .content {
+    display: flex;
+    align-items: left;
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 20px;
+    flex-direction: column;
+  }
+  .content button {
+    /*width: 100%;*/
+    text-align: left;
+    /*display: inline !important;;*/
+  }
 
+  .content button .md-ripple {
+    justify-content: left !important;
+  }
+  .md-button .md-ripple {
+    /*justify-content: left !important;*/
+  }
+  .md-menu {
+    /*display: flex;*/
+    align-content: left;
+    margin-top: 10px;
+  }
+  .md-menu img {
+    margin-right: 5px;
+  }
+  .fa-band-aid {
+    color: red !important;
+  }
+</style>
+
+<style lang="scss" scoped>
+  img.white {
+    /*fill: red !important;*/
+    /*color: red;*/
+  }
+  i.md-icon {
+    /*fill: white !important;*/
+    /*background-color: transparent;*/
+  }
 </style>

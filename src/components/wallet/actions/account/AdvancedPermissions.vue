@@ -59,12 +59,17 @@
   </md-card>
   <md-card class="md-card-style md-layout-item help">
     <md-toolbar class="md-transparent" :md-elevation="0">
-      <div class="md-title">HELP</div>
+      <div class="md-title">Help</div>
     </md-toolbar>
 
     <md-card-content class="alw-first-child">
-      <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-        you have updated to the latest scatter desktop</div>
+      <div>By this very action, you make your account irrecoverable.
+        EOS accounts are based on complex permission structures, which include parent&child relationships, where parent ones are empowered to influence child ones: to change, remove the child permissions.
+        Adding or modifying permissions
+        Threshold needs a sum of permission weights to execute an action.
+        You can add and change permissions, create new permissions, any other possibilities.
+        Weight means some measure of weight the Authority provides to the Threshold.
+        You can add or remove rows as required to meet your multisig requirements.</div>
     </md-card-content>
   </md-card>
 </div>

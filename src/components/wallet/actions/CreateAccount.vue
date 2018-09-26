@@ -61,12 +61,11 @@
     </md-card>
     <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
-        <div class="md-title">HELP</div>
+        <div class="md-title">Help</div>
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-          you have updated to the latest scatter desktop</div>
+        <div>Please follow up the tips on the background. Enter account name, owner key, active key, cpu, net and ram to stake and hit the button ‘create account’.</div>
       </md-card-content>
     </md-card>
   </div>

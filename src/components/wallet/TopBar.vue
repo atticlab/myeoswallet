@@ -1,10 +1,10 @@
 <template>
   <div class="md-toolbar">
     <md-toolbar class="md-dense md-accent" md-elevation="0">
-      <div class="flex-item-left">
+      <div class="">
         <md-button
           style="text-transform: none; box-shadow: none;"
-          class="md-raised" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
+          class="md-raised" :to="{ name: 'VoteAttic' }">VOTE FOR ATTICLABEOSB
         </md-button>
       </div>
       <div class="flex-item-mid md-body-2">{{ getAccountName }}</div>
@@ -75,33 +75,33 @@ export default {
     text-transform: none;
     box-shadow: none;
   }
-  .md-toolbar {
-    display: flex;
-    display: -ms-flexbox;
-    display: -webkit-flex;
+  /*.md-toolbar {*/
+    /*display: flex;*/
+    /*display: -ms-flexbox;*/
+    /*display: -webkit-flex;*/
 
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
+    /*-webkit-flex-direction: row;*/
+    /*-ms-flex-direction: row;*/
+    /*flex-direction: row;*/
 
-    flex-wrap: nowrap;
-    -webkit-flex-wrap: nowrap;
-    -ms-flex-wrap: nowrap;
+    /*flex-wrap: nowrap;*/
+    /*-webkit-flex-wrap: nowrap;*/
+    /*-ms-flex-wrap: nowrap;*/
 
-    justify-content: flex-start;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
+    /*justify-content: flex-start;*/
+    /*-webkit-justify-content: flex-start;*/
+    /*-ms-flex-pack: start;*/
 
-    align-content: stretch;
-    -webkit-align-content: stretch;
-    -ms-flex-line-pack: stretch;
+    /*align-content: stretch;*/
+    /*-webkit-align-content: stretch;*/
+    /*-ms-flex-line-pack: stretch;*/
 
-    align-items: stretch;
-    -webkit-align-items: stretch;
-    -ms-flex-align: stretch;
-    font-family: 'Open Sans';
-    padding: 8px calc(5% + 16px);
-  }
+    /*align-items: stretch;*/
+    /*-webkit-align-items: stretch;*/
+    /*-ms-flex-align: stretch;*/
+    /*font-family: 'Open Sans';*/
+    /*padding: 8px calc(5% + 16px);*/
+  /*}*/
 
   .logo {
     max-height: 48px;
