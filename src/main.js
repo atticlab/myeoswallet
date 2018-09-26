@@ -16,7 +16,8 @@ import './assets/theme.scss';
 Vue.use(VueMaterial);
 
 Vue.use(VueAnalytics, {
-  id: 'UA-XXX-X',
+  id: 'UA-98871974-2',
+  router,
 });
 
 Vue.component('BottomBar', BottomBar);
