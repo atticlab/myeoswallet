@@ -210,4 +210,7 @@ export default {
     background-size: contain;
     text-align: center;
   }
+  #main .md-card.md-theme-default {
+    background-color: transparent !important;
+  }
 </style>

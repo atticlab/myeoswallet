@@ -65,6 +65,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     background-color: rgba(255, 255, 255, 0);
+    width: 100%;
   }
   .content {
     width: 100%;
