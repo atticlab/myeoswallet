@@ -36,7 +36,9 @@
         </md-card-content>
 
         <md-card-content class="alw-buttons">
-          <md-switch v-model="transfer" class="md-primary">Transfer</md-switch>
+          <md-switch v-model="transfer" class="md-primary">
+            <md-tooltip md-direction="top">Transfer off: owner retains staking control and voting rights. Transfer on: New acc gains staking control and voting rights</md-tooltip>
+            Transfer</md-switch>
           <md-button @click="onDelegate" style="color: #ffffff; box-shadow: none; width: 260px; "
                      class="md-raised md-primary" :disabled="delegateValidation">Delegate
           </md-button>

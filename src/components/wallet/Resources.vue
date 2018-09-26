@@ -153,7 +153,7 @@ export default {
   /*}*/
 
   #main .md-card-style {
-    margin-top: 18px;
+    margin-top: 8px;
   }
 </style>
 

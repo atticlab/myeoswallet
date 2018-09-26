@@ -54,4 +54,8 @@ export default {
     background-color: #2a2b31 !important;
   }
 
+  button .md-button-content {
+    color: white;
+  }
+
 </style>

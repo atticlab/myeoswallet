@@ -3,7 +3,7 @@
     <div class="content-dashboard actions">
       <Resources/>
     </div>
-    <div class="content-dashboard actions">
+    <div class="content-dashboard actions" style="margin-top: 0">
       <router-view/>
     </div>
     <md-card class="content-dashboard md-card-style blockchainrawdata" v-if="$router.history.current.name !== 'Dashboard'">
@@ -28,12 +28,13 @@ export default {
 </script>
 
 <style scoped>
-  .blockchainrawdata {
-    margin-top: 8px;
-  }
+  /*.blockchainrawdata {*/
+    /*margin-top: 20px;*/
+  /*}*/
 
   .content-dashboard {
     margin: 0;
+    margin-top: 8px;
     display: block;
     justify-content: flex-start;
     flex-direction: row;
@@ -46,5 +47,5 @@ export default {
     font-size: 18px;
     margin-left: -4px;
     color: #7ac231 !important;
-  }
+  } 
 </style>

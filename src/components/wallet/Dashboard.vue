@@ -1,5 +1,5 @@
 <template>
-  <md-card class="md-layout twocolumn md-card-style md-layout-item">
+  <md-card class="md-card-style md-layout-item">
     <md-toolbar class="md-transparent" :md-elevation="0">
       <div class="md-title">Welcome to my eos wallet</div>
     </md-toolbar>

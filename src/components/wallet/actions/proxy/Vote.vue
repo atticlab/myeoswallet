@@ -6,11 +6,11 @@
 
     <md-card-content>
       <div>Selected producers ({{ prodToVote.length }}/30): </div>
-      <md-chip class="md-primary" md-deletable v-for="(prod, i) in prodToVote" :key="i" @md-delete="prodDeleteHandler(prod)">{{prod}}</md-chip>
+      <md-chip class="md-primary chips" md-deletable v-for="(prod, i) in prodToVote" :key="i" @md-delete="prodDeleteHandler(prod)">{{prod}}</md-chip>
     </md-card-content>
 
     <md-card-content>
-      <md-button @click="producers = []" style="color: #ffffff; box-shadow: none; width: 260px; "
+      <md-button @click="producers = []" style="color: #ffffff; box-shadow: none; width: 260px;"
                  class="md-raised md-primary">Reset
       </md-button>
       <md-button @click="onVote" style="color: #ffffff; box-shadow: none; width: 260px; "
@@ -19,7 +19,7 @@
     </md-card-content>
 
     <md-card-content>
-      <md-table v-model="producers" md-sort="position" md-sort-order="asc" md-card>
+      <md-table v-model="producers" md-sort="position" md-sort-order="asc" md-card id="table">
         <md-table-toolbar>
           <div class="md-toolbar-section-start">
             <h2 class="md-title">Producers</h2>
@@ -164,4 +164,13 @@ export default {
 
 <style scoped>
   @import '../../../../assets/css/walletaction.css';
+
+  .chips {
+    color: white !important;
+    margin-left: 2px;
+  }
+  .chips:hover {
+    color: #7ac231 !important;
+  }
+
 </style>
