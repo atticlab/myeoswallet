@@ -45,7 +45,7 @@
 
 <script>
 import bl from '@/bl';
-import { format } from 'eosjs';
+// import { format } from 'eosjs';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '../../../../store/constants';
 
@@ -68,6 +68,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
   },
   methods: {
@@ -82,15 +83,36 @@ export default {
       return Math.pow(2, weight);
     },
     onVote() {
-      console.log(format);
+      console.log(this.getAuthority);
+      console.log(this.getAccountName);
       this.prodToVote.sort();
-      this.eos.voteproducer(this.getAccountName, '', this.prodToVote)
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'voteproducer',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                voter: this.getAccountName,
+                proxy: '',
+                producers: this.prodToVote,
+              },
+            },
+          ],
+        },
+      )
         .then((res) => {
           console.debug(`${this.$options.name} RESULT`, res);
           this[ActionType.SET_TRANSACTION](res);
           bl.renderJSON(res, 'place-for-transaction');
         })
-        .catch(e => bl.handleError(e, 'place-for-transaction'));
+        .catch((e) => {
+          bl.handleError(e, 'place-for-transaction');
+        });
     },
     prodDeleteHandler(prod) {
       const index = this.prodToVote.indexOf(prod);
