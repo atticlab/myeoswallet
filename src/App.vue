@@ -40,7 +40,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     display: flex;
     justify-content: center;
-    background-color: #18191d;
+    background-color: #18191d !important;
     min-height: 100vh;
   }
 
@@ -48,10 +48,10 @@ export default {
     min-height: 100vh;
   }
   body {
-    background-color: #18191d;
+    background-color: #18191d !important;
   }
   .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default {
-    background-color: #2a2b31;
+    background-color: #2a2b31 !important;
   }
 
 </style>
