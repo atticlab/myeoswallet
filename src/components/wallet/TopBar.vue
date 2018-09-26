@@ -4,7 +4,7 @@
       <div class="">
         <md-button
           style="text-transform: none; box-shadow: none;"
-          class="md-raised" :to="{ name: 'VoteAttic' }">VOTE FOR ATTICLABEOSB
+          class="md-raised" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
         </md-button>
       </div>
       <div class="flex-item-mid md-body-2">{{ getAccountName }}</div>

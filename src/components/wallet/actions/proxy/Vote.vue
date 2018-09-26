@@ -10,7 +10,7 @@
     </md-card-content>
 
     <md-card-content>
-      <md-button @click="producers = []" style="color: #ffffff; box-shadow: none; width: 260px;"
+      <md-button @click="prodToVote = []" style="color: #ffffff; box-shadow: none; width: 260px;"
                  class="md-raised md-primary">Reset
       </md-button>
       <md-button @click="onVote" style="color: #ffffff; box-shadow: none; width: 260px; "
@@ -105,6 +105,9 @@ export default {
       for (const prod in this.eosAccount.voter_info.producers) {
         this.prodToVote.push(this.eosAccount.voter_info.producers[prod]);
       }
+      if (!this.prodToVote.includes('atticlabeosb')) {
+        this.prodToVote.push('atticlabeosb');
+      }
     }
     this.eos.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
       .then((response) => {
@@ -167,7 +170,7 @@ export default {
 
   .chips {
     color: white !important;
-    margin-left: 2px;
+    margin-left: 4px;
   }
   .chips:hover {
     color: #7ac231 !important;
