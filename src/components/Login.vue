@@ -165,6 +165,9 @@ export default {
       // setInterval(this.getTokenBalances, 40000);
     },
   },
+  created() {
+    this.doOnLoginDesktop();
+  },
 };
 </script>
 

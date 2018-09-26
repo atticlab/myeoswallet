@@ -1,10 +1,8 @@
 <template>
-  <div></div>
+  <div>fgsff</div>
 </template>
 
 <script>
-
-
 export default {
   name: 'Dashboard',
   data() {

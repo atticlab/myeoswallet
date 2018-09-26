@@ -1,10 +1,12 @@
 <template>
   <div class="content">
     <md-menu md-direction="bottom-start">
-      <md-button @click="$emit('changeMenu', 'Transfer')">Transfer</md-button>
+      <!--<md-button @click="$emit('changeMenu', 'Transfer')">Transfer</md-button>-->
+      <md-button @click="$router.push({ name: 'Transfer' })">Transfer</md-button>
     </md-menu>
     <md-menu>
-      <md-button @click="$emit('changeMenu', 'CreateAccount')">Create Account</md-button>
+      <!--<md-button @click="$emit('changeMenu', 'CreateAccount')">Create Account</md-button>-->
+      <md-button @click="$router.push({ name: 'CreateAccount' })">Create Account</md-button>
     </md-menu>
     <md-menu md-direction="bottom-start">
       <md-button md-menu-trigger>Voting</md-button>

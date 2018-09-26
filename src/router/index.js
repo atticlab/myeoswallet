@@ -6,6 +6,7 @@ import Wallet from '@/components/Wallet';
 import Dashboard from '@/components/wallet/Dashboard';
 import Faq from '@/components/wallet/Faq';
 import Transfer from '@/components/wallet/actions/Transfer';
+import CreateAccount from '@/components/wallet/actions/CreateAccount';
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
           path: 'transfer',
           name: 'Transfer',
           component: Transfer,
+        },
+        {
+          path: 'createacc',
+          name: 'CreateAccount',
+          component: CreateAccount,
         },
       ],
     },

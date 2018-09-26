@@ -9,7 +9,7 @@
         <md-toolbar>
           <div class="center"><img class="logo" src="../assets/logo.png"></div>
         </md-toolbar>
-        sdgsfg
+        <Menu @changeMenu="menuChange" />
       </md-app-drawer>
 
       <md-app-content>
@@ -17,16 +17,16 @@
           <!--<md-tab to="/wallet/dashboard">-->
         <!--<div class="content">-->
         <div class="column">
-          <Menu @changeMenu="menuChange" />
-          <div class="content actions">
+          <div class="content-dashboard actions">
             <Resources/>
           </div>
-          <div class="content actions">
-            <keep-alive>
-              <component :is="currentComponent"></component>
-            </keep-alive>
+          <div class="content-dashboard actions">
+            <!--<keep-alive>-->
+              <!--<component :is="currentComponent"></component>-->
+            <!--</keep-alive>-->
+            <router-view/>
           </div>
-          <md-card class="content md-card-style">
+          <md-card class="content-dashboard md-card-style">
             <md-toolbar class="md-transparent" :md-elevation="0">
               <div class="md-title">Blockchain Raw Data</div>
             </md-toolbar>
@@ -119,6 +119,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .content-dashboard {
+    margin-top: 5px;
+    display: block;
+    justify-content: flex-start;
+    flex-direction: row;
+    height: auto;
+    /*flex-grow: 1;*/
+    /*background-color: rgba(255, 255, 255, 0);*/
+  }
+
   .content {
     width: 100%;
     display: flex;
