@@ -6,7 +6,6 @@ import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/black-green-dark.css';
 import VueAnalytics from 'vue-analytics';
-// import ActionType from './store/constants';
 import App from './App';
 import router from './router';
 import store from './store';
@@ -23,13 +22,6 @@ Vue.use(VueAnalytics, {
 Vue.component('BottomBar', BottomBar);
 
 Vue.config.productionTip = false;
-
-// document.addEventListener('scatterLoaded', () => {
-//   window.scatter.requireVersion(3.0);
-//   store.dispatch(ActionType.SET_SCATTER, window.scatter);
-//   store.dispatch(ActionType.SET_IDENTITY, window.scatter.identity);
-//   window.scatter = null;
-// });
 
 /* eslint-disable no-new */
 new Vue({
