@@ -122,9 +122,9 @@ const getters = {
   getSymbol: (currentState) => {
     if (!currentState.identityAccount || !currentState.identityAccount.blockchain) {
       console.debug('getSymbol => currentState.identityAccount is null...');
-      return 'N/A';
+      return '';
     }
-    return currentState.identityAccount.blockchain ? currentState.identityAccount.blockchain.toUpperCase() : 'N/A';
+    return currentState.identityAccount.blockchain.toUpperCase();
   },
   getTokens: (currentState) => {
     if (!currentState.tokenList) {
@@ -139,6 +139,16 @@ const getters = {
       return [];
     }
     return currentState.tokenList.filter(obj => obj.balance);
+  },
+  getAccountNameWithAuthority(currentState) {
+    let name = currentState.eosAccount;
+    let auth = currentState.identityAccount;
+    if (name && auth) {
+      name = currentState.eosAccount.account_name;
+      auth = currentState.identityAccount.authority;
+      return `${name}@${auth}`;
+    }
+    return '';
   },
 };
 

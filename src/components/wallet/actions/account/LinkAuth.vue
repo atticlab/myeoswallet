@@ -36,6 +36,7 @@
                      class="md-raised md-primary" :disabled="validateLinkAuth">Link Auth
           </md-button>
         </md-card-content>
+        <TextActionAgree/>
       </md-card>
       <md-card class="md-card-style md-layout-item help">
       <md-toolbar class="md-transparent" :md-elevation="0">
@@ -81,6 +82,7 @@
                      class="md-raised md-primary" :disabled="validateUnlinkAuth">Unlink Auth
           </md-button>
         </md-card-content>
+        <TextActionAgree/>
       </md-card>
       <md-card class="md-card-style md-layout-item help">
         <md-toolbar class="md-transparent" :md-elevation="0">

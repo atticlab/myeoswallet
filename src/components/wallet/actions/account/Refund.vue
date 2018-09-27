@@ -18,6 +18,7 @@
                  class="md-raised md-primary">Refund
       </md-button>
     </md-card-content>
+    <TextActionAgree/>
   </md-card>
 
   <md-card class="md-card-style md-layout-item help">

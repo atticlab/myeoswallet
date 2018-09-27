@@ -47,7 +47,7 @@ export default {
   .md-app {
     min-height: 100vh;
   }
-  body {
+  body, tr {
     background-color: #18191d !important;
   }
   .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default {
@@ -57,5 +57,4 @@ export default {
   button .md-button-content {
     color: white;
   }
-
 </style>

@@ -1,17 +1,24 @@
 <template>
   <div class="md-toolbar">
     <md-toolbar class="md-dense md-accent" md-elevation="0">
-      <div class="">
+      <div>
         <md-button
-          style="text-transform: none; box-shadow: none;"
-          class="md-raised" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
+          style="text-transform: none; box-shadow: none; width: 300px; color: white;"
+          class="md-raised md-primary" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
         </md-button>
       </div>
-      <div class="flex-item-mid md-body-2">{{ getAccountName }}</div>
+      <div class="flex-item-mid md-body-2">{{ getAccountNameWithAuthority }}</div>
       <div class="flex-item-right">
         <md-button
           style="text-transform: none; box-shadow: none;"
-          class="md-raised" @click="logout">Log out
+          class="md-raised" @click="$emit('authorizationEvent')">
+          <span v-if="identity">Log out</span>
+          <span v-else>Log in</span>
+        </md-button>
+        <md-button
+          style="text-transform: none; box-shadow: none;"
+          class="md-raised md-primary">
+          <span>Connect ledger (coming soon...)</span>
         </md-button>
       </div>
     </md-toolbar>
@@ -19,38 +26,17 @@
 </template>
 
 <script>
-import ActionType from '@/store/constants';
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'TopBar',
   computed: {
-    ...mapState([
-      'scatter',
-    ]),
     ...mapGetters([
-      'getAccountName',
+      'getAccountNameWithAuthority',
     ]),
-  },
-  methods: {
-    ...mapActions([
-      ActionType.SET_IDENTITY,
-      ActionType.SET_IDENTITY_ACCOUNT,
-      ActionType.SET_EOS_ACCOUNT,
-      ActionType.SET_EOS_JS,
-      ActionType.SET_BALANCE,
-      ActionType.SET_TRANSACTION,
+    ...mapState([
+      'identity',
     ]),
-    logout() {
-      this.scatter.forgetIdentity();
-      this[ActionType.SET_IDENTITY](null);
-      this[ActionType.SET_IDENTITY_ACCOUNT](null);
-      this[ActionType.SET_EOS_JS](null);
-      this[ActionType.SET_EOS_ACCOUNT](null);
-      this[ActionType.SET_BALANCE]([]);
-      this[ActionType.SET_TRANSACTION](null);
-      this.$router.push('/');
-    },
   },
 };
 </script>

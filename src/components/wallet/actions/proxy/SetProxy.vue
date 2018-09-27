@@ -19,6 +19,7 @@
                    class="md-raised md-primary">Set Account
         </md-button>
       </md-card-content>
+      <TextActionAgree/>
     </md-card>
 
     <md-card class="md-card-style md-layout-item help">
@@ -111,6 +112,7 @@
                    class="md-raised md-primary" :disabled="validateRegisterProxyInfo">Register Proxy Info
         </md-button>
       </md-card-content>
+      <TextActionAgree/>
     </md-card>
 
     <md-card class="md-card-style md-layout-item help">

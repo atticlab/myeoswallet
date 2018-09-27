@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from '@/components/Login';
+// import Login from '@/components/Login';
 import MobileDevice from '@/components/MobileDevice';
 import Wallet from '@/components/Wallet';
 import Dashboard from '@/components/wallet/Dashboard';
 import Faq from '@/components/wallet/Faq';
+import Constitution from '@/components/wallet/Constitution';
 import Transfer from '@/components/wallet/actions/Transfer';
 import CreateAccount from '@/components/wallet/actions/CreateAccount';
 import SetProxy from '@/components/wallet/actions/proxy/SetProxy';
@@ -25,8 +26,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Login',
-      component: Login,
+      // name: 'Login',
+      // component: Login,
+      redirect: { name: 'Dashboard' },
     },
     {
       path: '/wallet',
@@ -138,6 +140,11 @@ export default new Router({
           path: 'faq',
           name: 'Faq',
           component: Faq,
+        },
+        {
+          path: 'constitution',
+          name: 'Constitution',
+          component: Constitution,
         },
       ],
     },

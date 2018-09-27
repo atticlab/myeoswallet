@@ -59,5 +59,4 @@ export default {
   },
 
   validatePublicKey: key => (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS'),
-  validatePrivateKey: key => (typeof key === 'string' && key.length === 51 && key.substr(0, 3) !== 'EOS'),
 };

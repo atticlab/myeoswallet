@@ -74,6 +74,13 @@
           </span>
         </md-list-item>
 
+        <md-list-item :to="{ name: 'Constitution' }">
+          <span class="md-list-item-text">
+            <font-awesome-icon icon="book" style="color: #85858a" />
+            Constitution
+          </span>
+        </md-list-item>
+
         <md-list-item :to="{ name: 'Faq' }">
           <span class="md-list-item-text">
             <img src="../../assets/icons/faq.svg"/>
@@ -265,6 +272,9 @@ export default {
     margin-right: 4px;
     /*fill: white !important;*/
     /*background-color: transparent;*/
+  }
+  .list svg {
+    margin-right: 4px;
   }
   .md-list-item-text {
     display: inline;

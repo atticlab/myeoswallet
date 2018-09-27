@@ -1,4 +1,21 @@
-# atticlab-eos-wallet
+# My EOS Wallet
+
+Inside the wallet, a user could not only keep or transfer tokens safely but go an extra mile and use every eos opportunity:
+
+- vote or vote through a proxy
+
+- create an account
+
+- reg or unreg Producer,
+
+- make permissions for accounts
+
+- airgrab tokens
+
+- sell and buy ram
+
+- stake and unstake
+
 
 > A Vue.js project
 
@@ -47,80 +64,12 @@ $ npm install
 $ npm run dev
 ```
 
-## Run local (dev)
-To run application in dev mode you will need a local EOS
-
 ### Docker image
 
 [EOS Docker Quickstart](https://developers.eos.io/eosio-nodeos/docs/docker-quickstart)
 
-Pull Dev Docker image with a compiled version of the EOSIO software designed for local development:
+Using docker-compose.
+In project's root directory enter
 ```bash
-docker pull eosio/eos-dev
+make build
 ```
-
-Start EOSIO node with shell script:
-```bash
-./starteos.sh
-```
-
-Check it is working:
-```bash
-docker logs --tail 10 eosio
-```
-
-HTTP endpoint to check that RPC interface is working:
-```
-http://localhost:8888/v1/chain/get_info
-```
-
-### Cleos alias
-
-```bash
-alias cleos='docker exec -it eosio /opt/eosio/bin/cleos -u http://0.0.0.0:8888 --wallet-url http://0.0.0.0:8888'
-alias mcleos='docker exec -it eosio /opt/eosio/bin/cleos -u https://junglebp.atticlab.net --wallet-url https://junglebp.atticlab.net'
-alias lcleos='docker exec -it eosio /opt/eosio/bin/cleos -u http://dev.cryptolions.io:38888 --wallet-url http://0.0.0.0:8888'
-	
-```
-
-[see more](https://developers.eos.io/eosio-nodeos/docs/cleos-overview)
-
-### Stopping EOSIO Container
-When you need to stop, use:
-```bash
-docker stop eosio
-```
-
-
-## TEST Wallet
-### Create keys
-```bash 
-lcleos create keys
-```
-private: 5JJHLYPCbY5uUfKoTaKYCmRswZYvz9ioWUZEJesCc8GxtzGYbeq
-public: EOS8hLsrT7PxExvP1WW3Ny24HDCFN5Ei1C8GCTMuoYeWuSW6VEc4c
-
-### Create wallet
-```bash 
-lcleos wallet create -n lion
-```
-pass PW5JpYzCRzEaGHEnx8xLCkEk5QBucUSmY5jE6b7LqQ8TdR5MYT9NY
-
-### Open wallet
-```bash 
-lcleos wallet open -n lion
-```
-### Unlock wallet
-```bash 
-lcleos wallet unlock -n lion
-```
-### Import private keys
-```bash
-lcleos wallet import -n lion --private-key 5JJHLYPCbY5uUfKoTaKYCmRswZYvz9ioWUZEJesCc8GxtzGYbeq
-```
-
-### Import test net owner private key
-```bash
-lcleos wallet import -n lion --private-key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
-```
-cleos set contract eosio build/contracts/eosio.bios -p eosio@active

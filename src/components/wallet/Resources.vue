@@ -52,7 +52,7 @@
       <md-card-content>
         <div class="md-layout md-gutter" style="width: 100%">
           <div class="md-layout-item">Balance<br>{{ getBalance }}</div>
-          <div class="md-layout-item">Staked<br>{{ getStacked }} {{ getSymbol }}</div>
+          <div class="md-layout-item">Staked<br>{{ getStacked }} EOS</div>
           <div class="md-layout-item">FREE RAM<br>{{ getRam }}%</div>
           <div class="md-layout-item">FREE CPU<br>{{ getCpu }}%</div>
           <div class="md-layout-item">FREE NET<br>{{ getNet }}%</div>

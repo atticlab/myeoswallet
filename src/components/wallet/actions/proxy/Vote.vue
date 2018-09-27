@@ -1,4 +1,5 @@
 <template>
+<div id="main">
   <md-card class="md-card-style">
     <md-toolbar class="md-transparent" :md-elevation="0">
       <div class="md-title">Vote producer</div>
@@ -18,6 +19,8 @@
       </md-button>
     </md-card-content>
 
+    <TextActionAgree/>
+
     <md-card-content>
       <md-table v-model="producers" md-sort="position" md-sort-order="asc" md-card id="table">
         <md-table-toolbar>
@@ -33,7 +36,7 @@
         <md-table-row slot="md-table-row" slot-scope="{ item }">
           <md-table-cell md-label="Position" md-sort-by="position" md-numeric>{{ item.position }}</md-table-cell>
           <md-table-cell md-label="Name" md-sort-by="owner">{{ item.owner }}</md-table-cell>
-          <md-table-cell md-label="Url" md-sort-by="url"><a :href="item.url">{{ item.url }}</a></md-table-cell>
+          <md-table-cell md-label="Url" md-sort-by="url"><a target="_blank" :href="item.url">{{ item.url }}</a></md-table-cell>
           <md-table-cell md-label="Reward" md-sort-by="reward">{{ item.reward }}</md-table-cell>
           <md-table-cell md-label="Votes (%)" md-sort-by="votesPercent">{{ (item.votesPercent * 100).toFixed(3) }}</md-table-cell>
           <md-table-cell md-label="Select"><md-checkbox v-model="prodToVote" :value="item.owner" class="md-primary"></md-checkbox></md-table-cell>
@@ -41,6 +44,7 @@
       </md-table>
     </md-card-content>
   </md-card>
+</div>
 </template>
 
 <script>
@@ -198,5 +202,8 @@ export default {
   .chips:hover {
     color: #7ac231 !important;
   }
-
+  #main #table tr {
+    /*width: 100%;*/
+    /*background-color: red !important;*/
+  }
 </style>
