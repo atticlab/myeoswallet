@@ -1,0 +1,119 @@
+_vars:
+  app_env: &app_env
+    HOST: 0.0.0.0
+    PORT: 8082
+    EOS_PROTOCOL: http
+    EOS_HOST: localhost
+    EOS_PORT: 8888
+    EOS_CHAIN_ID: cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f
+
+  jungle_env: &jungle_env
+    HOST: 0.0.0.0
+    PORT: 8082
+    BLOCKCHAIN: eos
+    EOS_PROTOCOL: http
+    EOS_HOST: junglebp.atticlab.net
+    EOS_PORT: 8888
+    EOS_CHAIN_ID: 038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca
+
+  mainnet_env: &mainnet_env
+    HOST: 0.0.0.0
+    PORT: 8082
+    BLOCKCHAIN: eos
+    EOS_PROTOCOL: https
+    EOS_HOST: nodes.get-scatter.com
+    EOS_PORT: 443
+    EOS_CHAIN_ID: aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906
+
+_ignore-dirs:
+  - .git
+
+containers:
+
+  front:
+    setup:
+      - !Alpine v3.7
+      - !Install [nodejs]
+      - !Depends package.json
+      - !Sh |
+          set -ex
+          npm install
+    environ:
+      HOME: /work/.home
+
+commands:
+
+  npm: !Command
+    description: Run npm in node container
+    container: front
+    options: |
+      Usage:
+        vagga npm <command> [ARGS ...] [options]
+        vagga npm i
+
+      positional arguments:
+      args
+
+      optional arguments:
+        --save-dev  Save to dev dependencies
+        --save      Save to dependencies
+
+    run: npm $VAGGAOPT_COMMAND $VAGGAOPT_ARGS $VAGGACLI_SAVE_DEV $VAGGACLI_SAVE
+
+  lint: !Command
+    description: Run eslint
+    container: front
+    options: |
+      Usage:
+        vagga frontend_lint [options]
+
+      optional arguments:
+        --fix      Fix lint
+    run: eslint --ext .js,.vue src test/unit test/e2e/specs $VAGGACLI_FIX
+
+  build: !Command
+    description: Build app
+    container: front
+    environ:
+      <<: *app_env
+    run: npm run build
+
+  front: &front !Command
+    description: Run app
+    container: front
+    environ:
+      <<: *app_env
+    run: npm start
+
+  run_testnet: !Command
+    description: Run application with jungle test net EOS
+    container: front
+    environ:
+      <<: *jungle_env
+    run: npm start
+
+  run_mainnet: !Command
+    description: Run application with main net EOS
+    container: front
+    environ:
+      <<: *mainnet_env
+    run: npm start
+
+  build_testnet: !Command
+    description: Build node script with testnet env
+    container: front
+    environ:
+      <<: *jungle_env
+    run: npm run build
+
+  build_mainnet: !Command
+    description: Build node script with mainnet env
+    container: front
+    environ:
+      <<: *mainnet_env
+    run: npm run build
+
+  run: !Supervise
+    description: Run in dev mode
+    children:
+      front: *front

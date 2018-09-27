@@ -1,0 +1,96 @@
+.md-card {
+  display: inline-flex;
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: column; /* Safari 6.1+ */
+  flex-direction: column;
+  -ms-flex-direction: column;
+
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  flex: 1 1 0;
+
+  align-items: center;
+
+  -webkit-align-self: stretch;
+  align-self: stretch;
+  -ms-flex-item-align: stretch;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.md-card-content {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  /*flex: 1 1;*/
+  /*-webkit-flex: 1 1;*/
+  /*-ms-flex: 1 1;*/
+
+  justify-content: flex-start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+
+  align-items: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+
+  align-self: stretch;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+
+  padding: 8px;
+}
+
+.md-title {
+  font-size: 18px;
+  margin-left: -4px;
+  color: #7ac231 !important;
+}
+
+.md-field {
+  margin: 8px;
+}
+
+.alw-first-child {
+  border-top: 1px lightgray solid;
+}
+
+.alw-buttons {
+  justify-content: flex-end;
+  -webkit-justify-content: center;
+  -ms-flex-pack: end;
+}
+.md-card-style {
+  /*border: 2px rgb(233, 236, 239) solid;*/
+  box-shadow: none;
+  /*border-radius: 2px;*/
+  overflow-x: unset;
+}
+
+.md-tabs-container {
+  background-color: #18191d;
+}
+
+.help {
+  margin-left: 8px;
+  max-width: 30%;
+  /*flex: 1 1 0;*/
+}
+
+.twocolumn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+/*.md-input {*/
+  /*border: 1px solid black;*/
+  /*background-color: #1d2024;*/
+/*}*/
+
