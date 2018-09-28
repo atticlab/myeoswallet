@@ -27,6 +27,9 @@ export default {
 
   [ActionType.SET_TRANSACTION]: (state, transaction) => {
     state.transaction = transaction;
+    if (transaction) {
+      state.actionInfoPopUp = true;
+    }
   },
 
   [ActionType.SET_TOKENLIST]: (state, val) => {
@@ -41,5 +44,9 @@ export default {
 
   [ActionType.SET_AIRGRABS]: (state, val) => {
     state.airgrabs = val;
+  },
+
+  [ActionType.SET_ACTIONINFOPOPUP]: (state, val) => {
+    state.actionInfoPopUp = val;
   },
 };

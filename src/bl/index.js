@@ -9,10 +9,12 @@ function composeCurrencyBalanceRequest(identityAccount, token) {
 }
 
 function renderJSON(json, idForInsert) {
-  const formatter = new JSONFormatter(json, 1);
+  const formatter = new JSONFormatter(json, 1, { theme: 'dark' });
   const placeForTransaction = document.getElementById(idForInsert);
-  placeForTransaction.textContent = '';
-  placeForTransaction.appendChild(formatter.render());
+  if (placeForTransaction) {
+    placeForTransaction.textContent = '';
+    placeForTransaction.appendChild(formatter.render());
+  }
 }
 
 // composeCurrencyBalanceRequest: identityAccount => ({

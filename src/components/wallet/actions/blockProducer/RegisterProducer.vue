@@ -75,6 +75,7 @@ export default {
           bl.renderJSON(res, 'place-for-transaction');
         })
         .catch((e) => {
+          this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');
         });
     },

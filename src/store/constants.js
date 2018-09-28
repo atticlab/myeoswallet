@@ -9,4 +9,5 @@ export default {
   SET_TOKENLIST: 'setTokenList',
   SET_TOKENBALANCE: 'setTokenBalance',
   SET_AIRGRABS: 'setAirgrabs',
+  SET_ACTIONINFOPOPUP: 'setActionInfoPopUP',
 };

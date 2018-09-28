@@ -165,6 +165,7 @@ export default {
           this.getTokenBalances();
         })
         .catch((e) => {
+          this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');
         });
     },

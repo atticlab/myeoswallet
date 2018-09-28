@@ -177,6 +177,7 @@ export default {
           });
         })
         .catch((e) => {
+          this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');
         });
     },

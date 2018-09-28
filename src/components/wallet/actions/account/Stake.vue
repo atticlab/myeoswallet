@@ -178,6 +178,7 @@ export default {
           bl.logDebug('bl.requestBalance(eos).then...', respBalance);
         });
       }).catch((e) => {
+        this[ActionType.SET_TRANSACTION](e);
         bl.handleError(e, 'place-for-transaction');
       });
     },
@@ -196,6 +197,7 @@ export default {
           bl.logDebug('bl.requestBalance(eos).then...', respBalance);
         });
       }).catch((e) => {
+        this[ActionType.SET_TRANSACTION](e);
         bl.handleError(e, 'place-for-transaction');
       });
     },

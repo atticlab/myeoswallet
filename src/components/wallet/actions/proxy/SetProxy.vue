@@ -154,6 +154,7 @@ export default {
   computed: {
     ...mapState([
       'eos',
+      'transaction',
     ]),
     ...mapGetters([
       'getAccountName',
@@ -178,6 +179,7 @@ export default {
           bl.renderJSON(res, 'place-for-transaction');
         })
         .catch((e) => {
+          this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');
         });
     },
@@ -215,6 +217,7 @@ export default {
           bl.renderJSON(res, 'place-for-transaction');
         })
         .catch((e) => {
+          this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');
         });
     },

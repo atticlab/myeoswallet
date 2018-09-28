@@ -128,6 +128,7 @@ export default {
         this[ActionType.SET_TRANSACTION](transactionResult);
         bl.renderJSON(transactionResult, 'place-for-transaction');
       }).catch((e) => {
+        this[ActionType.SET_TRANSACTION](e);
         bl.handleError(e, 'place-for-transaction');
       });
     },
@@ -141,6 +142,7 @@ export default {
         this[ActionType.SET_TRANSACTION](transactionResult);
         bl.renderJSON(transactionResult, 'place-for-transaction');
       }).catch((e) => {
+        this[ActionType.SET_TRANSACTION](e);
         bl.handleError(e, 'place-for-transaction');
       });
     },

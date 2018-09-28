@@ -34,6 +34,7 @@ const state = {
   transaction: null,
   tokenList: null,
   airgrabs: null,
+  actionInfoPopUp: false,
 };
 
 const getters = {
