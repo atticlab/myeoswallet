@@ -19,6 +19,17 @@
             <BottomBar/>
           </div>
         </div>
+        <md-dialog :md-active.sync="noScatterAlert">
+          <md-dialog-title>No scatter detected!</md-dialog-title>
+
+          <md-dialog-content>
+            Please <a href="https://get-scatter.com/" target="_blank">install Scatter plugin or desktop application</a> and refresh this page.
+          </md-dialog-content>
+
+          <md-dialog-actions>
+            <md-button class="md-primary" @click="noScatterAlert = false">Ok</md-button>
+          </md-dialog-actions>
+        </md-dialog>
       </md-app-content>
     </md-app>
   </div>
