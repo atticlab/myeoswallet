@@ -50,7 +50,7 @@ export default {
   body, .md-dialog.md-theme-default {
     background-color: #18191d !important;
   }
-  .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default, tr {
+  .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default, tr, .md-content.md-table.md-theme-default{
     background-color: #2a2b31 !important;
   }
 
@@ -70,7 +70,10 @@ export default {
   }
   .md-table-content {
     width: 99%;
-    margin-left: 16px;
+    /*margin-left: 16px;*/
   }
 
+  .md-field.md-theme-default:after {
+    background-color: #85858a;
+  }
 </style>
