@@ -56,7 +56,7 @@
 }
 
 .alw-first-child {
-  border-top: 1px lightgray solid;
+  border-top: 1px #85858a solid;
 }
 
 .alw-buttons {
@@ -87,6 +87,10 @@
   align-items: start;
   -webkit-flex-direction: row;
   flex-direction: row;
+}
+
+.first {
+  margin-top: 0;
 }
 
 /*.md-input {*/

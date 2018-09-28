@@ -47,11 +47,19 @@ export default {
   .md-app {
     min-height: 100vh;
   }
-  body, tr, .md-dialog.md-theme-default {
+  body, .md-dialog.md-theme-default {
     background-color: #18191d !important;
   }
-  .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default {
+  .md-card.md-theme-default, html.md-theme-default, .md-drawer.md-theme-default, tr {
     background-color: #2a2b31 !important;
+  }
+
+  tr {
+    border: 1px solid #424242;
+  }
+
+  #table {
+    box-shadow: none;
   }
 
   button .md-button-content {
@@ -59,6 +67,10 @@ export default {
   }
   .md-dialog .md-dialog-actions button {
     margin: 0 auto;
+  }
+  .md-table-content {
+    width: 99%;
+    margin-left: 16px;
   }
 
 </style>

@@ -73,7 +73,7 @@ export default {
 
   .content-dashboard {
     margin: 0;
-    margin-top: 8px;
+    /*margin-top: 8px;*/
     display: block;
     justify-content: flex-start;
     flex-direction: row;

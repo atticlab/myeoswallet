@@ -7,7 +7,7 @@
 
     <md-card-content>
       <div>Selected producers ({{ prodToVote.length }}/30): </div>
-      <md-chip class="md-primary chips" md-deletable v-for="(prod, i) in prodToVote" :key="i" @md-delete="prodDeleteHandler(prod)">{{prod}}</md-chip>
+      <md-chip class="md-primary chips" md-deletable v-for="(prod, i) in prodToVote" :key="i" @md-delete="prodDeleteHandler(prod)">{{ prod }}</md-chip>
     </md-card-content>
 
     <md-card-content>
@@ -87,8 +87,6 @@ export default {
       return Math.pow(2, weight);
     },
     onVote() {
-      console.log(this.getAuthority);
-      console.log(this.getAccountName);
       this.prodToVote.sort();
       this.eos.transaction(
         {
@@ -126,68 +124,81 @@ export default {
         this.prodToVote.splice(index, 1);
       }
     },
+    getAlreadyVoted() {
+      if (this.eosAccount && this.eosAccount.voter_info && this.eosAccount.voter_info.producers) {
+        // eslint-disable-next-line
+        for (const prod in this.eosAccount.voter_info.producers) {
+          this.prodToVote.push(this.eosAccount.voter_info.producers[prod]);
+        }
+        if (!this.prodToVote.includes('atticlabeosb')) {
+          this.prodToVote.push('atticlabeosb');
+        }
+      }
+    },
+    getProducers() {
+      if (!this.eos) return;
+      this.eos.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
+        .then((response) => {
+          this.chainStatus = response.rows[0];
+          this.eos.getProducers({
+            json: true,
+            limit: 700,
+          })
+            .then((res) => {
+              this.producers = res.rows;
+              this.producers.sort((a, b) => b.total_votes - a.total_votes);
+              let votesToRemove = 0;
+              // eslint-disable-next-line
+              for (const index in this.producers) {
+                const percentageVotes = ((this.producers[index].total_votes / this.chainStatus.total_producer_vote_weight) * 100);
+                if (percentageVotes * 200 < 100) {
+                  votesToRemove += parseFloat(this.producers[index].total_votes);
+                }
+              }
+              const voteWeight = this.calculateVoteWeight();
+              // eslint-disable-next-line
+              for (const index in this.producers) {
+                const position = parseInt(index, 10) + 1;
+                let reward = 0;
+                const percentageVotes = (this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight));
+                const percentageVotesRewarded = ((this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight - votesToRemove)) * 100);
+
+                reward += percentageVotesRewarded * 200;
+
+                if (percentageVotes * 200 * 100 < 100) {
+                  reward = 0;
+                }
+
+                if (position < 22) {
+                  reward += 318;
+                }
+                this.producers[index].position = position;
+                this.producers[index].reward = reward.toFixed(0);
+                this.producers[index].votesPercent = percentageVotes.toFixed(4);
+                this.producers[index].numVotes = (this.producers[index].total_votes / voteWeight / 10000).toFixed(0);
+              }
+              this.loading = false;
+            })
+            .catch(e => bl.handleError(e, 'place-for-transaction'));
+        })
+        .catch(e => bl.handleError(e, 'place-for-transaction'));
+    },
   },
   created() {
-    if (this.eosAccount.voter_info && this.eosAccount.voter_info.producers) {
-      // eslint-disable-next-line
-      for (const prod in this.eosAccount.voter_info.producers) {
-        this.prodToVote.push(this.eosAccount.voter_info.producers[prod]);
-      }
-      if (!this.prodToVote.includes('atticlabeosb')) {
-        this.prodToVote.push('atticlabeosb');
-      }
-    }
-    this.eos.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
-      .then((response) => {
-        this.chainStatus = response.rows[0];
-        this.eos.getProducers({
-          json: true,
-          limit: 700,
-        })
-          .then((res) => {
-            this.producers = res.rows;
-            this.producers.sort((a, b) => b.total_votes - a.total_votes);
-            let votesToRemove = 0;
-            // eslint-disable-next-line
-            for (const index in this.producers) {
-              const percentageVotes = ((this.producers[index].total_votes / this.chainStatus.total_producer_vote_weight) * 100);
-              if (percentageVotes * 200 < 100) {
-                votesToRemove += parseFloat(this.producers[index].total_votes);
-              }
-            }
-            const voteWeight = this.calculateVoteWeight();
-            // eslint-disable-next-line
-            for (const index in this.producers) {
-              const position = parseInt(index, 10) + 1;
-              let reward = 0;
-              const percentageVotes = (this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight));
-              const percentageVotesRewarded = ((this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight - votesToRemove)) * 100);
-
-              reward += percentageVotesRewarded * 200;
-
-              if (percentageVotes * 200 * 100 < 100) {
-                reward = 0;
-              }
-
-              if (position < 22) {
-                reward += 318;
-              }
-              this.producers[index].position = position;
-              this.producers[index].reward = reward.toFixed(0);
-              this.producers[index].votesPercent = percentageVotes.toFixed(4);
-              this.producers[index].numVotes = (this.producers[index].total_votes / voteWeight / 10000).toFixed(0);
-            }
-            this.loading = false;
-          })
-          .catch(e => bl.handleError(e, 'place-for-transaction'));
-      })
-      .catch(e => bl.handleError(e, 'place-for-transaction'));
+    this.getAlreadyVoted();
+    this.getProducers();
   },
   watch: {
     prodToVote() {
       if (this.prodToVote.length > 30) {
         this.prodToVote.splice(-1);
       }
+    },
+    eosAccount() {
+      this.getAlreadyVoted();
+    },
+    eos() {
+      this.getProducers();
     },
   },
 };
@@ -202,9 +213,5 @@ export default {
   }
   .chips:hover {
     color: #7ac231 !important;
-  }
-  #main #table tr {
-    /*width: 100%;*/
-    /*background-color: red !important;*/
   }
 </style>

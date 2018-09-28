@@ -44,7 +44,7 @@
       <!--</md-table-row>-->
     <!--</md-table>-->
 
-    <md-card class="md-card-style">
+    <md-card class="first">
       <md-toolbar class="md-transparent" :md-elevation="0">
         <div class="md-title">Resources Available</div>
       </md-toolbar>

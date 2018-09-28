@@ -17,7 +17,7 @@
         </md-button>
         <md-button
           style="text-transform: none; box-shadow: none;"
-          class="md-raised md-primary">
+          class="md-raised md-primary wider">
           <span>Connect ledger (coming soon...)</span>
         </md-button>
       </div>
@@ -136,5 +136,11 @@ export default {
     align-self: auto;
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
+  }
+
+  .wider {
+    /*width: 80%;*/
+    padding-left: 4%;
+    padding-right: 4%;
   }
 </style>

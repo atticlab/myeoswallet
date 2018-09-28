@@ -6,7 +6,7 @@
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="full">
-        <md-toolbar class="md-accent">
+        <md-toolbar class="md-toolbardrawer" md-elevation="0">
           <div class="center"><img class="logo" src="../assets/logo.png" alt="eos logo"></div>
         </md-toolbar>
         <Menu @changeMenu="menuChange" />
@@ -251,8 +251,8 @@ export default {
   }
 
   .md-app-content {
-    padding-left: 4%;
-    padding-right: 4%;
+    padding-left: 1%;
+    padding-right: 1%;
     background-color: #18191d !important;
   }
 
@@ -265,7 +265,7 @@ export default {
     flex: 1;
     /*margin: auto;*/
   }
-  /*.md-toolbar {*/
-    /*background-color: #7ac231 !important;*/
-  /*}*/
+  .content .md-toolbardrawer {
+    background-color: #2a2b31 !important;
+  }
 </style>
