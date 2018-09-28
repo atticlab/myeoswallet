@@ -44,12 +44,27 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onUnregisterProducer() {
-      this.eos.unregprod(this.getAccountName)
-        .then((res) => {
-          console.debug(`${this.$options.name} RESULT`, res);
-          this[ActionType.SET_TRANSACTION](res);
-          bl.renderJSON(res, 'place-for-transaction');
-        })
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'unregprod',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                producer: this.getAccountName,
+              },
+            },
+          ],
+        },
+      ).then((res) => {
+        console.debug(`${this.$options.name} RESULT`, res);
+        this[ActionType.SET_TRANSACTION](res);
+        bl.renderJSON(res, 'place-for-transaction');
+      })
         .catch((e) => {
           this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');

@@ -45,6 +45,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
   },
   methods: {
@@ -52,12 +53,27 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onClaimReward() {
-      this.eos.claimrewards(this.getAccountName)
-        .then((res) => {
-          console.debug(`${this.$options.name} RESULT`, res);
-          this[ActionType.SET_TRANSACTION](res);
-          bl.renderJSON(res, 'place-for-transaction');
-        })
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'claimrewards',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                owner: this.getAccountName,
+              },
+            },
+          ],
+        },
+      ).then((res) => {
+        console.debug(`${this.$options.name} RESULT`, res);
+        this[ActionType.SET_TRANSACTION](res);
+        bl.renderJSON(res, 'place-for-transaction');
+      })
         .catch((e) => {
           this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');

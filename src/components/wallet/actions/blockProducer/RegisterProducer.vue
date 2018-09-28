@@ -68,12 +68,30 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onRegister() {
-      this.eos.regproducer(this.getAccountName, this.producerKey, this.url, parseInt(this.location, 10))
-        .then((res) => {
-          console.debug(`${this.$options.name} RESULT`, res);
-          this[ActionType.SET_TRANSACTION](res);
-          bl.renderJSON(res, 'place-for-transaction');
-        })
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'regproducer',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                producer: this.getAccountName,
+                producer_key: this.producerKey,
+                url: this.url,
+                location: parseInt(this.location, 10),
+              },
+            },
+          ],
+        },
+      ).then((res) => {
+        console.debug(`${this.$options.name} RESULT`, res);
+        this[ActionType.SET_TRANSACTION](res);
+        bl.renderJSON(res, 'place-for-transaction');
+      })
         .catch((e) => {
           this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');

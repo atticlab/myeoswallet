@@ -47,6 +47,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
   },
   methods: {

@@ -81,10 +81,24 @@ export default {
       }
     },
     onBid() {
-      this.eos.bidname(
-        this.getAccountName,
-        this.newname,
-        `${parseFloat(this.bid).toFixed(4)} EOS`,
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'bidname',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                bidder: this.getAccountName,
+                newname: this.newname,
+                bid: `${parseFloat(this.bid).toFixed(4)} EOS`,
+              },
+            },
+          ],
+        },
       ).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
@@ -102,6 +116,7 @@ export default {
     ...mapGetters([
       'getAccountName',
       'getBalance',
+      'getAuthority',
     ]),
     bidNameValidation() {
       if (this.newname && this.bid && !this.newnameError && !this.bidError) {

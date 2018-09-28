@@ -209,6 +209,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
     delegateValidation() {
       if (this.recipient && this.cpuStake && this.netStake &&

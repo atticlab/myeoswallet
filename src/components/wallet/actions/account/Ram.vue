@@ -192,6 +192,7 @@ export default {
       'getAccountName',
       'getFreeRamInBytes',
       'getBalance',
+      'getAuthority',
     ]),
     sellRamValidation() {
       if (parseFloat(this.ramToSell) && !this.ramToSellError) {

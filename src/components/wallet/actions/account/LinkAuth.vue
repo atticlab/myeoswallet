@@ -118,11 +118,25 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onLinkAuth() {
-      this.eos.linkauth(
-        this.getAccountName,
-        this.linkContractName,
-        this.linkContractAction,
-        this.accountPermission,
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'linkauth',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                account: this.getAccountName,
+                code: this.linkContractName,
+                type: this.linkContractAction,
+                requirement: this.accountPermission,
+              },
+            },
+          ],
+        },
       ).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
@@ -133,10 +147,24 @@ export default {
       });
     },
     onUnlinkAuth() {
-      this.eos.unlinkauth(
-        this.getAccountName,
-        this.linkContractName,
-        this.linkContractAction,
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'unlinkauth',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                account: this.getAccountName,
+                code: this.unlinkContractName,
+                type: this.unlinkContractAction,
+              },
+            },
+          ],
+        },
       ).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
@@ -153,6 +181,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
     validateLinkAuth() {
       if (this.accountPermission && this.linkContractName && this.linkContractAction) {

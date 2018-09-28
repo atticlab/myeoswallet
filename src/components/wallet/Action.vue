@@ -15,8 +15,12 @@
     </md-card>
     <md-dialog :md-active.sync="actionInfoPopUp">
       <md-dialog-content class="infoimg">
-        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail"><img src="../../assets/transactionfail.png" alt="transaction fail"></span>
-        <span v-else class="md-primary"><img src="../../assets/transactionsuccess.png" alt="transaction success"></span>
+        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail">
+          <img src="../../assets/transactionfail.png" alt="transaction fail">
+        </span>
+        <span v-else class="md-primary">
+          <img src="../../assets/transactionsuccess.png" alt="transaction success">
+        </span>
       </md-dialog-content>
 
       <md-dialog-content class="infotext">

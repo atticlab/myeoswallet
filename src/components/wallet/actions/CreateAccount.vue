@@ -105,6 +105,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
     createAccountValidation() {
       if (this.accountName && this.ownerKey && this.activeKey && parseFloat(this.cpuStake) && parseFloat(this.netStake) && parseInt(this.ram, 10) &&
@@ -121,7 +122,7 @@ export default {
     ]),
     validateAccount() {
       const rg = /^[a-z1-5]{12}$/;
-      if (this.accountName.length === 12 && rg.test(this.accountName)) {
+      if (this.accountName && this.accountName.length <= 12 && rg.test(this.accountName)) {
         this.eos.getAccount(this.accountName)
           .then(() => { this.accountNameError = true; })
           .catch(() => { this.accountNameError = false; });
@@ -145,6 +146,9 @@ export default {
       this.ramError = parseFloat(this.ram) < 0;
     },
     onCreateAccount() {
+      const options = {
+        authorization: `${this.getAccountName}@${this.getAuthority}`,
+      };
       this.eos.transaction((tr) => {
         tr.newaccount({
           creator: this.getAccountName,
@@ -166,16 +170,17 @@ export default {
           stake_cpu_quantity: `${parseFloat(this.netStake).toFixed(4)} EOS`,
           transfer: this.transfer ? 1 : 0,
         });
+      },
+      options,
+      ).then((res) => {
+        console.debug(`${this.$options.name} RESULT`, res);
+        this[ActionType.SET_TRANSACTION](res);
+        bl.renderJSON(res, 'place-for-transaction');
+        bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
+          this[ActionType.SET_BALANCE](respBalance);
+          bl.logDebug('bl.requestBalance(eos).then...', respBalance);
+        });
       })
-        .then((res) => {
-          console.debug(`${this.$options.name} RESULT`, res);
-          this[ActionType.SET_TRANSACTION](res);
-          bl.renderJSON(res, 'place-for-transaction');
-          bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
-            this[ActionType.SET_BALANCE](respBalance);
-            bl.logDebug('bl.requestBalance(eos).then...', respBalance);
-          });
-        })
         .catch((e) => {
           this[ActionType.SET_TRANSACTION](e);
           bl.handleError(e, 'place-for-transaction');

@@ -172,7 +172,24 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onSetProxy() {
-      this.eos.regproxy(this.getAccountName, 1)
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'regproxy',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                proxy: this.getAccountName,
+                isproxy: 1,
+              },
+            },
+          ],
+        },
+      )
         .then((res) => {
           console.debug(`${this.$options.name} RESULT`, res);
           this[ActionType.SET_TRANSACTION](res);

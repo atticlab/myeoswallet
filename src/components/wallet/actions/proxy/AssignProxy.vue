@@ -56,6 +56,7 @@ export default {
     ]),
     ...mapGetters([
       'getAccountName',
+      'getAuthority',
     ]),
     validate() {
       if (this.getAccountName && this.proxy && !this.proxyError) {
@@ -78,7 +79,25 @@ export default {
         });
     },
     onAssignProxy() {
-      this.eos.voteproducer(this.getAccountName, this.proxy, [])
+      this.eos.transaction(
+        {
+          actions: [
+            {
+              account: 'eosio',
+              name: 'voteproducer',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                voter: this.getAccountName,
+                proxy: this.proxy,
+                producers: [],
+              },
+            },
+          ],
+        },
+      )
         .then((res) => {
           console.debug(`${this.$options.name} RESULT`, res);
           this[ActionType.SET_TRANSACTION](res);

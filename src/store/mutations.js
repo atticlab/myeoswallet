@@ -26,7 +26,11 @@ export default {
   },
 
   [ActionType.SET_TRANSACTION]: (state, transaction) => {
-    state.transaction = transaction;
+    let t = transaction;
+    if (typeof transaction === 'string') {
+      t = JSON.parse(transaction);
+    }
+    state.transaction = t;
     if (transaction) {
       state.actionInfoPopUp = true;
     }
