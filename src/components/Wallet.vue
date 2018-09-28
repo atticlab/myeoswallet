@@ -47,10 +47,10 @@ export default {
 
     setInterval(() => {
       this.getTokenList();
-    }, 40000);
+    }, 50000);
     setInterval(() => {
       this.balanceUpdate();
-    }, 12000);
+    }, 20000);
   },
   computed: {
     ...mapState([
@@ -153,7 +153,7 @@ export default {
 
                   this.getTokenList();
                   // this.$router.push('/wallet');
-                  this.getBalance();
+                  this.balanceUpdate();
                 });
               }
             }
@@ -187,14 +187,14 @@ export default {
       });
       // setInterval(this.getTokenBalances, 40000);
     },
-  },
-  balanceUpdate() {
-    if (this.eos && this.eosAccount) {
-      bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
-        this[ActionType.SET_BALANCE](respBalance);
-        bl.logDebug('bl.requestBalance(eos).then...', respBalance);
-      });
-    }
+    balanceUpdate() {
+      if (this.eos && this.eosAccount) {
+        bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
+          this[ActionType.SET_BALANCE](respBalance);
+          bl.logDebug('bl.requestBalance(eos).then...', respBalance);
+        });
+      }
+    },
   },
 };
 </script>
