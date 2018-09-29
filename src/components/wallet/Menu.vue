@@ -5,28 +5,28 @@
       <md-list>
         <md-list-item :to="{ name: 'Dashboard' }">
           <span class="md-list-item-text">
-            <img src="../../assets/icons/dashboard.svg"/>
+            <font-awesome-icon icon="th-large"/>
             Dashboard
           </span>
         </md-list-item>
 
         <md-list-item :to="{ name: 'Transfer' }">
           <span class="md-list-item-text">
-            <img src="../../assets/icons/transfer.svg"/>
+            <font-awesome-icon icon="wallet"/>
             Transfer
           </span>
         </md-list-item>
 
         <md-list-item :to="{ name: 'CreateAccount' }">
           <span class="md-list-item-text">
-            <img src="../../assets/icons/createaccount.svg"/>
+            <font-awesome-icon icon="folder-plus"/>
             Create Account
           </span>
         </md-list-item>
 
         <md-list-item md-expand>
           <span class="md-list-item-text">
-            <img src="../../assets/icons/voting.svg"/>
+            <font-awesome-icon icon="sticky-note"/>
             Voting
           </span>
 
@@ -40,7 +40,7 @@
 
         <md-list-item md-expand>
           <span class="md-list-item-text">
-            <img src="../../assets/icons/manage.svg"/>
+            <font-awesome-icon icon="address-card"/>
             Manage
           </span>
 
@@ -56,7 +56,7 @@
 
         <md-list-item md-expand>
           <span class="md-list-item-text">
-            <img src="../../assets/icons/producer.svg"/>
+            <font-awesome-icon icon="cubes"/>
             Producer
           </span>
 
@@ -69,21 +69,21 @@
 
         <md-list-item :to="{ name: 'AirgrabTokens' }">
           <span class="md-list-item-text">
-            <img src="../../assets/icons/airgrabtoken.svg"/>
+            <font-awesome-icon icon="trophy"/>
             Airgrab Tokens
           </span>
         </md-list-item>
 
         <md-list-item :to="{ name: 'Constitution' }">
           <span class="md-list-item-text">
-            <font-awesome-icon icon="book" style="color: #85858a" />
+            <font-awesome-icon icon="university" />
             Constitution
           </span>
         </md-list-item>
 
         <md-list-item :to="{ name: 'Faq' }">
           <span class="md-list-item-text">
-            <img src="../../assets/icons/faq.svg"/>
+            <font-awesome-icon icon="question-circle"/>
             Tutorials
           </span>
         </md-list-item>

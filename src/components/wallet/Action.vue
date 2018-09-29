@@ -67,12 +67,11 @@ export default {
 </script>
 
 <style scoped>
-  /*.blockchainrawdata {*/
-    /*margin-top: 20px;*/
-  /*}*/
-
+  .blockchainrawdata {
+    margin-left: 0;
+    margin-right: 0;
+  }
   .content-dashboard {
-    margin: 0;
     /*margin-top: 8px;*/
     display: block;
     justify-content: flex-start;

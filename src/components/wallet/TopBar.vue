@@ -1,27 +1,25 @@
 <template>
   <div class="md-toolbar">
-    <md-toolbar class="md-dense md-accent" md-elevation="0">
-      <div>
-        <md-button
-          style="text-transform: none; box-shadow: none; width: 300px; color: white;"
-          class="md-raised md-primary" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
-        </md-button>
-      </div>
-      <div class="flex-item-mid md-body-2">{{ getAccountNameWithAuthority }}</div>
-      <div class="flex-item-right">
-        <md-button
-          style="text-transform: none; box-shadow: none;"
-          class="md-raised" @click="$emit('authorizationEvent')">
-          <span v-if="identity">Log out</span>
-          <span v-else>Log in</span>
-        </md-button>
-        <md-button
-          style="text-transform: none; box-shadow: none;"
-          class="md-raised md-primary wider">
-          <span>Connect ledger (coming soon...)</span>
-        </md-button>
-      </div>
-    </md-toolbar>
+    <div>
+      <md-button
+        style="text-transform: none; box-shadow: none; width: 260px;"
+        class="md-raised md-primary" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
+      </md-button>
+    </div>
+    <div class="flex-item-mid md-body-2">{{ getAccountNameWithAuthority }}</div>
+    <div class="flex-item-right">
+      <md-button
+        style="text-transform: none; box-shadow: none;"
+        class="md-raised" @click="$emit('authorizationEvent')">
+        <span v-if="identity">Log out</span>
+        <span v-else>Log in</span>
+      </md-button>
+      <md-button
+        style="text-transform: none; box-shadow: none;"
+        class="md-raised md-primary wider">
+        <span>Connect ledger (coming soon...)</span>
+      </md-button>
+    </div>
   </div>
 </template>
 
@@ -139,8 +137,11 @@ export default {
   }
 
   .wider {
-    /*width: 80%;*/
-    padding-left: 4%;
-    padding-right: 4%;
+    width: 260px;
+    /*padding-left: 4%;*/
+    /*padding-right: 4%;*/
+  }
+  .md-toolbar {
+    padding: 0;
   }
 </style>

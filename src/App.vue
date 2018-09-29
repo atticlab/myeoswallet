@@ -28,10 +28,20 @@ export default {
         font-family: 'Open Sans';
         src: url('../src/assets/fonts/OpenSans-Regular.ttf');
     }
+  @import "../src/assets/fonts/Kanit/Kanit-Medium.ttf";
+  @font-face {
+    font-family: 'Kanit';
+    src: url('../src/assets/fonts/Kanit/Kanit-Medium.ttf');
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+
+  .md-title {
+    font-family: 'Kanit';
   }
 
   #app {
@@ -62,8 +72,8 @@ export default {
     box-shadow: none;
   }
 
-  button .md-button-content {
-    color: white;
+  button .md-button-content, a.md-button {
+    color: white !important;
   }
   .md-dialog .md-dialog-actions button {
     margin: 0 auto;
@@ -74,6 +84,6 @@ export default {
   }
 
   .md-field.md-theme-default:after {
-    background-color: #85858a;
+    background-color: #717176;
   }
 </style>
