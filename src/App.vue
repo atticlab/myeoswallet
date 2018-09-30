@@ -86,4 +86,8 @@ export default {
   .md-field.md-theme-default:after {
     background-color: #717176;
   }
+
+  #popup-transaction .md-dialog-container {
+    width: 90% !important;
+  }
 </style>

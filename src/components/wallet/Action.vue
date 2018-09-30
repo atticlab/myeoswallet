@@ -13,7 +13,7 @@
       <md-card-content class="transaction-content" id="place-for-transaction">
       </md-card-content>
     </md-card>
-    <md-dialog :md-active.sync="actionInfoPopUp">
+    <md-dialog :md-active.sync="actionInfoPopUp" id="popup-transaction">
       <md-dialog-content class="infoimg">
         <span v-if="transaction && (transaction.isError || transaction.error)" class="fail">
           <img src="../../assets/transactionfail.png" alt="transaction fail">
