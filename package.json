@@ -28,7 +28,8 @@
     "vue-analytics": "^5.16.0",
     "vue-material": "latest",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

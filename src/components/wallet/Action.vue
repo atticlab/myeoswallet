@@ -94,6 +94,7 @@ export default {
   .infoimg {
     margin: 0 auto;
     overflow: unset;
+    text-align: center;
   }
 
   .infoimg img {

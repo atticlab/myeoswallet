@@ -87,7 +87,11 @@ export default {
     background-color: #717176;
   }
 
+  #popup-transaction {
+    display: block;
+  }
+
   #popup-transaction .md-dialog-container {
-    width: 90% !important;
+    width: 100% !important;
   }
 </style>

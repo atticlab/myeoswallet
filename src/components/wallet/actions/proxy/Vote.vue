@@ -19,13 +19,16 @@
       </md-button>
     </md-card-content>
 
-    <TextActionAgree/>
+    <TextActionAgree />
 
     <md-card-content>
-      <md-table v-model="producers" md-sort="position" md-sort-order="asc" md-card id="table">
+      <md-table v-model="producerToDisplay" md-sort="position" md-sort-order="asc" md-card id="table">
         <md-table-toolbar>
           <div class="md-toolbar-section-start">
             <h2 class="md-title">Producers</h2>
+          </div>
+          <div>
+            <TablePaginations :itemsPerPage="pagination.itemPerPage" :totalItems="pagination.totalItems" @changeCurrentPageEvent="changeCurrentPageHandler" />
           </div>
         </md-table-toolbar>
 
@@ -49,6 +52,7 @@
 
 <script>
 import bl from '@/bl';
+import TablePaginations from '@/components/helpers/TablePaginations';
 // import { format } from 'eosjs';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '../../../../store/constants';
@@ -63,7 +67,12 @@ export default {
       loading: true,
       searched: [],
       search: '',
+      pagination: { itemPerPage: 50, totalItems: 0, page: 1 },
+      producerToDisplay: [],
     };
+  },
+  components: {
+    TablePaginations,
   },
   computed: {
     ...mapState([
@@ -178,10 +187,14 @@ export default {
                 this.producers[index].numVotes = (this.producers[index].total_votes / voteWeight / 10000).toFixed(0);
               }
               this.loading = false;
+              this.pagination.totalItems = this.producers.length;
             })
             .catch(e => bl.handleError(e, 'place-for-transaction'));
         })
         .catch(e => bl.handleError(e, 'place-for-transaction'));
+    },
+    changeCurrentPageHandler(val) {
+      this.pagination.page = val;
     },
   },
   created() {
@@ -199,6 +212,19 @@ export default {
     },
     eos() {
       this.getProducers();
+    },
+    pagination: {
+      handler() {
+        if (this.producers) {
+          this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
+        }
+      },
+      deep: true,
+    },
+    producers() {
+      if (this.producers) {
+        this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
+      }
     },
   },
 };
