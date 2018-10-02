@@ -256,16 +256,9 @@ export default {
   .md-menu img {
     margin-right: 5px;
   }
-  .fa-band-aid {
-    color: red !important;
-  }
 </style>
 
 <style lang="scss" scoped>
-  img.white {
-    /*fill: red !important;*/
-    /*color: red;*/
-  }
   .list img {
     width: 16px;
     display: inline;

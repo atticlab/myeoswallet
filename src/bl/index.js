@@ -39,8 +39,10 @@ export default {
   getFirstBalance: balance => ((balance && balance.length > 0) ? balance[0] : '0 EOS'),
 
   logDebug: (title, obj) => {
-    console.debug(title);
-    console.debug(obj);
+    if (process.env.NODE_ENV === 'development') {
+      console.debug(title);
+      console.debug(obj);
+    }
   },
 
   renderJSON,

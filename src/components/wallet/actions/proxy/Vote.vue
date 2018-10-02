@@ -53,10 +53,10 @@
 <script>
 import bl from '@/bl';
 import TablePaginations from '@/components/helpers/TablePaginations';
+import _ from 'lodash';
 // import { format } from 'eosjs';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '../../../../store/constants';
-import _ from 'lodash';
 
 export default {
   name: 'Vote',
@@ -136,8 +136,8 @@ export default {
     },
     getAlreadyVoted() {
       if (this.eosAccount && this.eosAccount.voter_info && this.eosAccount.voter_info.producers) {
-        // eslint-disable-next-line
         this.prodToVote = [];
+        // eslint-disable-next-line
         for (const prod in this.eosAccount.voter_info.producers) {
           this.prodToVote.push(this.eosAccount.voter_info.producers[prod]);
         }

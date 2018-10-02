@@ -140,7 +140,7 @@ export default {
       return eos;
     },
     doOnLoginDesktop() {
-      ScatterJS.scatter.connect('Attic Wallet').then((connected) => {
+      ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 2000 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert = true;
           return false;
