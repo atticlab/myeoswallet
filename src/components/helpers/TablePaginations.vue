@@ -8,7 +8,7 @@
       <li v-for="n in pager"
           @click.prevent="setCurrentPage(n)"
           :key="n"
-          :class="{active: currentPage === n}">
+          :class="{active: localCurrentPage === n}">
         <a @click.prevent href="#">{{ n }}</a>
       </li>
 
