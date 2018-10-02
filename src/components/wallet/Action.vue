@@ -29,7 +29,7 @@
       </md-dialog-content>
 
       <md-dialog-content class="transaction-content">
-        <pre>{{ transaction }}</pre>
+        <div id="json-pop-up"><pre>{{ transaction }}</pre></div>
       </md-dialog-content>
 
       <md-dialog-actions>
@@ -105,5 +105,9 @@ export default {
   }
   .success {
     color: #7ac231;
+  }
+  #json-pop-up {
+    overflow: auto !important;
+    max-height: 30vh;
   }
 </style>

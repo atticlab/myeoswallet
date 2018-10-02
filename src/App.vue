@@ -89,7 +89,6 @@ export default {
 
   #popup-transaction {
     display: block;
-    overflow: auto;
     max-width: 600px;
   }
 
@@ -106,6 +105,12 @@ export default {
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: #7ac231 !important;
+    background-color: #24252B !important;
+  }
+  *::-webkit-scrollbar-track-piece {
+    background-color: #18191d !important;
+  }
+  *::-webkit-scrollbar-corner {
+    background-color: #18191d !important;
   }
 </style>
