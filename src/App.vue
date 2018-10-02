@@ -38,7 +38,7 @@ export default {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
+  }wwkk
 
   .md-title {
     font-family: 'Kanit';
@@ -107,10 +107,7 @@ export default {
   *::-webkit-scrollbar-thumb {
     background-color: #24252B !important;
   }
-  *::-webkit-scrollbar-track-piece {
-    background-color: #18191d !important;
-  }
-  *::-webkit-scrollbar-corner {
+  *::-webkit-scrollbar-track-piece, *::-webkit-scrollbar-corner {
     background-color: #18191d !important;
   }
 </style>
