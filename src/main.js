@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCubes, faWallet, faStickyNote, faFolderPlus, faAddressCard, faUniversity, faQuestionCircle, faThLarge, faTrophy, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faCubes, faWallet, faStickyNote, faFolderPlus, faAddressCard, faUniversity, faQuestionCircle, faThLarge, faTrophy, faAngleLeft, faAngleRight, faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 // import * as Eos from 'eosjs';
 import 'vue-material/dist/vue-material.min.css';
@@ -16,7 +16,7 @@ import BottomBar from './components/BottomBar';
 import TextActionAgree from './components/helpers/TextActionAgree';
 import './assets/theme.scss';
 
-library.add(faCubes, faWallet, faStickyNote, faFolderPlus, faAddressCard, faUniversity, faQuestionCircle, faThLarge, faTrophy, faAngleLeft, faAngleRight);
+library.add(faCubes, faWallet, faStickyNote, faFolderPlus, faAddressCard, faUniversity, faQuestionCircle, faThLarge, faTrophy, faAngleLeft, faAngleRight, faBars);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

@@ -89,9 +89,23 @@ export default {
 
   #popup-transaction {
     display: block;
+    overflow: auto;
+    max-width: 600px;
   }
 
   #popup-transaction .md-dialog-container {
     width: 100% !important;
+  }
+
+  *::-webkit-scrollbar {
+    width: 1em;
+  }
+
+ *::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3) !important;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #7ac231 !important;
   }
 </style>

@@ -2,10 +2,10 @@
   <div class="content">
     <md-app md-waterfall md-mode="fixed">
       <md-app-toolbar class="md-accent">
-        <TopBar @authorizationEvent="authorizationHandler"/>
+        <TopBar @authorizationEvent="authorizationHandler" @toggleMenu="toggleMenu"/>
       </md-app-toolbar>
 
-      <md-app-drawer md-permanent="full">
+      <md-app-drawer :md-active.sync="menuVisible" md-permanent="full">
         <md-toolbar class="md-toolbardrawer" md-elevation="0">
           <div class="center"><img class="logo" src="../assets/logo.png" alt="eos logo"></div>
         </md-toolbar>
@@ -51,6 +51,7 @@ export default {
     return {
       currentComponent: 'Transfer',
       noScatterAlert: false,
+      menuVisible: false,
     };
   },
   created() {
@@ -205,6 +206,9 @@ export default {
           bl.logDebug('bl.requestBalance(eos).then...', respBalance);
         });
       }
+    },
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible;
     },
   },
 };

@@ -13,7 +13,7 @@
       <md-card-content class="transaction-content" id="place-for-transaction">
       </md-card-content>
     </md-card>
-    <md-dialog :md-active.sync="actionInfoPopUp" id="popup-transaction">
+    <md-dialog :md-active.sync="actionInfoPopUp" id="popup-transaction" class="md-scrollbar">
       <md-dialog-content class="infoimg">
         <span v-if="transaction && (transaction.isError || transaction.error)" class="fail">
           <img src="../../assets/transactionfail.png" alt="transaction fail">
@@ -24,8 +24,8 @@
       </md-dialog-content>
 
       <md-dialog-content class="infotext">
-        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail">Fail</span>
-        <span v-else class="success">Success</span>
+        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail md-display-1">Fail</span>
+        <span v-else class="success md-display-1">Success</span>
       </md-dialog-content>
 
       <md-dialog-content class="transaction-content">
@@ -33,7 +33,7 @@
       </md-dialog-content>
 
       <md-dialog-actions>
-        <md-button class="md-primary" @click="closePopUp">Ok</md-button>
+        <md-button class="md-raised md-primary" @click="closePopUp" style="margin-bottom: 10px;">Ok</md-button>
       </md-dialog-actions>
     </md-dialog>
   </div>
@@ -68,8 +68,8 @@ export default {
 
 <style scoped>
   .blockchainrawdata {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   .content-dashboard {
     /*margin-top: 8px;*/

@@ -1,9 +1,12 @@
 <template>
   <div class="md-toolbar">
     <div>
+      <md-button class="md-icon-button hide-menu" @click="toggleMenu">
+        <font-awesome-icon icon="bars"></font-awesome-icon>
+      </md-button>
       <md-button
         style="text-transform: none; box-shadow: none; width: 260px;"
-        class="md-raised md-primary" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
+        class="md-raised md-primary md-medium-hide" :to="{ name: 'Vote' }">VOTE FOR ATTICLABEOSB
       </md-button>
     </div>
     <div class="flex-item-mid md-body-2">{{ getAccountNameWithAuthority }}</div>
@@ -16,7 +19,7 @@
       </md-button>
       <md-button
         style="text-transform: none; box-shadow: none;"
-        class="md-raised md-primary wider">
+        class="md-raised md-primary wider md-small-hide">
         <span>Connect ledger (coming soon...)</span>
       </md-button>
     </div>
@@ -35,6 +38,17 @@ export default {
     ...mapState([
       'identity',
     ]),
+  },
+  data() {
+    return {
+      menuVisible: false,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible;
+      this.$emit('toggleMenu');
+    },
   },
 };
 </script>
@@ -143,5 +157,10 @@ export default {
   }
   .md-toolbar {
     padding: 0;
+  }
+  @media (min-width: 600px) {
+    .hide-menu {
+      display: none;
+    }
   }
 </style>
