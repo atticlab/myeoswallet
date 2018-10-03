@@ -53,4 +53,8 @@ export default {
   [ActionType.SET_ACTIONINFOPOPUP]: (state, val) => {
     state.actionInfoPopUp = val;
   },
+
+  [ActionType.SET_HARDWARE]: (state, hardware) => {
+    state.hardware = hardware;
+  },
 };

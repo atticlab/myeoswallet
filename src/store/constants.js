@@ -10,4 +10,5 @@ export default {
   SET_TOKENBALANCE: 'setTokenBalance',
   SET_AIRGRABS: 'setAirgrabs',
   SET_ACTIONINFOPOPUP: 'setActionInfoPopUP',
+  SET_HARDWARE: 'setHardware',
 };

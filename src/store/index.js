@@ -35,6 +35,7 @@ const state = {
   tokenList: null,
   airgrabs: null,
   actionInfoPopUp: false,
+  hardware: null,
 };
 
 const getters = {
