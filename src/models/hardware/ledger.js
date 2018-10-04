@@ -7,6 +7,7 @@ const asn1 = require('asn1-ber');
 import Actions from '../../store/constants';
 import {Blockchains} from '../Blockchains';
 import {EXT_WALLET_TYPES} from '../ExternalWallet';
+import Transport from '@ledgerhq/hw-transport-node-hid';
 import Eos from 'eosjs';
 import store from '../../store';
 
@@ -44,12 +45,17 @@ export default class LedgerWallet {
     this.sign = async () => { return throwErr(); };
     this.canConnect = async () => { return 'Open and unlock your Ledger.'; };
 
-    const handleEvents = ({type, device}) => this[type](device);
+    const handleEvents = ({type, device}) => {
+      console.log('event in handleEvents')
+      console.log(type)
+      console.log(device)
+      this[type](device);
+    }
     const setHardware = async () => {
       const hardware = {
         type:EXT_WALLET_TYPES.LEDGER,
         transport:null,
-        // subscriber:Transport.listen({ next:event => handleEvents(event) }),
+        subscriber:Transport.listen({ next:event => handleEvents(event) }),
         disconnect:async () => {
           if(store.state.hardware.transport)
             await store.state.hardware.transport.close();
@@ -69,6 +75,8 @@ export default class LedgerWallet {
   }
 
   async add(device){
+    console.log('add');
+    console.log(device);
     const {path} = device;
 
     const clone = Object.assign(store.state.hardware, {transport:await Transport.open(path)});
