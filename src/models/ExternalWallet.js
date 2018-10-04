@@ -16,6 +16,7 @@ export default class ExternalWallet {
 
   constructor(_type = EXT_WALLET_TYPES.LEDGER, _blockchain = Blockchains.EOSIO){
     this.id = IdGenerator.text(64);
+
     this.type = _type;
     this.blockchain = _blockchain;
     this.interface = getInterface(_type, _blockchain);

@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const StringReplacePlugin = require('string-replace-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -75,6 +76,18 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
+    ],
+    loaders: [
+      {
+        test: /^npm-cli.js$/,
+        loader: StringReplacePlugin.replace({
+          replacements: [
+            {
+              pattern: /#!\/usr\/bin\/env node/,
+              replacement: ""
+            }
+          ]})
+      }
     ]
   },
   node: {
@@ -88,5 +101,8 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    new StringReplacePlugin()
+  ]
 }

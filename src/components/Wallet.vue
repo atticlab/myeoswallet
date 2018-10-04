@@ -140,6 +140,8 @@ export default {
       return eos;
     },
     doOnLoginDesktop() {
+      return;
+      // eslint-disable-next-line
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 2000 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert = true;
