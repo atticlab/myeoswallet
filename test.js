@@ -1,4 +1,4 @@
-const Transport = require('@ledgerhq/hw-transport-node-hid').default;
+const Transport = require('@ledgerhq/hw-transport-u2f').default;
 
 const handleEvents = ({type, device}) => {
   console.log('event in handleEvents')

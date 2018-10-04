@@ -29,6 +29,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 
 export default {
@@ -57,9 +58,12 @@ export default {
     async connectLedger() {
       const externalWallet = new ExternalWallet(this.hardwareType);
       console.log(externalWallet);
-      if (externalWallet) {
-        console.log(externalWallet.interface.getPublicKey());
-      }
+      TransportU2F.default.listen().then((transport) => {
+        console.log(transport);
+      });
+      // if (externalWallet) {
+      //   console.log(externalWallet.interface.getPublicKey());
+      // }
     },
   },
 };

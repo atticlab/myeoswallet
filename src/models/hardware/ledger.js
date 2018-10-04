@@ -7,7 +7,8 @@ const asn1 = require('asn1-ber');
 import Actions from '../../store/constants';
 import {Blockchains} from '../Blockchains';
 import {EXT_WALLET_TYPES} from '../ExternalWallet';
-import Transport from '@ledgerhq/hw-transport-node-hid';
+// import Transport from '@ledgerhq/hw-transport-node-hid';
+// import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import Eos from 'eosjs';
 import store from '../../store';
 
