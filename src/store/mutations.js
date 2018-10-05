@@ -17,6 +17,10 @@ export default {
     state.eos = eosjs;
   },
 
+  [ActionType.SET_EOS_JSAPI]: (state, eosjs) => {
+    state.eosApi = eosjs;
+  },
+
   [ActionType.SET_EOS_ACCOUNT]: (state, eosAccount) => {
     state.eosAccount = eosAccount;
   },

@@ -56,7 +56,7 @@ export default {
   },
   created() {
     this.authorizationHandler();
-
+    this.initEosApi();
     setInterval(() => {
       this.getTokenList();
     }, 50000);
@@ -88,6 +88,7 @@ export default {
       ActionType.SET_IDENTITY_ACCOUNT,
       ActionType.SET_EOS_ACCOUNT,
       ActionType.SET_EOS_JS,
+      ActionType.SET_EOS_JSAPI,
       ActionType.SET_BALANCE,
       ActionType.SET_TRANSACTION,
       ActionType.SET_TOKENLIST,
@@ -139,9 +140,12 @@ export default {
       this[ActionType.SET_EOS_JS](eos);
       return eos;
     },
+    initEosApi() {
+      const eos = Eos(this.eosConfig);
+      this[ActionType.SET_EOS_JSAPI](eos);
+      console.log(eos);
+    },
     doOnLoginDesktop() {
-      return;
-      // eslint-disable-next-line
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 2000 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert = true;

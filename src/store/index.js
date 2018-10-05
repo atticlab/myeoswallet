@@ -29,6 +29,7 @@ const state = {
   identity: null,
   identityAccount: null,
   eos: null,
+  eosApi: null,
   eosAccount: null,
   balance: [],
   transaction: null,
