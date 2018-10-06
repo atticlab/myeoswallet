@@ -13,6 +13,7 @@ exports.newAccount = (req, res) => {
       isError: true,
       error: 'Not enough paramaters',
     });
+    console.log(`${name} ${owner} ${active}`);
     return;
   }
   if (!validatePublicKey(active) || !validatePublicKey(owner)) {
@@ -20,6 +21,7 @@ exports.newAccount = (req, res) => {
       isError: true,
       error: 'Invalid public key(s)',
     });
+    console.log(`${name} ${owner} ${active}`);
     return;
   }
   const eos = Eos({
@@ -82,8 +84,10 @@ exports.newAccount = (req, res) => {
     })
     .then((result) => {
       res.json(result);
+      console.log(`${name} ${owner} ${active}`);
     })
     .catch((e) => {
       res.json(e);
+      console.log(`${name} ${owner} ${active}`);
     });
 }
