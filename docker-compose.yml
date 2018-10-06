@@ -26,3 +26,18 @@ services:
     logging:
       options:
         max-size: 50m
+
+  server:
+    restart: always
+    container_name: eoswallet-server-dev
+    build: docker/server
+    ports:
+    - "3001:3000"
+    volumes:
+      - ./:/src
+      - ./logs/nodejs:/logs
+    logging:
+      options:
+        max-size: 50m
+    env_file:
+      - .env

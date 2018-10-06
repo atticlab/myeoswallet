@@ -32,7 +32,7 @@
       <md-card-content>
         <md-field>
           <label>Owner private key</label>
-          <md-input type="text" :value="withoutAccountownerKeyPriv" maxlength="51" required @change="withoutAccountvalidateOwnerKey"></md-input>
+          <md-input type="password" :value="withoutAccountownerKeyPriv" maxlength="51" @change="withoutAccountvalidateOwnerKey"></md-input>
         </md-field>
         <md-button @click="copyOwnerKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
                    class="md-raised md-primary">Copy Owner Keys
@@ -53,7 +53,7 @@
       <md-card-content>
         <md-field>
           <label>Active private key</label>
-          <md-input type="text" :value="withoutAccountactiveKeyPriv" maxlength="51" required @change="withoutAccountvalidateOwnerKey"></md-input>
+          <md-input type="password" :value="withoutAccountactiveKeyPriv" maxlength="51" @change="withoutAccountvalidateOwnerKey"></md-input>
         </md-field>
         <md-button @click="copyActiveKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
                    class="md-raised md-primary">Copy Active Keys
@@ -289,7 +289,8 @@ export default {
         }));
     },
     withoutAccountonCreateAccount() {
-      this.$http.post('newaccount', {
+      // http://ethereum3.atticlab.net
+      this.$http.post('http://localhost:3000/newaccount', {
         name: this.withoutAccountaccountName,
         active: this.withoutAccountactiveKey,
         owner: this.withoutAccountownerKey,
@@ -354,10 +355,10 @@ export default {
       this.withoutAccountactiveKey = ecc.privateToPublic(this.withoutAccountactiveKeyPriv);
     },
     copyActiveKeys() {
-
+      this.$copyText(`Active public: ${this.withoutAccountactiveKey} Active private: ${this.withoutAccountactiveKeyPriv}`);
     },
     copyOwnerKeys() {
-
+      this.$copyText(`Owner public: ${this.withoutAccountownerKey} Owner private: ${this.withoutAccountownerKeyPriv}`);
     },
   },
 };

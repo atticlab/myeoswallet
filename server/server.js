@@ -9,18 +9,18 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, PATCH")
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH')
   next();
 });
 
-var routes = require('./routes/routes')
+const routes = require('./routes/routes')
 routes(app);
 
-var options = {}
+const options = {}
 
-var server = https.createServer(options, app).listen(port, function(){
-  console.log("Express server listening on port " + port);
+const server = https.createServer(options, app).listen(port, () => {
+  console.log('Express server listening on port ' + port);
 });

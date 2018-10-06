@@ -15,7 +15,7 @@
     </md-card>
     <md-dialog :md-active.sync="actionInfoPopUp" id="popup-transaction" class="md-scrollbar">
       <md-dialog-content class="infoimg">
-        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail">
+        <span v-if="isError" class="fail">
           <img src="../../assets/transactionfail.png" alt="transaction fail">
         </span>
         <span v-else class="md-primary">
@@ -24,7 +24,7 @@
       </md-dialog-content>
 
       <md-dialog-content class="infotext">
-        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail md-display-1">Fail</span>
+        <span v-if="isError" class="fail md-display-1">Fail</span>
         <span v-else class="success md-display-1">Success</span>
       </md-dialog-content>
 
@@ -54,6 +54,10 @@ export default {
       'transaction',
       'actionInfoPopUp',
     ]),
+    isError() {
+      return this.transaction && ((this.transaction.isError || this.transaction.error) ||
+        (this.transaction.status && this.transaction.status !== 200));
+    },
   },
   methods: {
     ...mapActions([
