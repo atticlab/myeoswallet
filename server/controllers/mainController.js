@@ -8,7 +8,7 @@ exports.newAccount = (req, res) => {
   const active = req.body.active;
   const owner = req.body.owner;
   const name = req.body.name;
-  console.log(req);
+  console.log(req.body);
   if (!active || !owner || !name) {
     res.json({
       isError: true,
