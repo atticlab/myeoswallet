@@ -143,7 +143,6 @@ export default {
     initEosApi() {
       const eos = Eos(this.eosConfig);
       this[ActionType.SET_EOS_JSAPI](eos);
-      console.log(eos);
     },
     doOnLoginDesktop() {
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 2000 }).then((connected) => {

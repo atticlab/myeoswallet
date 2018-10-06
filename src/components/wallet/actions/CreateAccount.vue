@@ -290,7 +290,7 @@ export default {
     },
     withoutAccountonCreateAccount() {
       // http://ethereum3.atticlab.net
-      this.$http.post('http://localhost:3000/newaccount', {
+      this.$http.post('newaccount', {
         name: this.withoutAccountaccountName,
         active: this.withoutAccountactiveKey,
         owner: this.withoutAccountownerKey,

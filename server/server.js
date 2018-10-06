@@ -19,8 +19,7 @@ app.use((req, res, next) => {
 const routes = require('./routes/routes')
 routes(app);
 
-const options = {}
 
-const server = https.createServer(options, app).listen(port, () => {
+const server = app.listen(port, () => {
   console.log('Express server listening on port ' + port);
 });

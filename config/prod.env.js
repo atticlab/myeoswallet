@@ -6,4 +6,5 @@ module.exports = {
   EOS_HOST: JSON.stringify(process.env.EOS_HOST),
   EOS_PORT: process.env.EOS_PORT,
   EOS_CHAIN_ID: JSON.stringify(process.env.EOS_CHAIN_ID),
+  BASE_URL: '"http://ethereum3.atticlab.net:3001"'
 };

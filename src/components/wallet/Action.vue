@@ -56,7 +56,7 @@ export default {
     ]),
     isError() {
       return this.transaction && ((this.transaction.isError || this.transaction.error) ||
-        (this.transaction.status && this.transaction.status !== 200));
+        (this.transaction.status && this.transaction.status !== 200) || this.transaction.status === 0);
     },
   },
   methods: {

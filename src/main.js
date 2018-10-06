@@ -31,7 +31,7 @@ Vue.use(VueAnalytics, {
   router,
 });
 
-// Vue.http.options.root = '192.168.0.100:3000';
+Vue.http.options.root = process.env.BASE_URL;
 
 Vue.component('BottomBar', BottomBar);
 Vue.component('TextActionAgree', TextActionAgree);
