@@ -36,7 +36,7 @@ exports.newAccount = async (req, res) => {
   });
 
   const creator = 'atticcreator';
-  await eos.transaction(
+  eos.transaction(
     {
       actions: [
         {
@@ -85,10 +85,11 @@ exports.newAccount = async (req, res) => {
     })
     .then((result) => {
       res.json(result);
-      console.log(`${name} ${owner} ${active}`);
+      console.log('ok');
     })
     .catch((e) => {
       res.json(e);
-      console.log(`${name} ${owner} ${active}`);
+      console.log('fail');
     });
+  console.log('fin');
 };
