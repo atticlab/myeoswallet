@@ -90,6 +90,7 @@ exports.newAccount = async (req, res) => {
     .catch((e) => {
       res.json(e);
       console.log('fail');
+      console.log(e);
     });
   console.log('fin');
 };
