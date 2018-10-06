@@ -4,7 +4,7 @@ const validatePublicKey = key => (typeof key === 'string' && key.length === 53 &
 const nodeHost = 'https://nodes.get-scatter.com';
 const chainID = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
 
-exports.newAccount = (req, res) => {
+exports.newAccount = async (req, res) => {
   const active = req.body.active;
   const owner = req.body.owner;
   const name = req.body.name;
@@ -36,7 +36,7 @@ exports.newAccount = (req, res) => {
   });
 
   const creator = 'atticcreator';
-  eos.transaction(
+  await eos.transaction(
     {
       actions: [
         {
@@ -91,4 +91,4 @@ exports.newAccount = (req, res) => {
       res.json(e);
       console.log(`${name} ${owner} ${active}`);
     });
-}
+};
