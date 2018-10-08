@@ -6,7 +6,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "server": "node server/server.js"
+    "server": "node server.js"
   },
   "keywords": [
     "scatter",
