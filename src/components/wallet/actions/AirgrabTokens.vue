@@ -23,7 +23,7 @@
     </md-card-content>
 
     <md-card-content class="alw-buttons">
-      Have an Airgrab you want here? Email us: <a href="mailto:team@attic.tech"> team@attic.tech</a>
+      Have an Airgrab you want here? Email us: <a href="mailto:inbox@atticlab.net"> inbox@atticlab.net</a>
     </md-card-content>
     <TextActionAgree/>
   </md-card>
