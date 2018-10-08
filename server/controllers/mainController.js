@@ -1,8 +1,16 @@
-const Eos = require('eosjs')
+const Eos = require('eosjs');
+const db = require('../db');
 
 const validatePublicKey = key => (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS');
 const nodeHost = 'https://nodes.get-scatter.com';
 const chainID = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
+
+
+const addAccountToDb = async (name) => {
+  const client = await db.getClient();
+  await db.saveAccount(name, client);
+  await db.closeConnection(client);
+};
 
 exports.newAccount = async (req, res) => {
   const active = req.body.active;
@@ -85,12 +93,18 @@ exports.newAccount = async (req, res) => {
     })
     .then((result) => {
       res.json(result);
-      console.log('ok');
+      addAccountToDb(name)
+        .then((retId) => {
+          console.log(`OK. ada_id ${retId}`);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     })
     .catch((e) => {
       res.json(e);
-      console.log('fail');
-      console.log(e);
+      console.error('fail');
+      console.error(e);
     });
   console.log('fin');
 };

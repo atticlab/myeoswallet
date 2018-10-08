@@ -16,8 +16,24 @@ app.use((req, res, next) => {
   next();
 });
 
+const db = require('./db');
+
 const routes = require('./routes/routes');
 routes(app);
+
+const addAccountToDb = async (name) => {
+  const client = await db.getClient();
+  await db.saveAccount(name, client);
+  await db.closeConnection(client);
+};
+
+addAccountToDb('aaaaaaaaaaaa')
+  .then((retId) => {
+    console.log(`OK. ada_id ${retId}`);
+  })
+  .catch((e) => {
+    console.error(e);
+  });
 
 
 const server = app.listen(port, () => {
