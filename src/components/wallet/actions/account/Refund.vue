@@ -55,7 +55,21 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onClaimReward() {
-      this.eos.refund(this.getAccountName)
+      this.eos.transaction({
+        actions: [
+          {
+            account: 'eosio',
+            name: 'refund',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              owner: this.getAccountName,
+            },
+          },
+        ],
+      })
         .then((res) => {
           console.debug(`${this.$options.name} RESULT`, res);
           this[ActionType.SET_TRANSACTION](res);

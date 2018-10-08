@@ -112,11 +112,23 @@ export default {
     ]),
     onBuyRam() {
       if (this.inEos) {
-        this.eos.buyram(
-          this.getAccountName,
-          this.receiver,
-          `${parseFloat(this.ramToBuy).toFixed(4)} EOS`,
-        ).then((transactionResult) => {
+        this.eos.transaction({
+          actions: [
+            {
+              account: 'eosio',
+              name: 'buyram',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                payer: this.getAccountName,
+                receiver: this.receiver,
+                quant: `${parseFloat(this.ramToBuy).toFixed(4)} EOS`,
+              },
+            },
+          ],
+        }).then((transactionResult) => {
           console.debug(`${this.$options.name} RESULT`, transactionResult);
           this[ActionType.SET_TRANSACTION](transactionResult);
           bl.renderJSON(transactionResult, 'place-for-transaction');
@@ -129,11 +141,23 @@ export default {
           bl.handleError(e, 'place-for-transaction');
         });
       } else {
-        this.eos.buyrambytes(
-          this.getAccountName,
-          this.receiver,
-          parseInt(this.ramToBuy, 10),
-        ).then((transactionResult) => {
+        this.eos.transaction({
+          actions: [
+            {
+              account: 'eosio',
+              name: 'buyrambytes',
+              authorization: [{
+                actor: this.getAccountName,
+                permission: this.getAuthority,
+              }],
+              data: {
+                payer: this.getAccountName,
+                receiver: this.receiver,
+                bytes: parseInt(this.ramToBuy, 10),
+              },
+            },
+          ],
+        }).then((transactionResult) => {
           console.debug(`${this.$options.name} RESULT`, transactionResult);
           this[ActionType.SET_TRANSACTION](transactionResult);
           bl.renderJSON(transactionResult, 'place-for-transaction');
@@ -148,10 +172,22 @@ export default {
       }
     },
     onSellRam() {
-      this.eos.sellram(
-        this.getAccountName,
-        this.ramToSell,
-      ).then((transactionResult) => {
+      this.eos.transaction({
+        actions: [
+          {
+            account: 'eosio',
+            name: 'sellram',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              payer: this.getAccountName,
+              bytes: this.ramToSell,
+            },
+          },
+        ],
+      }).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
         bl.renderJSON(transactionResult, 'place-for-transaction');
