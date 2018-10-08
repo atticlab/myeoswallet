@@ -1,7 +1,7 @@
 version: '2'
 services:
   nodejs:
-    container_name: eoswallet-frontend-nodejs
+    container_name: eoswallet-frontend-nodejs-dev
     build: docker/nodejs
     volumes:
       - ./:/src
@@ -14,11 +14,11 @@ services:
 
   nginx:
     restart: always
-    container_name: eoswallet-frontend-nginx
+    container_name: eoswallet-frontend-nginx-dev
     image: nginx:latest
     dns: 8.8.8.8
     ports:
-      - "8082:80"
+      - "8080:80"
     volumes:
       - ./dist:/dist
       - ./logs/nginx/:/logs
@@ -29,10 +29,10 @@ services:
 
   server:
     restart: always
-    container_name: eoswallet-server
+    container_name: eoswallet-server-dev
     build: docker/server
     ports:
-    - "3000:3000"
+    - "3001:3000"
     volumes:
       - ./:/src
       - ./logs/server:/logs

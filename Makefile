@@ -15,6 +15,9 @@ start:
 stop:
 	docker-compose stop
 
+stopdev:
+	docker-compose -f docker-compose.dev.yml stop
+
 state:
 	docker-compose ps
 
@@ -22,12 +25,23 @@ build:
 	docker-compose build
 	docker-compose up -d
 
+builddev:
+  docker-compose -f docker-compose.dev.yml build
+  docker-compose -f docker-compose.dev.yml up -d
+
 attach:
 	docker exec -i -t ${c} /bin/bash
 
 purge:
 	docker-compose down
 
+purgedev:
+	docker-compose -f docker-compose.dev.yml down
+
 re: stop build
 
+redev: stopdev builddev
+
 full: purge build
+
+fulldev: purgedev builddev
