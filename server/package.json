@@ -1,0 +1,26 @@
+{
+  "name": "atticlab-eos-wallet",
+  "version": "1.0.0",
+  "description": "A Vue.js project",
+  "author": "Evgeny Fern <evgeny.fern@gmail.com>",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "server": "node server/server.js"
+  },
+  "keywords": [
+    "scatter",
+    "blockchain",
+    "signatures",
+    "eos",
+    "ethereum"
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
+}

@@ -1,6 +1,6 @@
 FROM node:carbon
 
-ENV HOME "/src"
+ENV HOME "/src/server"
 
 WORKDIR ${HOME}
 

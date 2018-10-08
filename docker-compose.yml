@@ -1,5 +1,26 @@
 version: '2'
 services:
+  db:
+    restart: always
+    ports:
+      - "5434:5432"
+    container_name: eoswallet-db
+    build: docker/postgres
+    volumes:
+      - storage:/var/lib/postgresql/data
+      - ./logs/postgres/:/logs
+      - ./backups/:/backups
+#      - ./docker/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    env_file:
+      - ./.env
+    logging:
+      options:
+        max-size: 50m
+
   nodejs:
     container_name: eoswallet-frontend-nodejs
     build: docker/nodejs
@@ -7,6 +28,8 @@ services:
       - ./:/src
       - ./logs/nodejs:/logs
     command: ["/entrypoint.sh"]
+    links:
+      - db
     logging:
       options:
         max-size: 50m
@@ -42,3 +65,6 @@ services:
         max-size: 50m
     env_file:
       - .env
+
+volumes:
+  storage:
