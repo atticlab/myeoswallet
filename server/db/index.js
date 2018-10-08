@@ -59,7 +59,7 @@ module.exports = {
       adaName.toLowerCase().substring(0, 12),
     ];
     return new Promise((resolve, reject) => {
-      client.query(`INSERT INTO ${schema}.added_accounts(ada_name) VALUES($1) ON CONFLICT (ada_name) DO UPDATE SET ada_name = EXCLUDED.ada_name RETURNING ada_id`, data, (error, results) => {
+      client.query(`INSERT INTO ${schema}added_accounts(ada_name) VALUES($1) ON CONFLICT (ada_name) DO UPDATE SET ada_name = EXCLUDED.ada_name RETURNING ada_id`, data, (error, results) => {
         if (error != null) {
           return reject(error);
         }
