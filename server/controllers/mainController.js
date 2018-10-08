@@ -71,7 +71,7 @@ exports.newAccount = async (req, res) => {
           data: {
             payer: creator,
             receiver: name,
-            bytes: 3000,
+            bytes: 3300,
           },
         },
         {
@@ -84,8 +84,8 @@ exports.newAccount = async (req, res) => {
           data: {
             from: creator,
             receiver: name,
-            stake_net_quantity: '0.0002 EOS',
-            stake_cpu_quantity: '0.0215 EOS',
+            stake_net_quantity: '0.2000 EOS',
+            stake_cpu_quantity: '0.2000 EOS',
             transfer: 1,
           },
         },

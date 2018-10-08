@@ -145,7 +145,7 @@ export default {
       this[ActionType.SET_EOS_JSAPI](eos);
     },
     doOnLoginDesktop() {
-      ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 2000 }).then((connected) => {
+      ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert = true;
           return false;
