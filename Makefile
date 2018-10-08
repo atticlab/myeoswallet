@@ -12,14 +12,14 @@ list:
 start:
 	docker-compose start
 
-startdev:
-	docker-compose -f docker-compose.dev.yml start
+startstage:
+	docker-compose -f docker-compose.stage.yml start
 
 stop:
 	docker-compose stop
 
-stopdev:
-	docker-compose -f docker-compose.dev.yml stop
+stopstage:
+	docker-compose -f docker-compose.stage.yml stop
 
 state:
 	docker-compose ps
@@ -28,9 +28,9 @@ build:
 	docker-compose build
 	docker-compose up -d
 
-builddev:
-	docker-compose -f docker-compose.dev.yml build
-	docker-compose -f docker-compose.dev.yml up -d
+buildstage:
+	docker-compose -f docker-compose.stage.yml build
+	docker-compose -f docker-compose.stage.yml up -d
 
 attach:
 	docker exec -i -t ${c} /bin/bash
@@ -38,13 +38,13 @@ attach:
 purge:
 	docker-compose down
 
-purgedev:
-	docker-compose -f docker-compose.dev.yml down
+purgestage:
+	docker-compose -f docker-compose.stage.yml down
 
 re: stop build
 
-redev: stopdev builddev
+restage: stopstage buildstage
 
 full: purge build
 
-fulldev: purgedev builddev
+fullstage: purgestage buildstage

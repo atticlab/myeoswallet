@@ -5,4 +5,5 @@ ENV HOME "/src"
 WORKDIR ${HOME}
 
 COPY ./entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+COPY ./entrypoint_stage.sh /
+#ENTRYPOINT ["/entrypoint.sh"]

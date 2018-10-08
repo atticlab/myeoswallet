@@ -6,6 +6,7 @@ services:
     volumes:
       - ./:/src
       - ./logs/nodejs:/logs
+    command: ["./entrypoint_stage.sh"]
     logging:
       options:
         max-size: 50m
