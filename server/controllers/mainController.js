@@ -94,8 +94,8 @@ exports.newAccount = async (req, res) => {
     .then((result) => {
       res.json(result);
       addAccountToDb(name)
-        .then((retId) => {
-          console.log(`OK. ada_id ${retId}`);
+        .then(() => {
+          console.log('OK');
         })
         .catch((e) => {
           console.error(e);

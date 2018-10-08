@@ -73,11 +73,11 @@
       </md-toolbar>
 
       <md-card-content class="alw-first-child">
-        <div>Create an account on EOS for free. Attic lab provides a new option for those who really need it. First of all, before creating, you need to generate your keys. And there are two ways available: through Scatter or via My EOS Wallet. Note: Attic undertakes not to use the Service for any illegal business or behind the reasons mentioned (no remembering or storing that kind of private info). Also, paying your attention that creating an account requires staking some amount of EOS & buying some RAM.
-          Please choose an account name with up to 12 a-z symbols or generate it clicking the button on the right. Once you generate your keys through Scatter, generate active and owner public key and fill that relevantly. The private key must be kept in the safest place possible and never to be shared.
+        <div>Create an account on EOS for free. Attic lab provides a new option for those who really need it. First of all, before creating, you need to generate your keys. And there are two ways available: through Scatter or via My EOS Wallet. Note: Attic undertakes not to use the Service for any illegal business or behind the reasons mentioned(no remembering or storing that kind of private info).
+          Please choose an account name with up to 12 a-z, 1-5 symbols or generate it clicking the button on the right. Once you generate your keys through Scatter, generate active and owner public key and fill that relevantly. The private key must be kept in the safest place possible and never to be shared.
           If generate, do & use My EOS Wallet- generate your keys, copy the key pairs and save it in the place you only know. Hit the button ‘Create an account’ and enjoy all the options of EOS-world.
           Log in to your new account you could through Scatter that comes with a wide range of options at hand.
-          In case you still have any questions feel free to contact us</div>
+          In case you still have any questions feel free to contact us - <a href="mailto:inbox@atticlab.net"> inbox@atticlab.net</a>inbox@atticlab.net</div>
       </md-card-content>
     </md-card>
   </div>
