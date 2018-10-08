@@ -6,4 +6,3 @@ WORKDIR ${HOME}
 
 COPY ./entrypoint.sh /
 COPY ./entrypoint_stage.sh /
-#ENTRYPOINT ["/entrypoint.sh"]
