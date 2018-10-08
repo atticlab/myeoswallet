@@ -85,7 +85,7 @@ exports.newAccount = async (req, res) => {
             from: creator,
             receiver: name,
             stake_net_quantity: '0.2000 EOS',
-            stake_cpu_quantity: '0.2000 EOS',
+            stake_cpu_quantity: '0.3000 EOS',
             transfer: 1,
           },
         },
