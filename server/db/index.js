@@ -63,7 +63,7 @@ module.exports = {
         if (error != null) {
           return reject(error);
         }
-        return resolve(results.rows[0]);
+        return resolve(results.rows[0].ada_id);
       });
     });
   },
