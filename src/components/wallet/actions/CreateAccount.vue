@@ -256,16 +256,18 @@ export default {
       }
     },
     validateActiveKey() {
-      this.activeKeyError = !bl.validatePublicKey(this.activeKey) || this.activeKey === this.ownerKey;
+      this.activeKeyError = !bl.validatePublicKey(this.activeKey);
     },
     validateOwnerKey() {
-      this.ownerKeyError = !bl.validatePublicKey(this.ownerKey) || this.activeKey === this.ownerKey;
+      this.ownerKeyError = !bl.validatePublicKey(this.ownerKey);
     },
     withoutAccountvalidateActiveKey() {
-      this.withoutAccountactiveKeyError = !bl.validatePublicKey(this.withoutAccountactiveKey) || this.withoutAccountactiveKey === this.withoutAccountownerKey;
+      this.withoutAccountactiveKeyError = !bl.validatePublicKey(this.withoutAccountactiveKey);
+      console.log(this.withoutAccountactiveKeyError);
     },
     withoutAccountvalidateOwnerKey() {
-      this.withoutAccountownerKeyError = !bl.validatePublicKey(this.withoutAccountownerKey) || this.withoutAccountactiveKey === this.withoutAccountownerKey;
+      this.withoutAccountownerKeyError = !bl.validatePublicKey(this.withoutAccountownerKey);
+      console.log(this.withoutAccountownerKeyError);
     },
     validateCpuStake() {
       this.cpuStakeError = parseFloat(this.cpuStake) < 0;
@@ -377,6 +379,9 @@ export default {
       this.generateRandomName();
       this.generateRandomOwnerKeys();
       this.generateRandomActiveKeys();
+      this.withoutAccountaccountNameError = false;
+      this.withoutAccountownerKeyError = false;
+      this.withoutAccountactiveKeyError = false;
     },
     copyActiveKeys() {
       this.$copyText(`Active public: ${this.withoutAccountactiveKey} Active private: ${this.withoutAccountactiveKeyPriv}`);

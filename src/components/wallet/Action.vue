@@ -33,6 +33,7 @@
       </md-dialog-content>
 
       <md-dialog-actions>
+        <md-button class="md-raised md-primary" @click="copy" style="margin-bottom: 10px;">Copy</md-button>
         <md-button class="md-raised md-primary" @click="closePopUp" style="margin-bottom: 10px;">Ok</md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -65,6 +66,9 @@ export default {
     ]),
     closePopUp() {
       this[ActionType.SET_ACTIONINFOPOPUP](false);
+    },
+    copy() {
+      this.$copyText(JSON.stringify(this.transaction));
     },
   },
 };
@@ -113,5 +117,9 @@ export default {
   #json-pop-up {
     overflow: auto !important;
     max-height: 30vh;
+  }
+
+  #place-for-transaction {
+    overflow: auto;
   }
 </style>
