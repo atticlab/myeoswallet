@@ -317,9 +317,15 @@ export default {
         owner: this.withoutAccountownerKey,
       })
         .then((res) => {
-          console.debug(`${this.$options.name} RESULT`, res);
-          this[ActionType.SET_TRANSACTION](res);
-          bl.renderJSON(res, 'place-for-transaction');
+          let r = res;
+          if (!r.body) {
+            r = { isError: true, message: 'Empty body' };
+          } else {
+            r = r.body;
+          }
+          console.debug(`${this.$options.name} RESULT`, r);
+          this[ActionType.SET_TRANSACTION](r);
+          bl.renderJSON(r, 'place-for-transaction');
         })
         .catch((e) => {
           this[ActionType.SET_TRANSACTION](e);
