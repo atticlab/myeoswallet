@@ -55,17 +55,20 @@
       </md-card-content>
 
       <md-card-content class="alw-buttons">
-        <md-button>
-          <font-awesome-icon @click="random" icon="random" class="col3"/>
+        <md-button class="col3" @click="random">
+          <font-awesome-icon icon="random" />
           <md-tooltip md-direction="top">Randomize Name and Keypairs</md-tooltip>
+          Randomize
         </md-button>
-        <md-button>
-          <font-awesome-icon @click="copy" icon="copy" class="col3"/>
+        <md-button class="col3" @click="copy">
+          <font-awesome-icon icon="copy" />
           <md-tooltip md-direction="top">Copy Name and Keypairs to clipboard</md-tooltip>
+          Copy
         </md-button>
-        <md-button :disabled="withoutAccountcreateAccountValidation">
-          <font-awesome-icon @click="withoutAccountonCreateAccount" icon="plus-square" class="col3"/>
+        <md-button class="col3 md-raised md-primary" :disabled="withoutAccountcreateAccountValidation" @click="withoutAccountonCreateAccount" style="border: none;">
+          <font-awesome-icon icon="plus-square" />
           <md-tooltip md-direction="top">Create Account</md-tooltip>
+          Create Account
         </md-button>
         <!--<md-button @click="random" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"-->
                    <!--class="md-raised md-primary">Random Values-->
@@ -393,5 +396,9 @@ export default {
 
   .col3 {
     width: 33%;
+    color: #ffffff;
+    box-shadow: none;
+    background-color: #2a2b31;
+    border: 1px solid white;
   }
 </style>
