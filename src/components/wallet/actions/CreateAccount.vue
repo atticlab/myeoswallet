@@ -13,9 +13,6 @@
           <span class="md-error">Invalid name</span>
           <md-input type="text" v-model="withoutAccountaccountName" maxlength="12" required @change="withoutAccountvalidateAccount"></md-input>
         </md-field>
-        <md-button @click="generateRandomName" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
-                   class="md-raised md-primary">Random Name
-        </md-button>
       </md-card-content>
 
       <md-card-content>
@@ -24,9 +21,9 @@
           <span class="md-error">Invalid key</span>
           <md-input type="text" v-model="withoutAccountownerKey" maxlength="53" required @change="withoutAccountvalidateOwnerKey"></md-input>
         </md-field>
-        <md-button @click="generateRandomOwnerKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
-                   class="md-raised md-primary">Random Owner Key
-        </md-button>
+        <!--<md-button @click="generateRandomOwnerKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"-->
+                   <!--class="md-raised md-primary">Random Owner Key-->
+        <!--</md-button>-->
       </md-card-content>
 
       <md-card-content>
@@ -34,9 +31,6 @@
           <label>Owner private key</label>
           <md-input type="password" :value="withoutAccountownerKeyPriv" maxlength="51" @change="withoutAccountvalidateOwnerKey"></md-input>
         </md-field>
-        <md-button @click="copyOwnerKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
-                   class="md-raised md-primary">Copy Owner Keys
-        </md-button>
       </md-card-content>
 
       <md-card-content>
@@ -45,9 +39,9 @@
           <span class="md-error">Invalid key</span>
           <md-input type="text" v-model="withoutAccountactiveKey" maxlength="53" required @change="withoutAccountvalidateActiveKey"></md-input>
         </md-field>
-        <md-button @click="generateRandomActiveKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
-                   class="md-raised md-primary">Random Active Key
-        </md-button>
+        <!--<md-button @click="generateRandomActiveKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"-->
+                   <!--class="md-raised md-primary">Random Active Key-->
+        <!--</md-button>-->
       </md-card-content>
 
       <md-card-content>
@@ -55,12 +49,18 @@
           <label>Active private key</label>
           <md-input type="password" :value="withoutAccountactiveKeyPriv" maxlength="51" @change="withoutAccountvalidateOwnerKey"></md-input>
         </md-field>
-        <md-button @click="copyActiveKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
-                   class="md-raised md-primary">Copy Active Keys
-        </md-button>
+        <!--<md-button @click="copyActiveKeys" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"-->
+                   <!--class="md-raised md-primary">Copy Active Keys-->
+        <!--</md-button>-->
       </md-card-content>
 
       <md-card-content class="alw-buttons">
+        <md-button @click="random" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
+                   class="md-raised md-primary">Random Values
+        </md-button>
+        <md-button @click="copy" style="color: #ffffff; box-shadow: none; width: 300px; background-color: #2a2b31; border: 1px solid white;"
+                   class="md-raised md-primary">Copy Keys
+        </md-button>
         <md-button @click="withoutAccountonCreateAccount" style="color: #ffffff; box-shadow: none; width: 300px; "
                    class="md-raised md-primary" :disabled="withoutAccountcreateAccountValidation">Create Account
         </md-button>
@@ -358,11 +358,19 @@ export default {
       this.withoutAccountactiveKeyPriv = await ecc.randomKey();
       this.withoutAccountactiveKey = ecc.privateToPublic(this.withoutAccountactiveKeyPriv);
     },
+    random() {
+      this.generateRandomName();
+      this.generateRandomOwnerKeys();
+      this.generateRandomActiveKeys();
+    },
     copyActiveKeys() {
       this.$copyText(`Active public: ${this.withoutAccountactiveKey} Active private: ${this.withoutAccountactiveKeyPriv}`);
     },
     copyOwnerKeys() {
       this.$copyText(`Owner public: ${this.withoutAccountownerKey} Owner private: ${this.withoutAccountownerKeyPriv}`);
+    },
+    copy() {
+      this.$copyText(`Name: ${this.withoutAccountaccountName}\nOwner public: ${this.withoutAccountownerKey}\nOwner private: ${this.withoutAccountownerKeyPriv}\nActive public: ${this.withoutAccountactiveKey}\nActive private: ${this.withoutAccountactiveKeyPriv}`);
     },
   },
 };
