@@ -56,7 +56,7 @@ export default class LedgerWallet {
       const hardware = {
         type:EXT_WALLET_TYPES.LEDGER,
         transport:null,
-        subscriber:Transport.listen({ next:event => handleEvents(event) }),
+        // subscriber:Transport.listen({ next:event => handleEvents(event) }),
         disconnect:async () => {
           if(store.state.hardware.transport)
             await store.state.hardware.transport.close();

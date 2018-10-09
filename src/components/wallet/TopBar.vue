@@ -30,10 +30,13 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 // import { main } from '@/bl/test';
+import Transport from '@ledgerhq/hw-transport';
+import u2f from '@'
+import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 // import TransportU2F from '@ledgerhq/hw-transport-u2f';
+const TransportU2F = require('@ledgerhq/hw-transport-u2f').default;
 // import TransportNodeHid from '@ledgerhq/hw-transport-node-hid';
 // import eth from '@ledgerhq/hw-app-eth';
-import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 
 export default {
   name: 'TopBar',
@@ -58,19 +61,50 @@ export default {
       this.menuVisible = !this.menuVisible;
       this.$emit('toggleMenu');
     },
+    handleEvents({ type, device }) {
+      console.log('event in handleEvents');
+      console.log(type);
+      console.log(device);
+      this[type](device);
+    },
     async connectLedger() {
       const externalWallet = new ExternalWallet(this.hardwareType);
       console.log(externalWallet);
-      // TransportU2F.open('q').then((transport) => {
-      //   console.log(transport);
+      const transport = await Transport.create();
+      console.log(transport);
+      const paths = await TransportU2F.listen({
+        next: async (e) => {
+          console.log(e);
+          if (e.type === 'add') {
+            // const transport = await Transport.open(e.descriptor);
+            // console.log(transport);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+        complete: () => {},
+      });
+      console.log(paths);
+      // const t = Transport;
+      // Transport.default.listen({
+      //   next: event => this.handleEvents(event),
       // });
-      // main();
-      // TransportNodeHid.default.listen().then((transport) => {
-      //   console.log(transport);
+      // const sub = Transport.default.listen({
+      //   next: async (e) => {
+      //     if (e.type === 'add') {
+      //       sub.unsubscribe();
+      //       const transport = await Transport.open(e.descriptor);
+      //       console.log(transport);
+      //     }
+      //   },
+      //   error: (error) => {
+      //     console.log(error);
+      //   },
+      //   complete: () => {},
       // });
-      // if (externalWallet) {
-      //   console.log(externalWallet.interface.getPublicKey());
-      // }
+      const transportu2f = new TransportU2F(transport);
+      console.log(transportu2f);
     },
   },
 };
