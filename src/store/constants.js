@@ -1,6 +1,7 @@
 export default {
   SET_SCATTER: 'setScatter',
   SET_EOS_JS: 'setEosjs',
+  SET_EOS_JSAPI: 'setEosjsApi',
   SET_IDENTITY: 'setIdentity',
   SET_IDENTITY_ACCOUNT: 'setIdentityAccount',
   SET_EOS_ACCOUNT: 'setEosAccount',
@@ -10,4 +11,5 @@ export default {
   SET_TOKENBALANCE: 'setTokenBalance',
   SET_AIRGRABS: 'setAirgrabs',
   SET_ACTIONINFOPOPUP: 'setActionInfoPopUP',
+  SET_HARDWARE: 'setHardware',
 };

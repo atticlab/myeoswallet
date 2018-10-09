@@ -15,7 +15,7 @@
     </md-card>
     <md-dialog :md-active.sync="actionInfoPopUp" id="popup-transaction" class="md-scrollbar">
       <md-dialog-content class="infoimg">
-        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail">
+        <span v-if="isError" class="fail">
           <img src="../../assets/transactionfail.png" alt="transaction fail">
         </span>
         <span v-else class="md-primary">
@@ -24,7 +24,7 @@
       </md-dialog-content>
 
       <md-dialog-content class="infotext">
-        <span v-if="transaction && (transaction.isError || transaction.error)" class="fail md-display-1">Fail</span>
+        <span v-if="isError" class="fail md-display-1">Fail</span>
         <span v-else class="success md-display-1">Success</span>
       </md-dialog-content>
 
@@ -33,6 +33,7 @@
       </md-dialog-content>
 
       <md-dialog-actions>
+        <md-button class="md-raised md-primary" @click="copy" style="margin-bottom: 10px;">Copy</md-button>
         <md-button class="md-raised md-primary" @click="closePopUp" style="margin-bottom: 10px;">Ok</md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -54,6 +55,10 @@ export default {
       'transaction',
       'actionInfoPopUp',
     ]),
+    isError() {
+      return this.transaction && ((this.transaction.isError || this.transaction.error) ||
+        (this.transaction.status && this.transaction.status !== 200) || this.transaction.status === 0);
+    },
   },
   methods: {
     ...mapActions([
@@ -61,6 +66,9 @@ export default {
     ]),
     closePopUp() {
       this[ActionType.SET_ACTIONINFOPOPUP](false);
+    },
+    copy() {
+      this.$copyText(JSON.stringify(this.transaction));
     },
   },
 };
@@ -109,5 +117,9 @@ export default {
   #json-pop-up {
     overflow: auto !important;
     max-height: 30vh;
+  }
+
+  #place-for-transaction {
+    overflow: auto;
   }
 </style>

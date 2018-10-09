@@ -29,12 +29,14 @@ const state = {
   identity: null,
   identityAccount: null,
   eos: null,
+  eosApi: null,
   eosAccount: null,
   balance: [],
   transaction: null,
   tokenList: null,
   airgrabs: null,
   actionInfoPopUp: false,
+  hardware: null,
 };
 
 const getters = {
@@ -73,17 +75,19 @@ const getters = {
         if (currentState.eosAccount.voter_info.staked) {
           return currentState.eosAccount.voter_info.staked / 10000;
         }
-      } else {
+      } else if (process.env.NODE_ENV === 'development') {
         console.debug('getStacked => eosAccount.voter_info is null...');
       }
-    } else {
+    } else if (process.env.NODE_ENV === 'development') {
       console.debug('getStacked => eosAccount is null...');
     }
     return 0;
   },
   getRam: (currentState) => {
     if (!currentState.eosAccount) {
-      console.debug('getRam => currentState.eosAccount is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getRam => currentState.eosAccount is null...');
+      }
       return 0;
     }
     return getRestPercent(
@@ -92,21 +96,27 @@ const getters = {
   },
   getRamInBytes: (currentState) => {
     if (!currentState.eosAccount) {
-      console.debug('getRamInBytes => currentState.eosAccount is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getRamInBytes => currentState.eosAccount is null...');
+      }
       return 0;
     }
     return currentState.eosAccount.ram_quota;
   },
   getFreeRamInBytes: (currentState) => {
     if (!currentState.eosAccount) {
-      console.debug('getFreeRamInBytes => currentState.eosAccount is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getFreeRamInBytes => currentState.eosAccount is null...');
+      }
       return 0;
     }
     return currentState.eosAccount.ram_quota - currentState.eosAccount.ram_usage;
   },
   getNet: (currentState) => {
     if (!currentState.eosAccount) {
-      console.debug('getNet => currentState.eosAccount is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getNet => currentState.eosAccount is null...');
+      }
       return 0;
     }
     return getRestPercent(currentState.eosAccount, currentState.eosAccount.net_limit.used,
@@ -114,7 +124,9 @@ const getters = {
   },
   getCpu: (currentState) => {
     if (!currentState.eosAccount) {
-      console.debug('getCpu => currentState.eosAccount is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getCpu => currentState.eosAccount is null...');
+      }
       return 0;
     }
     return getRestPercent(currentState.eosAccount, currentState.eosAccount.cpu_limit.used,
@@ -122,21 +134,27 @@ const getters = {
   },
   getSymbol: (currentState) => {
     if (!currentState.identityAccount || !currentState.identityAccount.blockchain) {
-      console.debug('getSymbol => currentState.identityAccount is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getSymbol => currentState.identityAccount is null...');
+      }
       return '';
     }
     return currentState.identityAccount.blockchain.toUpperCase();
   },
   getTokens: (currentState) => {
     if (!currentState.tokenList) {
-      console.debug('getTokens => currentState.tokenList is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getTokens => currentState.tokenList is null...');
+      }
       return [];
     }
     return currentState.tokenList.filter(obj => obj.balance && obj.symbol !== 'EOS');
   },
   getTokensWithEos: (currentState) => {
     if (!currentState.tokenList) {
-      console.debug('getTokensWithEos => currentState.tokenList is null...');
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('getTokensWithEos => currentState.tokenList is null...');
+      }
       return [];
     }
     return currentState.tokenList.filter(obj => obj.balance);

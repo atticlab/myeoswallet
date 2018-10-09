@@ -17,6 +17,10 @@ export default {
     state.eos = eosjs;
   },
 
+  [ActionType.SET_EOS_JSAPI]: (state, eosjs) => {
+    state.eosApi = eosjs;
+  },
+
   [ActionType.SET_EOS_ACCOUNT]: (state, eosAccount) => {
     state.eosAccount = eosAccount;
   },
@@ -52,5 +56,9 @@ export default {
 
   [ActionType.SET_ACTIONINFOPOPUP]: (state, val) => {
     state.actionInfoPopUp = val;
+  },
+
+  [ActionType.SET_HARDWARE]: (state, hardware) => {
+    state.hardware = hardware;
   },
 };

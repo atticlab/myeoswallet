@@ -42,6 +42,11 @@ module.exports = {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
+        test: /npm-cli.js$/,
+        loader: 'shebang-loader',
+        include: [/node_modules\/npm/]
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
@@ -88,5 +93,8 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  externals: {
+    "node-hid": 'commonjs node-hid',
   }
 }

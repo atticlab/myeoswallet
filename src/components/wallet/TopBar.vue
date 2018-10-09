@@ -19,7 +19,8 @@
       </md-button>
       <md-button
         style="text-transform: none; box-shadow: none;"
-        class="md-raised md-primary wider md-small-hide">
+        class="md-raised md-primary wider md-small-hide"
+        @click="connectLedger">
         <span>Connect ledger (coming soon...)</span>
       </md-button>
     </div>
@@ -28,6 +29,11 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+// import { main } from '@/bl/test';
+// import TransportU2F from '@ledgerhq/hw-transport-u2f';
+// import TransportNodeHid from '@ledgerhq/hw-transport-node-hid';
+// import eth from '@ledgerhq/hw-app-eth';
+import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 
 export default {
   name: 'TopBar',
@@ -42,12 +48,29 @@ export default {
   data() {
     return {
       menuVisible: false,
+      hardwareReady: false,
+      selected: null,
+      hardwareType: EXT_WALLET_TYPES.LEDGER,
     };
   },
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
       this.$emit('toggleMenu');
+    },
+    async connectLedger() {
+      const externalWallet = new ExternalWallet(this.hardwareType);
+      console.log(externalWallet);
+      // TransportU2F.open('q').then((transport) => {
+      //   console.log(transport);
+      // });
+      // main();
+      // TransportNodeHid.default.listen().then((transport) => {
+      //   console.log(transport);
+      // });
+      // if (externalWallet) {
+      //   console.log(externalWallet.interface.getPublicKey());
+      // }
     },
   },
 };

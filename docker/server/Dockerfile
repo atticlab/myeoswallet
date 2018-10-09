@@ -1,8 +1,8 @@
 FROM node:carbon
 
-ENV HOME "/src"
+ENV HOME "/src/server"
 
 WORKDIR ${HOME}
 
 COPY ./entrypoint.sh /
-COPY ./entrypoint_stage.sh /
+ENTRYPOINT ["/entrypoint.sh"]

@@ -163,13 +163,25 @@ export default {
       this.netStakeError = parseFloat(this.netUnStake) < 0;
     },
     onDelegate() {
-      this.eos.delegatebw(
-        this.getAccountName,
-        this.recipient,
-        `${parseFloat(this.netStake).toFixed(4)} EOS`,
-        `${parseFloat(this.cpuStake).toFixed(4)} EOS`,
-        this.transfer ? 1 : 0,
-      ).then((transactionResult) => {
+      this.eos.transaction({
+        actions: [
+          {
+            account: 'eosio',
+            name: 'delegatebw',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              from: this.getAccountName,
+              receiver: this.recipient,
+              stake_net_quantity: `${parseFloat(this.netStake).toFixed(4)} EOS`,
+              stake_cpu_quantity: `${parseFloat(this.cpuStake).toFixed(4)} EOS`,
+              transfer: this.transfer ? 1 : 0,
+            },
+          },
+        ],
+      }).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
         bl.renderJSON(transactionResult, 'place-for-transaction');
@@ -183,12 +195,24 @@ export default {
       });
     },
     onUndelegate() {
-      this.eos.undelegatebw(
-        this.getAccountName,
-        this.stakeHolder,
-        `${parseFloat(this.netUnStake).toFixed(4)} EOS`,
-        `${parseFloat(this.cpuUnStake).toFixed(4)} EOS`,
-      ).then((transactionResult) => {
+      this.eos.transaction({
+        actions: [
+          {
+            account: 'eosio',
+            name: 'undelegatebw',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              from: this.getAccountName,
+              receiver: this.stakeHolder,
+              unstake_net_quantity: `${parseFloat(this.netUnStake).toFixed(4)} EOS`,
+              unstake_cpu_quantity: `${parseFloat(this.cpuUnStake).toFixed(4)} EOS`,
+            },
+          },
+        ],
+      }).then((transactionResult) => {
         console.debug(`${this.$options.name} RESULT`, transactionResult);
         this[ActionType.SET_TRANSACTION](transactionResult);
         bl.renderJSON(transactionResult, 'place-for-transaction');
