@@ -28,6 +28,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@ledgerhq/hw-transport": "^4.21.0",
     "@ledgerhq/hw-transport-u2f": "^4.21.0",
+    "@ledgerhq/hw-transport-node-hid": "^4.24.0",
     "asn1-ber": "^1.0.9",
     "assert": "^1.4.1",
     "axios": "^0.18.0",

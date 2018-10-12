@@ -30,8 +30,8 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 // import { main } from '@/bl/test';
-import Transport from '@ledgerhq/hw-transport';
-import u2f from '@'
+// import Transport from '@ledgerhq/hw-transport';
+import Eos from '../../models/hardware/eosledjer'
 import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 // import TransportU2F from '@ledgerhq/hw-transport-u2f';
 const TransportU2F = require('@ledgerhq/hw-transport-u2f').default;
@@ -68,24 +68,34 @@ export default {
       this[type](device);
     },
     async connectLedger() {
+      const bip44Path = "44'/194'/0'/0/0";
       const externalWallet = new ExternalWallet(this.hardwareType);
       console.log(externalWallet);
-      const transport = await Transport.create();
-      console.log(transport);
-      const paths = await TransportU2F.listen({
-        next: async (e) => {
-          console.log(e);
-          if (e.type === 'add') {
-            // const transport = await Transport.open(e.descriptor);
-            // console.log(transport);
-          }
-        },
-        error: (error) => {
-          console.log(error);
-        },
-        complete: () => {},
-      });
-      console.log(paths);
+      TransportU2F.create()
+        .then((transport) => {
+          console.log(transport);
+          const eos = new Eos(transport);
+          eos.getPublicKey(bip44Path, false).then((o) => {
+            console.log(o.wif);
+            eos.getPublicKey(bip44Path, true).then((o1) => {
+              console.log(o1.wif);
+            });
+          });
+        });
+      // const paths = await TransportU2F.listen({
+      //   next: async (e) => {
+      //     console.log(e);
+      //     if (e.type === 'add') {
+      //       // const transport = await Transport.open(e.descriptor);
+      //       // console.log(transport);
+      //     }
+      //   },
+      //   error: (error) => {
+      //     console.log(error);
+      //   },
+      //   complete: () => {},
+      // });
+      // console.log(paths);
       // const t = Transport;
       // Transport.default.listen({
       //   next: event => this.handleEvents(event),
@@ -103,8 +113,8 @@ export default {
       //   },
       //   complete: () => {},
       // });
-      const transportu2f = new TransportU2F(transport);
-      console.log(transportu2f);
+      // const transportu2f = new TransportU2F(transport);
+      // console.log(transportu2f);
     },
   },
 };
