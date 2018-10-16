@@ -93,8 +93,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  },
-  externals: {
-    "node-hid": 'commonjs node-hid',
   }
 }

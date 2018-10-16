@@ -29,14 +29,10 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-// import { main } from '@/bl/test';
-// import Transport from '@ledgerhq/hw-transport';
-import Eos from '../../models/hardware/eosledjer'
-import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 // import TransportU2F from '@ledgerhq/hw-transport-u2f';
-const TransportU2F = require('@ledgerhq/hw-transport-u2f').default;
-// import TransportNodeHid from '@ledgerhq/hw-transport-node-hid';
-// import eth from '@ledgerhq/hw-app-eth';
+// import Eos from '../../models/hardware/eosledjer';
+import Eos from 'eosjs';
+import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 
 export default {
   name: 'TopBar',
@@ -46,6 +42,7 @@ export default {
     ]),
     ...mapState([
       'identity',
+      'eos',
     ]),
   },
   data() {
@@ -70,18 +67,52 @@ export default {
     async connectLedger() {
       const bip44Path = "44'/194'/0'/0/0";
       const externalWallet = new ExternalWallet(this.hardwareType);
-      console.log(externalWallet);
-      TransportU2F.create()
-        .then((transport) => {
-          console.log(transport);
-          const eos = new Eos(transport);
-          eos.getPublicKey(bip44Path, false).then((o) => {
-            console.log(o.wif);
-            eos.getPublicKey(bip44Path, true).then((o1) => {
-              console.log(o1.wif);
-            });
-          });
+      console.log('top bar');
+      // console.log(await externalWallet.interface.canConnect());
+      let pubKey = await externalWallet.interface.getPublicKey("44'/194'/0'/0/0", false);
+
+      const expireInSeconds = 60 * 60;
+
+      const info = await this.eos.getInfo({});
+
+      const block = await this.eos.getBlock(info.last_irreversible_block_num);
+
+      const transactionHeaders = {
+        expiration: new Date(new Date().getTime() + (expireInSeconds * 1000)).toISOString().split('.')[0],
+        ref_block_num: (info.last_irreversible_block_num) & 0xFFFF, // eslint-disable-line
+        ref_block_prefix: block.ref_block_prefix,
+      };
+      const EOS = Eos({
+        httpEndpoint: null,
+        broadcast: false,
+        sign: false,
+        chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+        transactionHeaders,
+        // checkChainId: false - enable after merge of https://github.com/EOSIO/eosjs/pull/179
+      });
+
+      const transfer = await EOS.transfer('andryha2yha1', 'rgsnryfcksye', '0.0001 EOS', '');
+      console.log(transfer);
+      externalWallet.interface.sign(pubKey.wif, JSON.stringify(transfer.transaction))
+        .then((r) => {
+          console.log(r);
+        })
+        .catch((e) => {
+          console.log(e);
         });
+      console.log(transfer);
+      // transferTransaction = transfer.transaction
+
+      // TransportU2F.create()
+      //   .then((transport) => {
+      //     console.log(transport);
+      //     const eos = new Eos(transport);
+      //     eos.getPublicKey(bip44Path, false).then((o) => {
+      //       console.log(o);
+      //     });
+      //   });
+
+
       // const paths = await TransportU2F.listen({
       //   next: async (e) => {
       //     console.log(e);

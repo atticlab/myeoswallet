@@ -8,8 +8,9 @@ import Actions from '../../store/constants';
 import {Blockchains} from '../Blockchains';
 import {EXT_WALLET_TYPES} from '../ExternalWallet';
 // import Transport from '@ledgerhq/hw-transport-node-hid';
-// import TransportU2F from '@ledgerhq/hw-transport-u2f';
+import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import Eos from 'eosjs';
+import EosLedger from '../../models/hardware/eosledjer'
 import store from '../../store';
 
 export const LEDGER_PATHS = {
@@ -42,58 +43,40 @@ export default class LedgerWallet {
   };
 
   async init(){
-    this.getPublicKey = async () => { return throwErr(); };
-    this.sign = async () => { return throwErr(); };
+    this.getPublicKey = async () => { throw new Error('not initialized') };
+    this.sign = async () => { throw new Error('not initialized') };
     this.canConnect = async () => { return 'Open and unlock your Ledger.'; };
 
-    const handleEvents = ({type, device}) => {
-      console.log('event in handleEvents')
-      console.log(type)
-      console.log(device)
-      this[type](device);
-    }
     const setHardware = async () => {
-      const hardware = {
-        type:EXT_WALLET_TYPES.LEDGER,
-        transport:null,
-        // subscriber:Transport.listen({ next:event => handleEvents(event) }),
-        disconnect:async () => {
-          if(store.state.hardware.transport)
-            await store.state.hardware.transport.close();
-          if(store.state.hardware.subscriber)
-            await store.state.hardware.subscriber.unsubscribe();
-          store.dispatch(Actions.SET_HARDWARE, null);
-          delete cache[this.blockchain];
+      let hardware = null;
+
+      try {
+        hardware = {
+          type:EXT_WALLET_TYPES.LEDGER,
+          transport:null,
+          transportInstance: null,
+          eos: null,
+          disconnect: async () => {
+            store.dispatch(Actions.SET_HARDWARE, null);
+            delete cache[this.blockchain];
+          }
         }
+        hardware.transportInstance = await TransportU2F.create()
+        hardware.eos = new EosLedger(hardware.transportInstance)
+        this.getPublicKey = hardware.eos.getPublicKey;
+        this.sign = hardware.eos.signTransaction;
+        this.canConnect = hardware.eos.getAppConfiguration;
+      } catch (e) {
+        console.log(e)
       }
+
       return store.dispatch(Actions.SET_HARDWARE, hardware);
     }
 
-    if(store.state.hardware){
+    if(store.state.hardware) {
       await store.state.hardware.disconnect();
       return await setHardware();
     } else return await setHardware();
-  }
-
-  async add(device){
-    console.log('add');
-    console.log(device);
-    const {path} = device;
-
-    const clone = Object.assign(store.state.hardware, {transport:await Transport.open(path)});
-    store.dispatch(Actions.SET_HARDWARE, clone);
-
-
-    this.api = new LedgerAPI(store.state.hardware.transport, this.blockchain, this);
-    this.getPublicKey = this.api.getPublicKey;
-    this.sign = this.api.signTransaction;
-    this.canConnect = this.api.getAppConfiguration;
-  }
-
-  async remove(device){
-    const {path} = device;
-    await store.state.hardware.disconnect();
-    store.dispatch(Actions.SET_HARDWARE, null);
   }
 
 }
@@ -127,9 +110,6 @@ class LedgerAPI {
           buffer.writeUInt32BE(element, 1 + 4 * index);
         });
 
-        const popup = Popup.checkHardwareWalletScreen();
-        PopupService.push(popup);
-
         return store.state.hardware.transport
           .send(
             CODE.CLA,
@@ -139,7 +119,6 @@ class LedgerAPI {
             buffer
           )
           .then(response => {
-            PopupService.remove(popup);
             const result = {};
             const publicKeyLength = response[0];
             const addressLength = response[1 + publicKeyLength];
@@ -151,7 +130,6 @@ class LedgerAPI {
               )
               .toString("ascii"));
           }).catch(err => {
-            PopupService.remove(popup);
             reject(err);
           })
       }, 1);
@@ -172,8 +150,6 @@ class LedgerAPI {
     try {
       b = serialize(network.chainId, rawTxHex.transaction, fc.types).toString('hex');
     } catch(e){
-      WindowService.flashWindow();
-      PopupService.push(Popup.prompt('Ledger Action Not Supported', 'Looks like this action isn\'t supported by the Ledger App', 'exclamation-triangle', 'Okay'));
       return null;
     }
     const rawTx = Buffer.from(b, "hex");
@@ -201,9 +177,6 @@ class LedgerAPI {
       offset += chunkSize;
     }
 
-    const popup = Popup.checkHardwareWalletScreen();
-    PopupService.push(popup);
-
     return foreach(toSend, (data, i) =>
       store.state.hardware.transport
         .send(CODE.CLA, CODE.SIGN, i === 0 ? CODE.FIRST : CODE.MORE, 0x00, data)
@@ -212,13 +185,11 @@ class LedgerAPI {
           return response;
         })
     ).then(() => {
-      PopupService.remove(popup);
       const v = response.slice(0, 1).toString("hex");
       const r = response.slice(1, 1 + 32).toString("hex");
       const s = response.slice(1 + 32, 1 + 32 + 32).toString("hex");
       return v + r + s;
     }).catch(err => {
-      PopupService.remove(popup);
       return null;
     })
   }
