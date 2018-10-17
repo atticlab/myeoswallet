@@ -32,6 +32,7 @@ import { mapGetters, mapState } from 'vuex';
 // import TransportU2F from '@ledgerhq/hw-transport-u2f';
 // import Eos from '../../models/hardware/eosledjer';
 import Eos from 'eosjs';
+import ecc from 'eosjs-ecc';
 import ExternalWallet, { EXT_WALLET_TYPES } from '../../models/ExternalWallet';
 
 export default {
@@ -42,7 +43,7 @@ export default {
     ]),
     ...mapState([
       'identity',
-      'eos',
+      'eosApi',
     ]),
   },
   data() {
@@ -54,35 +55,65 @@ export default {
     };
   },
   methods: {
+    getKeyPairFromPublicKey(publicKey, decrypt = false) {
+      const keypair = store.state.scatter.keychain.keypairs.find(x => x.publicKeys.find(k => k.key === publicKey));
+      if(keypair) {
+        if(decrypt) keypair.decrypt(store.state.seed);
+        return keypair;
+      }
+
+      const identity = store.state.scatter.keychain.identities.find(x => x.publicKey === publicKey);
+      if(identity) {
+        if(decrypt) identity.decrypt(store.state.seed);
+        return Keypair.fromJson({
+          name:identity.name,
+          blockchain:Keypair.blockchain(publicKey),
+          publicKey,
+          privateKey:identity.privateKey
+        });
+      }
+
+      return null;
+    },
+    publicToPrivate(publicKey) {
+      const keypair = this.getKeyPairFromPublicKey(publicKey, true);
+      if (keypair) return keypair.privateKey;
+      return null;
+    },
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
       this.$emit('toggleMenu');
     },
-    handleEvents({ type, device }) {
-      console.log('event in handleEvents');
-      console.log(type);
-      console.log(device);
-      this[type](device);
+    signer(payload, publicKey, arbitrary = false, isHash = false) {
+      let privateKey = this.publicToPrivate(publicKey);
+      if (!privateKey) return null;
+
+      if (typeof privateKey !== 'string') privateKey = this.bufferToHexPrivate(privateKey);
+
+      if (arbitrary && isHash) {
+        return ecc.Signature.signHash(payload.data, privateKey).toString();
+      }
+      return ecc.sign(Buffer.from(arbitrary ? payload.data : payload.buf, 'utf8'), privateKey);
     },
     async connectLedger() {
       const bip44Path = "44'/194'/0'/0/0";
       const externalWallet = new ExternalWallet(this.hardwareType);
       console.log('top bar');
       // console.log(await externalWallet.interface.canConnect());
-      let pubKey = await externalWallet.interface.getPublicKey("44'/194'/0'/0/0", false);
+      // let pubKey = await externalWallet.interface.getPublicKey("44'/194'/0'/0/0", false);
 
       const expireInSeconds = 60 * 60;
 
-      const info = await this.eos.getInfo({});
+      const info = await this.eosApi.getInfo({});
 
-      const block = await this.eos.getBlock(info.last_irreversible_block_num);
+      const block = await this.eosApi.getBlock(info.last_irreversible_block_num);
 
       const transactionHeaders = {
         expiration: new Date(new Date().getTime() + (expireInSeconds * 1000)).toISOString().split('.')[0],
         ref_block_num: (info.last_irreversible_block_num) & 0xFFFF, // eslint-disable-line
         ref_block_prefix: block.ref_block_prefix,
       };
-      const EOS = Eos({
+      let EOS = Eos({
         httpEndpoint: null,
         broadcast: false,
         sign: false,
@@ -93,9 +124,16 @@ export default {
 
       const transfer = await EOS.transfer('andryha2yha1', 'rgsnryfcksye', '0.0001 EOS', '');
       console.log(transfer);
-      externalWallet.interface.sign(pubKey.wif, JSON.stringify(transfer.transaction))
+      externalWallet.interface.sign(bip44Path, transfer.transaction)
         .then((r) => {
-          console.log(r);
+          EOS = Eos({
+            httpEndpoint: 'https://nodes.get-scatter.com',
+            broadcast: true,
+            sign: true,
+            chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+            keyProvider: r,
+            // checkChainId: false - enable after merge of https://github.com/EOSIO/eosjs/pull/179
+          });
         })
         .catch((e) => {
           console.log(e);

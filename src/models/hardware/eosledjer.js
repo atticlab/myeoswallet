@@ -17,6 +17,14 @@ var _promise = require("babel-runtime/core-js/promise");
 
 var _promise2 = _interopRequireDefault(_promise);
 
+var asn1 = require('asn1-ber');
+
+var EosApi = require('eosjs');
+
+var fcbuffer = require('fcbuffer');
+
+var assert = require('assert');
+
 exports.foreach = foreach;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34,6 +42,73 @@ var P2_NO_CHAINCODE = 0x00;
 var P2_CHAINCODE = 0x01;
 var P1_FIRST = 0x00;
 var P1_MORE = 0x80;
+
+function serialize(chainId, transaction, types)  {
+  const writer = new asn1.BerWriter();
+
+  encode(writer, fcbuffer.toBuffer(types.checksum256(), chainId));
+  encode(writer, fcbuffer.toBuffer(types.time(), transaction.expiration));
+  encode(writer, fcbuffer.toBuffer(types.uint16(), transaction.ref_block_num));
+  encode(
+    writer,
+    fcbuffer.toBuffer(types.uint32(), transaction.ref_block_prefix)
+  );
+  encode(
+    writer,
+    fcbuffer.toBuffer(types.unsigned_int(), 0) //transaction.net_usage_words
+  );
+  encode(
+    writer,
+    fcbuffer.toBuffer(types.uint8(), transaction.max_cpu_usage_ms)
+  );
+  encode(
+    writer,
+    fcbuffer.toBuffer(types.unsigned_int(), transaction.delay_sec)
+  );
+
+  assert(transaction.context_free_actions.length === 0);
+  encode(writer, fcbuffer.toBuffer(types.unsigned_int(), 0));
+
+  assert(transaction.actions.length === 1);
+  encode(writer, fcbuffer.toBuffer(types.unsigned_int(), 1));
+
+  const action = transaction.actions[0];
+
+  encode(writer, fcbuffer.toBuffer(types.account_name(), action.account));
+  encode(writer, fcbuffer.toBuffer(types.action_name(), action.name));
+
+  encode(
+    writer,
+    fcbuffer.toBuffer(types.unsigned_int(), action.authorization.length)
+  );
+  for (let i = 0; i < action.authorization.length; i += 1) {
+    const authorization = action.authorization[i];
+
+    encode(
+      writer,
+      fcbuffer.toBuffer(types.account_name(), authorization.actor)
+    );
+    encode(
+      writer,
+      fcbuffer.toBuffer(types.permission_name(), authorization.permission)
+    );
+  }
+
+  const data = Buffer.from(action.data, 'hex');
+  encode(writer, fcbuffer.toBuffer(types.unsigned_int(), data.length));
+  encode(writer, data);
+
+  assert(writer, transaction.transaction_extensions.length === 0);
+  encode(writer, fcbuffer.toBuffer(types.unsigned_int(), 0));
+  encode(writer, fcbuffer.toBuffer(types.checksum256(), Buffer.alloc(32, 0)));
+
+  return writer.buffer;
+}
+
+function encode(writer, buffer){
+  writer.writeBuffer(buffer, asn1.Ber.OctetString);
+}
+
 
 function foreach(arr, callback) {
     function iterate(index, array, result) {
@@ -111,11 +186,21 @@ var Eos = function () {
 
             var paths = bippath.fromString(path).toPathArray();
             var offset = 0;
-            var rawTx = Buffer.from(rawTxHex, "hex");
             var toSend = [];
             var response = void 0;
 
-            var _loop = function _loop() {
+            const { fc } = EosApi({httpEndpoint:process.env.EOS_PROTOCOL + '://' + process.env.EOS_HOST, chainId:process.env.EOS_CHAIN_ID});
+            let b;
+            try {
+              b = serialize(process.env.EOS_CHAIN_ID, rawTxHex.transaction, fc.types).toString('hex');
+            } catch(e){
+              console.error(e);
+              return null;
+            }
+
+          var rawTx = Buffer.from(b, "hex");
+
+          var _loop = function _loop() {
                 var maxChunkSize = offset === 0 ? 150 - 1 - paths.length * 4 : 150;
                 var chunkSize = offset + maxChunkSize > rawTx.length ? rawTx.length - offset : maxChunkSize;
                 var buffer = Buffer.alloc(offset === 0 ? 1 + paths.length * 4 + chunkSize : chunkSize);
@@ -145,7 +230,9 @@ var Eos = function () {
                 var r = response.slice(1, 1 + 32).toString("hex");
                 var s = response.slice(1 + 32, 1 + 32 + 32).toString("hex");
                 return { v: v, r: r, s: s };
-            });
+                // return v + r + s;
+            })
+              .catch(e => console.log(e));
         }
 
         /**

@@ -78,6 +78,7 @@ export default {
   computed: {
     ...mapState([
       'eos',
+      'eosApi',
       'eosAccount',
     ]),
     ...mapGetters([
@@ -147,11 +148,11 @@ export default {
       }
     },
     getProducers() {
-      if (!this.eos) return;
-      this.eos.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
+      if (!this.eosApi) return;
+      this.eosApi.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
         .then((response) => {
           this.chainStatus = response.rows[0];
-          this.eos.getProducers({
+          this.eosApi.getProducers({
             json: true,
             limit: 700,
           })
