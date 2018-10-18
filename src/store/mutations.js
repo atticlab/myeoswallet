@@ -61,4 +61,7 @@ export default {
   [ActionType.SET_HARDWARE]: (state, hardware) => {
     state.hardware = hardware;
   },
+  [ActionType.SET_LEDGER_WALLET]: (state, ledgerWallet) => {
+    state.ledgerWallet = ledgerWallet;
+  },
 };

@@ -6,11 +6,9 @@ import LedgerWallet from './hardware/ledger';
 // import LiquidEOS from './hardware/liquid';
 
 export const EXT_WALLET_TYPES = {
-  LEDGER: 'Ledger Nano S',
-  // LIQUID_EOS: 'Scatter/LiquidEOS DIY Hardware Wallet',
+  LEDGER: 'Ledger Nano S'
 };
-
-export const EXT_WALLET_TYPES_ARR = Object.keys(EXT_WALLET_TYPES).map(x => EXT_WALLET_TYPES[x]);
+export const bip44Path = "44'/194'/0'/0/0";
 
 export default class ExternalWallet {
 
@@ -36,24 +34,3 @@ const getInterface = (type, blockchain) => {
     // case EXT_WALLET_TYPES.LIQUID_EOS: return LiquidEOS.typeToInterface();
   }
 }
-
-export class ExternalWalletInterface {
-
-  constructor(handler){
-    this.handler = handler;
-  }
-
-  async sign(publicKey, trx, abi){
-    return await this.handler.sign(publicKey, trx, abi);
-  }
-
-  async getPublicKey(){
-    return await this.handler.getPublicKey();
-  }
-
-  canConnect(){
-    return this.handler.canConnect();
-  }
-
-}
-

@@ -2,7 +2,7 @@
   <div class="content">
     <md-app md-waterfall md-mode="fixed">
       <md-app-toolbar class="md-accent">
-        <TopBar @authorizationEvent="authorizationHandler" @toggleMenu="toggleMenu"/>
+        <TopBar @authorizationEvent="authorizationHandler" @toggleMenu="toggleMenu" @ledgerEvent="connectLedger" />
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible" md-permanent="full">
@@ -42,6 +42,7 @@ import ActionType from '@/store/constants';
 import axios from 'axios';
 import Eos from 'eosjs';
 import ScatterJS from 'scatter-js/dist/scatter.esm';
+import ExternalWallet, { EXT_WALLET_TYPES, bip44Path } from '../models/ExternalWallet';
 import TopBar from './wallet/TopBar';
 import Menu from './wallet/Menu';
 
@@ -63,18 +64,23 @@ export default {
     setInterval(() => {
       this.balanceUpdate();
     }, 20000);
+    const ledgerWallet = new ExternalWallet(EXT_WALLET_TYPES.LEDGER);
+    this[ActionType.SET_LEDGER_WALLET](ledgerWallet);
   },
   computed: {
     ...mapState([
       'scatter',
       'identity',
       'eos',
+      'eosApi',
       'eosAccount',
       'tokenList',
+      'ledgerWallet',
     ]),
     ...mapGetters([
       'httpEndpoint',
       'eosConfig',
+      'eosConfigLedger',
     ]),
   },
   components: {
@@ -93,6 +99,7 @@ export default {
       ActionType.SET_TRANSACTION,
       ActionType.SET_TOKENLIST,
       ActionType.SET_TOKENBALANCE,
+      ActionType.SET_LEDGER_WALLET,
     ]),
     menuChange(val) {
       this.currentComponent = val;
@@ -214,6 +221,63 @@ export default {
     },
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
+    },
+    connectLedger() {
+      this.ledgerWallet.interface.getPublicKey(bip44Path, false)
+        .then((key) => {
+          this.eosApi.getKeyAccounts(key.wif)
+            .then((accountFromKey) => {
+              const name = accountFromKey.account_names[0];
+              console.log(name);
+              this.eosApi.getAccount(name)
+                .then((account) => {
+                  const authority = account.permissions.find((authObj) => {
+                    const keys = authObj.required_auth.keys;
+                    return keys.find((keyObj) => {
+                      if (keyObj.key === key.wif) {
+                        return true;
+                      }
+                      return false;
+                    });
+                  }).perm_name;
+                  console.log(authority);
+                  this[ActionType.SET_EOS_ACCOUNT]({ account_name: name });
+                  this[ActionType.SET_IDENTITY_ACCOUNT]({ authority });
+                });
+            })
+            .catch(e => console.log(e));
+        })
+        .catch(e => console.log(e));
+
+      const eos = Eos(Object.assign(this.eosConfigLedger));
+      this[ActionType.SET_EOS_JSAPI](eos);
+
+      // this.eosApi.transaction(
+      //   {
+      //     actions: [
+      //       {
+      //         account: 'eosio',
+      //         name: 'voteproducer',
+      //         authorization: [{
+      //           actor: 'andryha2yha1',
+      //           permission: 'ledger',
+      //         }],
+      //         data: {
+      //           voter: 'andryha2yha1',
+      //           proxy: '',
+      //           producers: [
+      //             'atticlabeosb',
+      //           ],
+      //         },
+      //       },
+      //     ],
+      //   })
+      //   .then((txres) => {
+      //     console.log(txres);
+      //   })
+      //   .catch((txerr) => {
+      //     console.log(txerr);
+      //   });
     },
   },
 };

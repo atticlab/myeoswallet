@@ -4,7 +4,7 @@ import bl from '@/bl';
 
 import mutations from './mutations';
 import actions from './actions';
-
+import { bip44Path } from '../models/ExternalWallet';
 
 Vue.use(Vuex);
 
@@ -37,6 +37,7 @@ const state = {
   airgrabs: null,
   actionInfoPopUp: false,
   hardware: null,
+  ledgerWallet: null,
 };
 
 const getters = {
@@ -51,6 +52,19 @@ const getters = {
     broadcast: true,
     verbose: false,
     sign: true,
+  }),
+  eosConfigLedger: currentState => ({
+    blockchain: process.env.BLOCKCHAIN,
+    chainId: process.env.EOS_CHAIN_ID,
+    protocol: process.env.EOS_PROTOCOL,
+    host: process.env.EOS_HOST,
+    port: process.env.EOS_PORT,
+    httpEndpoint: `${process.env.EOS_PROTOCOL}://${process.env.EOS_HOST}:${process.env.EOS_PORT}`,
+    expireInSeconds: 60,
+    broadcast: true,
+    verbose: false,
+    sign: false,
+    signProvider: transaction => currentState.ledgerWallet.interface.sign(bip44Path, transaction).then(r => r),
   }),
   getAccountName: currentState => ((currentState.eosAccount) ? currentState.eosAccount.account_name : ''),
   getAuthority: currentState => ((currentState.identityAccount) ? currentState.identityAccount.authority : ''),

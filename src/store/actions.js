@@ -30,4 +30,6 @@ export default {
   [ActionType.SET_ACTIONINFOPOPUP]: ({ commit }, val) => commit(ActionType.SET_ACTIONINFOPOPUP, val),
 
   [ActionType.SET_HARDWARE]: ({ commit }, hardware) => commit(ActionType.SET_HARDWARE, hardware),
+
+  [ActionType.SET_LEDGER_WALLET]: ({ commit }, ledgerWallet) => commit(ActionType.SET_LEDGER_WALLET, ledgerWallet),
 };

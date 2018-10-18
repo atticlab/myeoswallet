@@ -29,8 +29,7 @@ exports.foreach = foreach;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var bippath = require('bip32-path'); /* Borrowed from https://github.com/tarassh/fairy-wallet */
-
+var bippath = require('bip32-path');
 
 var CLA = 0xD4;
 var INS_GET_PUBLIC_KEY = 0x02;
@@ -229,8 +228,8 @@ var Eos = function () {
                 var v = response.slice(0, 1).toString("hex");
                 var r = response.slice(1, 1 + 32).toString("hex");
                 var s = response.slice(1 + 32, 1 + 32 + 32).toString("hex");
-                return { v: v, r: r, s: s };
-                // return v + r + s;
+                // return { v: v, r: r, s: s };
+                return v + r + s;
             })
               .catch(e => console.log(e));
         }

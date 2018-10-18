@@ -12,4 +12,5 @@ export default {
   SET_AIRGRABS: 'setAirgrabs',
   SET_ACTIONINFOPOPUP: 'setActionInfoPopUP',
   SET_HARDWARE: 'setHardware',
+  SET_LEDGER_WALLET: 'setLedgerWallet',
 };
