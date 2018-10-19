@@ -100,6 +100,7 @@ export default {
       ActionType.SET_TOKENLIST,
       ActionType.SET_TOKENBALANCE,
       ActionType.SET_LEDGER_WALLET,
+      ActionType.SET_HARDWARE,
     ]),
     menuChange(val) {
       this.currentComponent = val;
@@ -112,7 +113,9 @@ export default {
       }
     },
     logout() {
-      this.scatter.forgetIdentity();
+      if (this.scatter && this.scatter.identity) {
+        this.scatter.forgetIdentity();
+      }
       this[ActionType.SET_IDENTITY](null);
       this[ActionType.SET_IDENTITY_ACCOUNT](null);
       this[ActionType.SET_EOS_JS](null);
@@ -121,7 +124,6 @@ export default {
       this[ActionType.SET_TRANSACTION](null);
       this[ActionType.SET_TOKENLIST](null);
       this[ActionType.SET_TOKENBALANCE](null);
-      // this.$router.push('/');
     },
     initIdentity(identity) {
       if (identity) {
@@ -152,6 +154,7 @@ export default {
       this[ActionType.SET_EOS_JSAPI](eos);
     },
     doOnLoginDesktop() {
+      this.logout();
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert = true;
@@ -203,13 +206,14 @@ export default {
       }
     },
     getTokenBalances() {
-      this.tokenList.forEach((token) => {
-        bl.requestBalance(this.eos, this.eosAccount, token).then((respBalance) => {
-          this[ActionType.SET_TOKENBALANCE]({ balance: respBalance, symbol: token.symbol });
-          bl.logDebug(`bl.requestBalance(${token.symbol}).then...`, respBalance);
+      if (this.eos && this.eosAccount) {
+        this.tokenList.forEach((token) => {
+          bl.requestBalance(this.eos, this.eosAccount, token).then((respBalance) => {
+            this[ActionType.SET_TOKENBALANCE]({ balance: respBalance, symbol: token.symbol });
+            bl.logDebug(`bl.requestBalance(${token.symbol}).then...`, respBalance);
+          });
         });
-      });
-      // setInterval(this.getTokenBalances, 40000);
+      }
     },
     balanceUpdate() {
       if (this.eos && this.eosAccount) {
@@ -223,12 +227,12 @@ export default {
       this.menuVisible = !this.menuVisible;
     },
     connectLedger() {
+      this.logout();
       this.ledgerWallet.interface.getPublicKey(bip44Path, false)
         .then((key) => {
           this.eosApi.getKeyAccounts(key.wif)
             .then((accountFromKey) => {
               const name = accountFromKey.account_names[0];
-              console.log(name);
               this.eosApi.getAccount(name)
                 .then((account) => {
                   const authority = account.permissions.find((authObj) => {
@@ -240,9 +244,10 @@ export default {
                       return false;
                     });
                   }).perm_name;
-                  console.log(authority);
-                  this[ActionType.SET_EOS_ACCOUNT]({ account_name: name });
+                  this[ActionType.SET_EOS_ACCOUNT](account);
                   this[ActionType.SET_IDENTITY_ACCOUNT]({ authority });
+                  this.getTokenList();
+                  this.balanceUpdate();
                 });
             })
             .catch(e => console.log(e));
@@ -250,7 +255,7 @@ export default {
         .catch(e => console.log(e));
 
       const eos = Eos(Object.assign(this.eosConfigLedger));
-      this[ActionType.SET_EOS_JSAPI](eos);
+      this[ActionType.SET_EOS_JS](eos);
 
       // this.eosApi.transaction(
       //   {

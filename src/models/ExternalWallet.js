@@ -31,6 +31,5 @@ export default class ExternalWallet {
 const getInterface = (type, blockchain) => {
   switch (type) {
     case EXT_WALLET_TYPES.LEDGER: return LedgerWallet.typeToInterface(blockchain);
-    // case EXT_WALLET_TYPES.LIQUID_EOS: return LiquidEOS.typeToInterface();
   }
 }

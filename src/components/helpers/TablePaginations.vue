@@ -53,7 +53,7 @@ export default {
       return Math.max(Math.ceil(this.totalItems / this.itemsPerPage), 1);
     },
     pager() {
-      return _.range(1, this.totalPages);
+      return _.range(1, this.totalPages + 1);
     },
   },
   methods: {
