@@ -13,11 +13,11 @@ export default {
     },
   },
   created() {
-    if (this.isMobileDevice()) {
-      this.$router.replace({
-        name: 'MobileDevice',
-      });
-    }
+    // if (this.isMobileDevice()) {
+    //   this.$router.replace({
+    //     name: 'MobileDevice',
+    //   });
+    // }
   },
 };
 </script>
