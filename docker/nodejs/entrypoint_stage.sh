@@ -4,4 +4,4 @@ apt update && apt-get -y install libusb-1.0-0-dev && apt-get -y install libudev-
 
 npm install
 
-npm run stage
+npm run build
