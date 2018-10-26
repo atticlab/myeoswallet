@@ -9,6 +9,9 @@ module.exports = {
       alias: {
         'src': resolveSrc('src')
       }
+    },
+    output: {
+      publicPath: resolveSrc('/')
     }
   },
   devServer: {
