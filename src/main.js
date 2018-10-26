@@ -48,7 +48,7 @@ Vue.use(VueClipboard);
 locale.use(lang)
 
 Vue.use(VueResource);
-Vue.http.options.root = process.env.BASE_URL;
+Vue.http.options.root = process.env.VUE_APP_BASE_URL;
 
 // table
 import {Table, TableColumn} from 'element-ui';
