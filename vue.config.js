@@ -12,7 +12,7 @@ module.exports = {
     }
   },
   devServer: {
-    https: true,
+    https: false,
     clientLogLevel: 'warning',
     hot: true,
     compress: true,
