@@ -8,7 +8,9 @@ module.exports = {
     resolve: {
       alias: {
         'src': resolveSrc('src')
-      }
+      },
+      baseUrl: process.env.NODE_ENV === 'production'
+        ? '/public/' : '/'
     }
   },
   devServer: {
