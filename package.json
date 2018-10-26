@@ -51,7 +51,8 @@
     "vuex": "^3.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
-    "@fortawesome/vue-fontawesome": "^0.1.1"
+    "@fortawesome/vue-fontawesome": "^0.1.1",
+    "webpack": "^4.23.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.11",
