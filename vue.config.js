@@ -9,9 +9,6 @@ module.exports = {
       alias: {
         'src': resolveSrc('src')
       }
-    },
-    output: {
-      publicPath: resolveSrc('/')
     }
   },
   devServer: {
@@ -29,5 +26,5 @@ module.exports = {
     }
   },
   baseUrl: process.env.NODE_ENV === 'production'
-    ? '/dist/' : '/'
+    ? resolveSrc('/') : '/'
 };
