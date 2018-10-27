@@ -24,7 +24,7 @@ module.exports = {
       poll: 1000,
       aggregateTimeout: 300,
     }
-  },
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? resolveSrc('/') : '/'
+  }
+  // baseUrl: process.env.NODE_ENV === 'production'
+  //   ? resolveSrc('/') : '/'
 };
