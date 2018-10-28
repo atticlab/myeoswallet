@@ -42,7 +42,7 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - ./public:/dist
+      - ./dist:/dist
       - ./logs/nginx/:/logs
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     logging:
