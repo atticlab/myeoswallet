@@ -113,7 +113,7 @@ const getters = {
   getRefund: (currentState) => {
     if (currentState.eosAccount) {
       if (currentState.eosAccount.refund_request) {
-          return parseFloat(currentState.eosAccount.refund_request.net_amount) + parseFloat(currentState.eosAccount.refund_request.cpu_amount);
+        return parseFloat(currentState.eosAccount.refund_request.net_amount) + parseFloat(currentState.eosAccount.refund_request.cpu_amount);
       } else if (process.env.NODE_ENV === 'development') {
         console.debug('getStacked => eosAccount.voter_info is null...');
       }

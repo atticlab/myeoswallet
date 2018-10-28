@@ -1,20 +1,26 @@
 <template>
-  <div>
-    dashboard
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><h4 class="title">Welcome to my eos wallet</h4></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <p>You must have <a href="http://get-scatter.com/" target="_blank">Scatter</a> installed to safely and securely send transactions to the EOS Network. If you would like to ask any questions check out our
+                <a href="https://t.me/atticlabeosb/">Telegram group.</a></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <p>MY EOS WALLET offers a free, open-source, client-oriented interface for
+                transferring EOS & Tokens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!--<md-card class="md-card-style md-layout-item">-->
-    <!--<md-toolbar class="md-transparent" :md-elevation="0">-->
-      <!--<div class="md-title">Welcome to my eos wallet</div>-->
-    <!--</md-toolbar>-->
-    <!--<md-card-content class="alw-first-child">-->
-      <!--<p>You must have <a href="http://get-scatter.com/" target="_blank">Scatter</a> installed to safely and securely send transactions to the EOS Network. If you would like to ask any questions check out our-->
-        <!--<a href="https://t.me/atticlabeosb/">Telegram group.</a></p>-->
-    <!--</md-card-content>-->
-    <!--<md-card-content>-->
-      <!--<p>MY EOS WALLET offers a free, open-source, client-oriented interface for-->
-        <!--transferring EOS & Tokens.</p>-->
-    <!--</md-card-content>-->
-  <!--</md-card>-->
 </template>
 
 <script>

@@ -20,25 +20,24 @@
 
 </style>
 <script>
-  import TopNavbar from './TopNavbar.vue'
-  import ContentFooter from './ContentFooter.vue'
-  import DashboardContent from './Content.vue'
-  import UserMenu from 'src/components/UIComponents/SidebarPlugin/UserMenu.vue'
+import UserMenu from 'src/components/UIComponents/SidebarPlugin/UserMenu.vue';
+import TopNavbar from './TopNavbar.vue';
+import ContentFooter from './ContentFooter.vue';
+import DashboardContent from './Content.vue';
 
-  export default {
-    components: {
-      TopNavbar,
-      ContentFooter,
-      DashboardContent,
-      UserMenu
-    },
-    methods: {
-      toggleSidebar () {
-        if (this.$sidebar.showSidebar) {
-          this.$sidebar.displaySidebar(false)
-        }
+export default {
+  components: {
+    TopNavbar,
+    ContentFooter,
+    DashboardContent,
+    UserMenu,
+  },
+  methods: {
+    toggleSidebar() {
+      if (this.$sidebar.showSidebar) {
+        this.$sidebar.displaySidebar(false);
       }
-    }
-  }
-
+    },
+  },
+};
 </script>

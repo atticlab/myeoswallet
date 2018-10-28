@@ -66,7 +66,7 @@
 
 <script>
 import bl from 'src/bl';
-import { Select, Option } from 'element-ui'
+import { Select, Option } from 'element-ui';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from 'src/store/constants';
 
@@ -83,7 +83,7 @@ export default {
   }),
   components: {
     [Select.name]: Select,
-    [Option.name]: Option
+    [Option.name]: Option,
   },
   computed: {
     ...mapState([
