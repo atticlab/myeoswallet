@@ -37,16 +37,18 @@
         </circle-chart-card>
       </div>
     </div>
-    <div class="row">
-      <div class="col" v-for="(token, i) in getTokens" :key="i">
-        <div class="card card-resources">
-          <div class="card-header text-center"><h5 class="card-title">{{ token.account.toUpperCase() }}</h5></div>
-          <div class="card-body text-center">
-            <p>Total: {{ token.balance }}</p>
+    <transition name="fade" mode="out-in">
+      <div class="row">
+        <div class="col" v-for="(token, i) in getTokens" :key="i">
+          <div class="card card-resources">
+            <div class="card-header text-center"><h5 class="card-title">{{ token.account.toUpperCase() }}</h5></div>
+            <div class="card-body text-center">
+              <p>Total: {{ token.balance }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
