@@ -3,11 +3,11 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-header">Vote producer</div>
+        <div class="card-header"><h4>Vote producer</h4></div>
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <div>Selected producers ({{ prodToVote.length }}/30): </div>
+              <div class="mb-2">Selected producers ({{ prodToVote.length }}/30): </div>
               <el-tag type="primary" :closable="true"
                       :close-transition="true" v-for="(prod, i) in prodToVote" :key="i" @close="prodDeleteHandler(prod)">{{ prod }}</el-tag>
 
@@ -23,17 +23,16 @@
             </div>
           </div>
 
-          <div class="row"><TextActionAgree /></div>
-
-          <!--<div class="row">-->
-            <!--<div class="col-sm-6">-->
-              <!--<p-pagination class="pull-right"-->
-                            <!--v-model="pagination.currentPage"-->
-                            <!--:per-page="pagination.perPage"-->
-                            <!--:total="pagination.total">-->
-              <!--</p-pagination>-->
-            <!--</div>-->
-          <!--</div>-->
+          <div class="row">
+            <div class="col"><TextActionAgree /></div>
+            <div class="col">
+              <p-pagination class="pull-right"
+                            v-model="pagination.page"
+                            :per-page="pagination.itemPerPage"
+                            :total="pagination.totalItems">
+              </p-pagination>
+            </div>
+          </div>
           <div class="row">
             <el-table :data="producerToDisplay" header-row-class-name="text-primary">
               <el-table-column
@@ -67,47 +66,32 @@
                 align="center"
                 label="Select">
                 <template slot-scope="props">
-                  <!--<p-switch v-model="props.row.active">-->
-                    <!--<i class="fa fa-check" slot="on"></i>-->
-                    <!--<i class="fa fa-times" slot="off"></i>-->
-                  <!--</p-switch>-->
                   <p-checkbox :disabled="disablePickProd && !props.row.choosed" :checked="props.row.choosed" @input="addProdToVoteArray(props.row.owner, props.row.choosed, this)"></p-checkbox>
                 </template>
               </el-table-column>
             </el-table>
           </div>
+          <div class="row mt-3">
+            <div class="col">
+              <p-pagination class="pull-right"
+                            v-model="pagination.page"
+                            :per-page="pagination.itemPerPage"
+                            :total="pagination.totalItems">
+              </p-pagination>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!--<md-card-content>-->
-      <!--<md-table v-model="producerToDisplay" md-sort="position" md-sort-order="asc" md-card id="table">-->
-        <!--<md-table-toolbar>-->
-          <!--<div class="md-toolbar-section-start">-->
-            <!--<h2 class="md-title">Producers</h2>-->
-          <!--</div>-->
-          <!--<div>-->
-            <!--<TablePaginations :itemsPerPage="pagination.itemPerPage" :totalItems="pagination.totalItems" @changeCurrentPageEvent="changeCurrentPageHandler" />-->
-          <!--</div>-->
-        <!--</md-table-toolbar>-->
-
-        <!--<md-table-row slot="md-table-row" slot-scope="{ item }">-->
-          <!--<md-table-cell md-label="Position" md-sort-by="position" md-numeric>{{ item.position }}</md-table-cell>-->
-          <!--<md-table-cell md-label="Name" md-sort-by="owner">{{ item.owner }}</md-table-cell>-->
-          <!--<md-table-cell md-label="Url" md-sort-by="url"><a target="_blank" :href="item.url">{{ item.url }}</a></md-table-cell>-->
-          <!--<md-table-cell md-label="Reward" md-sort-by="reward">{{ item.reward }}</md-table-cell>-->
-          <!--<md-table-cell md-label="Votes (%)" md-sort-by="votesPercent">{{ (item.votesPercent * 100).toFixed(3) }}</md-table-cell>-->
-          <!--<md-table-cell md-label="Select"><md-checkbox v-model="prodToVote" :value="item.owner" class="md-primary"></md-checkbox></md-table-cell>-->
-        <!--</md-table-row>-->
-      <!--</md-table>-->
-    <!--</md-card-content>-->
   </div>
 </div>
 </template>
 
 <script>
 import bl from '@/bl';
-import TablePaginations from '@/components/helpers/TablePaginations';
+// import TablePaginations from '@/components/helpers/TablePaginations';
+import PPagination from 'src/components/UIComponents/Pagination.vue'
 import _ from 'lodash';
 import { Tag } from 'element-ui';
 import { mapState, mapGetters, mapActions } from 'vuex';
@@ -129,8 +113,9 @@ export default {
     };
   },
   components: {
-    TablePaginations,
-    [Tag.name]: Tag
+    // TablePaginations,
+    [Tag.name]: Tag,
+    PPagination
   },
   computed: {
     ...mapState([
@@ -318,4 +303,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

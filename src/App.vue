@@ -282,7 +282,7 @@ export default {
 }
 </script>
 <style>
-  .select-primary.el-select .el-input input {
+  .select-primary.el-select .el-input input, span.el-tag, .card {
     border-radius: 4px !important;
   }
 
