@@ -1,18 +1,18 @@
 export default [
   {
     name: 'Dashboard',
-    icon: 'nc-icon nc-bank',
-    path: '/dashboard'
+    icon: 'nc-icon nc-album-2',
+    path: '/dashboard',
   },
   {
     name: 'Create Account',
-    icon: 'nc-icon nc-bank',
-    path: '/createacc'
+    icon: 'nc-icon nc-simple-add',
+    path: '/createacc',
   },
   {
     name: 'Transfer',
-    icon: 'nc-icon nc-bank',
-    path: '/transfer'
+    icon: 'nc-icon nc-send',
+    path: '/transfer',
   },
   {
     name: 'Voting',
@@ -20,88 +20,88 @@ export default [
     children: [
       {
         name: 'Vote',
-        path: '/vote'
+        path: '/vote',
       },
       {
         name: 'Set Proxy',
-        path: '/setproxy'
+        path: '/setproxy',
       },
       {
         name: 'UnsetProxy',
-        path: '/unsetproxy'
+        path: '/unsetproxy',
       },
       {
         name: 'Assign Proxy',
-        path: '/assignproxy'
+        path: '/assignproxy',
       },
       {
         name: 'Unassign Proxy',
-        path: '/unassignproxy'
-      }
-    ]
+        path: '/unassignproxy',
+      },
+    ],
   },
   {
     name: 'Manage',
-    icon: 'nc-icon nc-layout-11',
+    icon: 'nc-icon nc-circle-10',
     children: [{
       name: 'Advanced Permissions',
-      path: '/advancedpermission'
+      path: '/advancedpermission',
     },
     {
       name: 'LinkAuth',
-      path: '/linkauth'
+      path: '/linkauth',
     },
     {
       name: 'Permissions',
-      path: '/permission'
+      path: '/permission',
     },
     {
       name: 'Stake',
-      path: '/stake'
+      path: '/stake',
     },
     {
       name: 'Ram',
-      path: '/ram'
+      path: '/ram',
     },
     {
       name: 'Refund',
-      path: '/refund'
+      path: '/refund',
     },
     {
       name: 'Name Auction',
-      path: '/nameauction'
-    }]
+      path: '/nameauction',
+    }],
   },
   {
     name: 'Producer',
-    icon: 'nc-icon nc-ruler-pencil',
+    icon: 'nc-icon nc-trophy',
     children: [{
       name: 'Claim Rewards',
-      path: '/claimrewards'
+      path: '/claimrewards',
     },
     {
       name: 'Register Producer',
-      path: '/registerproducer'
+      path: '/registerproducer',
     },
     {
       name: 'Unregister Producer',
-      path: '/unregisterproducer'
-    }
-    ]
+      path: '/unregisterproducer',
+    },
+    ],
   },
   {
     name: 'Airgrab Tokens',
-    icon: 'nc-icon nc-box',
-    path: '/airgrabtokens'
+    icon: 'nc-icon nc-briefcase-24',
+    path: '/airgrabtokens',
   },
   {
     name: 'Faq',
-    icon: 'nc-icon nc-chart-bar-32',
-    path: '/faq'
+    icon: 'nc-icon nc-alert-circle-i',
+    path: '/faq',
   },
   {
     name: 'Constitution',
-    icon: 'nc-icon nc-calendar-60',
-    path: '/constitution'
+    icon: 'nc-icon nc-hat-3',
+    path: '/constitution',
   },
-]
+];
