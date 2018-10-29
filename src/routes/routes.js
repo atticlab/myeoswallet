@@ -42,12 +42,7 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: {name: 'Dashboard'}
-      },
-      {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: Dashboard
+        redirect: { name: 'Dashboard' },
       },
       {
         path: 'action',
@@ -55,110 +50,115 @@ const routes = [
         component: Action,
         children: [
           {
+            path: '/dashboard',
+            name: 'Dashboard',
+            component: Dashboard,
+          },
+          {
             path: '/transfer',
             name: 'Transfer',
-            component: Transfer
+            component: Transfer,
           },
           {
             path: '/createacc',
             name: 'CreateAccount',
-            component: CreateAccount
+            component: CreateAccount,
           },
           {
             path: '/vote',
             name: 'Vote',
-            component: Vote
+            component: Vote,
           },
           {
             path: '/setproxy',
             name: 'SetProxy',
-            component: SetProxy
+            component: SetProxy,
           },
           {
             path: '/assignproxy',
             name: 'AssignProxy',
-            component: AssignProxy
+            component: AssignProxy,
           },
           {
             path: '/unassignproxy',
             name: 'UnAssignProxy',
-            component: UnAssignProxy
+            component: UnAssignProxy,
           },
           {
             path: '/unsetproxy',
             name: 'UnsetProxy',
-            component: UnsetProxy
+            component: UnsetProxy,
           },
           {
             path: '/advancedpermission',
             name: 'AdvancedPermissions',
-            component: AdvancedPermissions
+            component: AdvancedPermissions,
           },
           {
             path: '/linkauth',
             name: 'LinkAuth',
-            component: LinkAuth
+            component: LinkAuth,
           },
           {
             path: '/permission',
             name: 'Permissions',
-            component: Permissions
+            component: Permissions,
           },
           {
             path: '/ram',
             name: 'Ram',
-            component: Ram
+            component: Ram,
           },
           {
             path: '/refund',
             name: 'Refund',
-            component: Refund
+            component: Refund,
           },
           {
             path: '/stake',
             name: 'Stake',
-            component: Stake
+            component: Stake,
           },
           {
             path: '/nameauction',
             name: 'NameAuction',
-            component: NameAuction
+            component: NameAuction,
           },
           {
             path: '/claimrewards',
             name: 'ClaimRewards',
-            component: ClaimRewards
+            component: ClaimRewards,
           },
           {
             path: '/registerproducer',
             name: 'RegisterProducer',
-            component: RegisterProducer
+            component: RegisterProducer,
           },
           {
             path: '/unregisterproducer',
             name: 'UnregisterProducer',
-            component: UnregisterProducer
+            component: UnregisterProducer,
           },
           {
             path: '/airgrabtokens',
             name: 'AirgrabTokens',
-            component: AirgrabTokens
-          }
-        ]
+            component: AirgrabTokens,
+          },
+        ],
       },
       {
         path: '/faq',
         name: 'Faq',
-        component: Faq
+        component: Faq,
       },
       {
         path: '/constitution',
         name: 'Constitution',
-        component: Constitution
-      }]
+        component: Constitution,
+      }],
   },
-  {path: '*', component: NotFound}
+  { path: '*', component: NotFound },
 ];
 
 
-export default routes
+export default routes;
