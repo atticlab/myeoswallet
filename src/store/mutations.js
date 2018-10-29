@@ -47,7 +47,11 @@ export default {
   [ActionType.SET_TOKENBALANCE]: (state, val) => {
     if (!val) return;
     const tokenObj = state.tokenList.find(obj => obj.symbol === val.symbol);
-    tokenObj.balance = val.balance.length ? val.balance[0] : null;
+    if (tokenObj) {
+      tokenObj.balance = val.balance.length ? val.balance[0] : null;
+    } else {
+      state.tokenList.push({ symbol: val.symbol, balance: val.balance[0] });
+    }
   },
 
   [ActionType.SET_AIRGRABS]: (state, val) => {

@@ -184,7 +184,6 @@ export default {
           bl.logDebug(`bl.requestBalance(${token.symbol}).then...`, respBalance);
         });
       });
-      // setInterval(this.getTokenBalances, 40000);
     },
   },
 };

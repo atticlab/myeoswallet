@@ -42,7 +42,7 @@ Vue.use(VueRouter)
 Vue.use(GlobalDirectives)
 Vue.use(GlobalComponents)
 Vue.use(VueNotify)
-Vue.use(SideBar, {sidebarLinks: sidebarLinks})
+Vue.use(SideBar, { sidebarLinks: sidebarLinks })
 Vue.use(VeeValidate)
 Vue.use(VueClipboard);
 locale.use(lang)

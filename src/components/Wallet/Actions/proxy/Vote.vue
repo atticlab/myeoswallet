@@ -66,12 +66,12 @@
               <el-table-column
                 align="center"
                 label="Select">
-                <template slot-scope="props"  @click="addProdToVoteArray(props.row.owner)">
+                <template slot-scope="props">
                   <!--<p-switch v-model="props.row.active">-->
                     <!--<i class="fa fa-check" slot="on"></i>-->
                     <!--<i class="fa fa-times" slot="off"></i>-->
                   <!--</p-switch>-->
-                  <p-checkbox :checked="props.row.choosed"></p-checkbox>
+                  <p-checkbox :disabled="disablePickProd && !props.row.choosed" :checked="props.row.choosed" @input="addProdToVoteArray(props.row.owner, props.row.choosed, this)"></p-checkbox>
                 </template>
               </el-table-column>
             </el-table>
@@ -109,10 +109,9 @@
 import bl from '@/bl';
 import TablePaginations from '@/components/helpers/TablePaginations';
 import _ from 'lodash';
-import { Tag } from 'element-ui'
+import { Tag } from 'element-ui';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '../../../../store/constants';
-import PSwitch from 'src/components/UIComponents/Switch.vue'
 
 export default {
   name: 'Vote',
@@ -126,12 +125,12 @@ export default {
       search: '',
       pagination: { itemPerPage: 50, totalItems: 0, page: 1 },
       producerToDisplay: [],
+      disablePickProd: false,
     };
   },
   components: {
     TablePaginations,
-    [Tag.name]: Tag,
-    PSwitch
+    [Tag.name]: Tag
   },
   computed: {
     ...mapState([
@@ -194,20 +193,23 @@ export default {
       }
     },
     getAlreadyVoted() {
-      if (this.eosAccount && this.eosAccount.voter_info && this.eosAccount.voter_info.producers) {
+      if (this.eosAccount && this.eosAccount.voter_info && this.eosAccount.voter_info.producers && this.producers) {
         this.prodToVote = [];
         // eslint-disable-next-line
         for (const prod in this.eosAccount.voter_info.producers) {
-          let obj = _.find(this.producers, { owner: this.eosAccount.voter_info.producers[prod] })
+          const obj = _.find(this.producers, { owner: this.eosAccount.voter_info.producers[prod] });
           if (obj) {
-            obj.choosed = true
+            this.$set(obj, 'choosed', !obj.choosed);
           }
-          console.log(this.producers)
-          console.log('obj');
-          console.log(obj);
           this.prodToVote.push(this.eosAccount.voter_info.producers[prod]);
         }
-        // _.find(this.producers, { owner: 'atticlabeosb' }).active = true
+        if (!this.prodToVote.includes('atticlabeosb') && this.prodToVote.length < 30) {
+          this.prodToVote.push('atticlabeosb');
+          const obj = _.find(this.producers, { owner: 'atticlabeosb' });
+          if (obj) {
+            this.$set(obj, 'choosed', true);
+          }
+        }
       }
     },
     getProducers() {
@@ -253,6 +255,7 @@ export default {
                 this.producers[index].numVotes = (this.producers[index].total_votes / voteWeight / 10000).toFixed(0);
                 this.producers[index].choosed = false;
               }
+              this.getAlreadyVoted();
               this.loading = false;
               this.pagination.totalItems = this.producers.length;
             })
@@ -263,23 +266,34 @@ export default {
     changeCurrentPageHandler(val) {
       this.pagination.page = val;
     },
-    addProdToVoteArray(val) {
-      console.log(val)
-    }
+    addProdToVoteArray(prod, choice) {
+      const index = _.findIndex(this.producers, { owner: prod });
+      if (index >= 0) {
+        this.$set(this.producers[index], 'choosed', !choice);
+      }
+      if (choice) {
+        this.prodDeleteHandler(prod);
+      } else {
+        this.prodToVote.push(prod);
+      }
+      if (this.prodToVote.length > 2) {
+        this.prodToVote = _.uniq(this.prodToVote);
+      }
+
+      this.disablePickProd = this.prodToVote.length === 30;
+      if (this.prodToVote.length > 30) {
+        this.prodToVote.splice(-1);
+        console.log(this.producers[index])
+        this.$set(this.producers[index], 'choosed', false);
+        console.log(this.producers[index])
+      }
+    },
   },
   created() {
     this.getAlreadyVoted();
     this.getProducers();
   },
   watch: {
-    prodToVote() {
-      if (this.prodToVote.length > 30) {
-        this.prodToVote.splice(-1);
-      }
-      if (this.prodToVote.length > 2) {
-        this.prodToVote = _.uniq(this.prodToVote);
-      }
-    },
     eosAccount() {
       this.getAlreadyVoted();
     },

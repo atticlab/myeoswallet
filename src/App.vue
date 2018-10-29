@@ -25,20 +25,25 @@ import ScatterJS from 'scatter-js/dist/scatter.esm';
 import ExternalWallet, { EXT_WALLET_TYPES, bip44Path } from 'src/models/ExternalWallet';
 
 export default {
-  created () {
+  data() {
+    return {
+      isLedgerConnected: false,
+    };
+  },
+  created() {
     if (this.isMobileDevice()) {
       this.$router.replace({
-        name: 'MobileDevice'
-      })
+        name: 'MobileDevice',
+      });
     }
-    this.doOnLoginDesktop()
-    this.initEosApi()
+    this.doOnLoginDesktop();
+    this.initEosApi();
     setInterval(() => {
-      this.getTokenList()
-    }, 50000)
+      this.getTokenBalances();
+    }, 50000);
     setInterval(() => {
-      this.balanceUpdate()
-    }, 20000)
+      this.balanceUpdate();
+    }, 20000);
     const ledgerWallet = new ExternalWallet(EXT_WALLET_TYPES.LEDGER)
     this[ActionType.SET_LEDGER_WALLET](ledgerWallet)
   },
@@ -50,13 +55,13 @@ export default {
       'eosApi',
       'eosAccount',
       'tokenList',
-      'ledgerWallet'
+      'ledgerWallet',
     ]),
     ...mapGetters([
       'httpEndpoint',
       'eosConfig',
-      'eosConfigLedger'
-    ])
+      'eosConfigLedger',
+    ]),
   },
   methods: {
     ...mapActions([
@@ -72,155 +77,208 @@ export default {
       ActionType.SET_TOKENBALANCE,
       ActionType.SET_LEDGER_WALLET,
       ActionType.SET_HARDWARE,
-      ActionType.LOGOUT
+      ActionType.LOGOUT,
     ]),
-    isMobileDevice () {
+    isMobileDevice() {
       return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1)
     },
-    logout () {
+    logout() {
       this[ActionType.LOGOUT]()
     },
-    initIdentity (identity) {
+    initIdentity(identity) {
       if (identity) {
-        bl.logDebug('IDENTITY...', identity)
-        this[ActionType.SET_IDENTITY](identity)
-        return identity
+        bl.logDebug('IDENTITY...', identity);
+        this[ActionType.SET_IDENTITY](identity);
+        return identity;
       }
-      return false
+      return false;
     },
-    initIdentityAccount (identity) {
+    initIdentityAccount(identity) {
       if (identity.accounts) {
-        const identityAccount = identity.accounts.find(e => e.blockchain === 'eos')
-        bl.logDebug('IDENTITY.accounts...', identity.accounts)
-        bl.logDebug('IDENTITY.accounts.find...', identityAccount)
-        this[ActionType.SET_IDENTITY_ACCOUNT](identityAccount)
-        return identityAccount
+        const identityAccount = identity.accounts.find(e => e.blockchain === 'eos');
+        bl.logDebug('IDENTITY.accounts...', identity.accounts);
+        bl.logDebug('IDENTITY.accounts.find...', identityAccount);
+        this[ActionType.SET_IDENTITY_ACCOUNT](identityAccount);
+        return identityAccount;
       }
-      return false
+      return false;
     },
-    initEos () {
-      const eosOptions = {expireInSeconds: 60}
-      const eos = this.scatter.eos(this.eosConfig, Eos, eosOptions)
-      this[ActionType.SET_EOS_JS](eos)
-      return eos
+    initEos() {
+      const eosOptions = { expireInSeconds: 60 };
+      const eos = this.scatter.eos(this.eosConfig, Eos, eosOptions);
+      this[ActionType.SET_EOS_JS](eos);
+      return eos;
     },
-    initEosApi () {
-      const eos = Eos(this.eosConfig)
-      this[ActionType.SET_EOS_JSAPI](eos)
+    initEosApi() {
+      const eos = Eos(this.eosConfig);
+      this[ActionType.SET_EOS_JSAPI](eos);
     },
-    noScatterAlert () {
+    noScatterAlert() {
       swal({
-        title: `No scatter detected!`,
+        title: 'No scatter detected!',
         html: 'Please <a href="https://get-scatter.com/" target="_blank">install Scatter plugin or desktop application</a> and refresh this page.',
         buttonsStyling: false,
-        confirmButtonClass: 'btn btn-info btn-fill'
-      })
+        confirmButtonClass: 'btn btn-info btn-fill',
+      });
     },
-    doOnLoginDesktop () {
-      this.logout()
-      ScatterJS.scatter.connect('Attic Wallet', {initTimeout: 3500}).then((connected) => {
+    doOnLoginDesktop() {
+      this.logout();
+      ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
         if (!connected) {
-          this.noScatterAlert()
-          return false
+          this.noScatterAlert();
+          return false;
         }
 
-        const scatter = ScatterJS.scatter
-        window.scatter = null
-        this[ActionType.SET_SCATTER](scatter)
+        const scatter = ScatterJS.scatter;
+        window.scatter = null;
+        this[ActionType.SET_SCATTER](scatter);
 
-        const requiredFields = {accounts: [this.eosConfig]}
+        const requiredFields = { accounts: [this.eosConfig] };
         scatter.getIdentity(requiredFields).then((identity) => {
           if (this.initIdentity(identity)) {
-            const identityAccount = this.initIdentityAccount(identity)
+            const identityAccount = this.initIdentityAccount(identity);
 
             if (identityAccount) {
-              const eos = this.initEos()
+              const eos = this.initEos();
 
               if (eos && identityAccount.name) {
                 eos.getAccount(identityAccount.name).then((respEosAccount) => {
-                  bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount)
-                  this[ActionType.SET_EOS_ACCOUNT](respEosAccount)
+                  bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
+                  this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
 
-                  this.getTokenList()
-                  // this.$router.push('/wallet');
-                  this.balanceUpdate()
-                })
+                  this.getTokenList();
+                  this.balanceUpdate();
+                });
               }
             }
           }
         })
-          .catch(error => console.error(error))
-        return true
-      })
+          .catch(error => console.error(error));
+        return true;
+      });
     },
-    getTokenList () {
+    getTokenList() {
       if (this.eosAccount) {
         axios.get('https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json')
           .then((res) => {
-            let data = res.data
-            data.push({account: 'eosio.token', symbol: 'EOS'})
-            data = data.map(val => Object.assign(val, {balance: 0}))
-            this[ActionType.SET_TOKENLIST](data)
-            this.getTokenBalances()
+            let data = res.data;
+            data.push({ account: 'eosio.token', symbol: 'EOS' })
+            data = data.map(val => Object.assign(val, { balance: 0 }));
+            this[ActionType.SET_TOKENLIST](data);
+            this.getTokenBalances();
           })
           .catch((err) => {
-            console.error(err)
-          })
+            console.error(err);
+          });
       }
     },
-    getTokenBalances () {
-      if (this.eos && this.eosAccount) {
+    getTokenBalances() {
+      if (this.eos && this.eosAccount && this.tokenList) {
         this.tokenList.forEach((token) => {
           bl.requestBalance(this.eos, this.eosAccount, token).then((respBalance) => {
-            this[ActionType.SET_TOKENBALANCE]({balance: respBalance, symbol: token.symbol})
-            bl.logDebug(`bl.requestBalance(${token.symbol}).then...`, respBalance)
-          })
-        })
+            this[ActionType.SET_TOKENBALANCE]({ balance: respBalance, symbol: token.symbol });
+            bl.logDebug(`bl.requestBalance(${token.symbol}).then...`, respBalance);
+          });
+        });
       }
     },
-    balanceUpdate () {
+    balanceUpdate() {
       if (this.eos && this.eosAccount) {
         bl.requestBalance(this.eos, this.eosAccount).then((respBalance) => {
-          this[ActionType.SET_BALANCE](respBalance)
-          bl.logDebug('bl.requestBalance(eos).then...', respBalance)
-        })
+          this[ActionType.SET_BALANCE](respBalance);
+          bl.logDebug('bl.requestBalance(eos).then...', respBalance);
+        });
       }
     },
-    toggleMenu () {
+    toggleMenu() {
       this.menuVisible = !this.menuVisible
     },
-    connectLedger () {
-      this.logout()
-      this.ledgerWallet.interface.getPublicKey(bip44Path, false)
-        .then((key) => {
-          this.eosApi.getKeyAccounts(key.wif)
-            .then((accountFromKey) => {
-              const name = accountFromKey.account_names[0]
-              this.eosApi.getAccount(name)
-                .then((account) => {
-                  const authority = account.permissions.find((authObj) => {
-                    const keys = authObj.required_auth.keys
-                    return keys.find((keyObj) => {
-                      if (keyObj.key === key.wif) {
-                        return true
-                      }
-                      return false
-                    })
-                  }).perm_name
-                  this[ActionType.SET_EOS_ACCOUNT](account)
-                  this[ActionType.SET_IDENTITY_ACCOUNT]({authority})
-                  this.getTokenList()
-                  this.balanceUpdate()
-                })
-            })
-            .catch(e => console.log(e))
-        })
-        .catch(e => console.log(e))
-
-      const eos = Eos(Object.assign(this.eosConfigLedger))
-      this[ActionType.SET_EOS_JS](eos)
-    }
-  }
+    failConnectLedger(json) {
+      let text = 'For more information check <a href="https://support.ledgerwallet.com/hc/en-us/articles/115005165269-Fix-connection-issues" target="_blank">documentation</a>';
+      if (json) {
+        let parsedJson = json;
+        if (typeof json === 'string') {
+          parsedJson = JSON.parse(json);
+        }
+        text = `${text}<div style="text-align: left;"><pre id="json-pop-up">${JSON.stringify(parsedJson, null, 1)}</pre></div>`;
+      }
+      console.log(text)
+      swal({
+        title: 'Fail to Connect!',
+        html: text,
+        buttonsStyling: false,
+        showCloseButton: true,
+        showConfirmButton: false,
+      });
+    },
+    connectLedger() {
+      this.logout();
+      if (this.isLedgerConnected) {
+        this.ledgerWallet.interface.getPublicKey(bip44Path, false)
+          .then((key) => {
+            this.eosApi.getKeyAccounts(key.wif)
+              .then((accountFromKey) => {
+                const name = accountFromKey.account_names[0]
+                this.eosApi.getAccount(name)
+                  .then((account) => {
+                    const authority = account.permissions.find((authObj) => {
+                      const keys = authObj.required_auth.keys
+                      return keys.find((keyObj) => {
+                        if (keyObj.key === key.wif) {
+                          return true;
+                        }
+                        return false;
+                      })
+                    }).perm_name
+                    this[ActionType.SET_EOS_ACCOUNT](account)
+                    this[ActionType.SET_IDENTITY_ACCOUNT]({authority})
+                    this.getTokenList()
+                    this.balanceUpdate()
+                  })
+              })
+              .catch((e) => {
+                this.failConnectLedger(e);
+                this.isLedgerConnected = false;
+                console.error(e);
+              })
+          })
+          .catch(e => console.log(e));
+        const eos = Eos(Object.assign(this.eosConfigLedger));
+        this[ActionType.SET_EOS_JS](eos);
+      } else {
+        swal({
+          title: 'Connect ledger',
+          html: '<ol class="text-left">' +
+            '<li>Connect the Ledger Nano S. (<a href="https://support.ledgerwallet.com/hc/en-us/articles/360000613793-Initialize-your-device" target="_blank">Initialize your device</a>)</li>' +
+            '<li>Enter your password.</li>' +
+            '<li>Open EOS app on your device. (<a href="https://support.ledgerwallet.com/hc/en-us/articles/360008913653-EOS-EOS-" target="_blank">Install EOS App</a>)</li>' +
+            '</ol>',
+          imageUrl: '/static/img/connectledger.png',
+          imageClass: 'popup-img',
+          buttonsStyling: false,
+          showCloseButton: true,
+          showConfirmButton: false,
+        });
+        this.ledgerWallet.interface.canConnect()
+          .then((res) => {
+            console.log(res);
+            swal({
+              title: 'Connected!',
+              buttonsStyling: false,
+              showCloseButton: true,
+              showConfirmButton: false,
+            });
+            this.isLedgerConnected = true;
+            this.connectLedger();
+          })
+          .catch((e) => {
+            console.error(e);
+            this.failConnectLedger(e);
+            this.isLedgerConnected = false;
+          })
+      }
+    },
+  },
 }
 </script>
 <style>
@@ -230,5 +288,14 @@ export default {
 
   .el-select {
     width: 100%;
+  }
+
+  #json-pop-up {
+    overflow: auto !important;
+    max-height: 35vh;
+  }
+
+  .popup-img {
+    max-height: 20vh;
   }
 </style>

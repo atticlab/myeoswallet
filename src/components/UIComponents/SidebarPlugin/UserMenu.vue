@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="photo icon-wrap">
-      <font-awesome-icon icon="sign-in-alt" class="icon" />
+      <i class="nc-icon nc-key-25"></i>
     </div>
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click="toggleMenu" href="#">
@@ -33,7 +33,7 @@
             <li>
               <a href="#" @click="logout">
                 <div class="photo icon-wrap">
-                  <font-awesome-icon icon="sign-out-alt" class="icon" />
+                  <i class="nc-icon nc-button-power icon"></i>
                 </div>
                 <span class="sidebar-normal">Sign out</span>
               </a>
@@ -68,20 +68,14 @@ export default {
     logout() {
       this[ActionType.LOGOUT]()
     },
-    signInScatter() {
-
-    },
-    signInLedger() {
-
-    }
   },
   computed: {
     ...mapGetters([
       'getAccountNameWithAuthority',
-      'getAccountName'
+      'getAccountName',
     ]),
   }
-}
+};
 </script>
 <style scoped>
   .nav.nav-menu {
@@ -101,5 +95,7 @@ export default {
   .icon {
     color: black !important;
     font-size: 1rem;
+    width: inherit !important;
+    line-height: inherit !important;
   }
 </style>

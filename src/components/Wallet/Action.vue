@@ -144,7 +144,7 @@ export default {
       swal({
         title: this.isError ? 'Fail' : 'Success',
         type: this.isError ? 'error' : 'success',
-        html: '<div id="json-pop-up" style="text-align: left;"><pre>' + JSON.stringify(this.transaction, null, 1) + '</pre></div>',
+        html: '<div style="text-align: left;"><pre id="json-pop-up">' + JSON.stringify(this.transaction, null, 1) + '</pre></div>',
         buttonsStyling: false,
         showCancelButton: true,
         showCloseButton: true,
@@ -172,23 +172,11 @@ export default {
       }
     },
   },
-  created() {
-    console.log(this.$router.currentRoute);
-  },
 };
 </script>
 
 <style scoped>
-  #json-pop-up {
-    overflow: auto !important;
-    max-height: 30vh;
-  }
-
   #place-for-transaction {
     overflow: auto;
   }
-
-  /*.card-resources {*/
-    /*min-height: 90%;*/
-  /*}*/
 </style>

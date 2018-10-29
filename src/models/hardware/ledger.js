@@ -203,7 +203,6 @@ class LedgerAPI {
       return `You must open the ${this.blockchain.toUpperCase()} Ledger App in order to use it with Scatter`;
     })
   }
-
 }
 
 const foreach = (arr, callback) => {
