@@ -303,5 +303,10 @@ export default {
 </script>
 
 <style scoped>
+</style>
 
+<style scoped lang="scss">
+  span.el-tag:first-of-type {
+    margin-left: 0 !important;
+  }
 </style>

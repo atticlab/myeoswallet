@@ -60,7 +60,7 @@
     <!--</div>-->
   <!--</div>-->
   <transition name="fade" mode="out-in">
-    <div class="row">
+    <div class="row" v-if="getTokens.length">
       <div class="col-12">
         <div class="card card-resources">
           <div class="card-header text-center"><h5 class="card-title">Tokens</h5></div>
