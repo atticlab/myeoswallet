@@ -27,6 +27,7 @@ services:
     volumes:
       - ./:/src
       - ./logs/nodejs:/logs
+      - dist:./dist
     command: ["/entrypoint_stage.sh"]
     logging:
       options:
@@ -42,7 +43,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./dist:/dist
+      - dist:/dist
       - ./logs/nginx/:/logs
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     logging:
@@ -68,3 +69,5 @@ services:
 
 volumes:
   storage:
+
+  dist:
