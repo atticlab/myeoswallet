@@ -66,7 +66,7 @@
           <div class="card-header text-center"><h5 class="card-title">Tokens</h5></div>
           <div class="card-body text-center">
             <div class="row">
-              <div class="col" v-for="(token, i) in getTokens" :key="i">
+              <div class="col-2" v-for="(token, i) in getTokens" :key="i">
                 <p>{{ token.balance }}</p>
               </div>
             </div>
