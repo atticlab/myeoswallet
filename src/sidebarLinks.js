@@ -27,7 +27,7 @@ export default [
         path: '/setproxy',
       },
       {
-        name: 'UnsetProxy',
+        name: 'Unset Proxy',
         path: '/unsetproxy',
       },
       {
@@ -48,7 +48,7 @@ export default [
       path: '/advancedpermission',
     },
     {
-      name: 'LinkAuth',
+      name: 'Link Auth',
       path: '/linkauth',
     },
     {
@@ -103,5 +103,10 @@ export default [
     name: 'Constitution',
     icon: 'nc-icon nc-hat-3',
     path: '/constitution',
+  },
+  {
+    name: 'Vote for ATTICLABEOSB',
+    icon: 'nc-icon nc-favourite-28',
+    path: '/voteatticlab',
   },
 ];

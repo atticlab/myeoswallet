@@ -202,7 +202,6 @@ export default {
         }
         text = `${text}<div style="text-align: left;"><pre id="json-pop-up">${JSON.stringify(parsedJson, null, 1)}</pre></div>`;
       }
-      console.log(text)
       swal({
         title: 'Fail to Connect!',
         html: text,

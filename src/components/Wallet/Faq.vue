@@ -8,10 +8,10 @@
 
           <p class="">Please fill in the info tipped on the background and transfer your tokens.</p>
 
-          <h4>Create acc</h4>
+          <h4>Create account</h4>
           <p class="">Please follow up the tips on the background. Enter account name, owner key, active key, cpu, net and ram to stake and hit the button ‘create account’.</p>
 
-          <h4>Vote Prod</h4>
+          <h4>Vote Producer</h4>
           <p class="">Ensure there are tokens available to be staked for CPU and NET
       Select up to 30 Block Producers listed.
       Hit ‘the Vote’ button or reset if you want to change your BP.</p>
@@ -40,7 +40,7 @@
           <h4>Remove a permission</h4>
           <p class="">Specify the Permission and Parent, and leave a single Authority row empty with the default Weight of 1.</p>
 
-          <h4>Link auth</h4>
+          <h4>Link Authorization</h4>
           <p class="">Special permissions to set some specific actions are available through the option.
       You can create special permissions on your account that are allowed to execute specific contract actions.
       Please fill in the info tipped on the background and hit the button ‘link auth’.</p>
@@ -77,12 +77,12 @@
 
           <p class="">Please follow up all the tips and messages pop-uped on the background.</p>
 
-          <h4>Reg Producer</h4>
+          <h4>Register Producer</h4>
 
           <p class="">Enter producer key, url and location, following the instructions tipped on the background.
       Click the button ‘register’.</p>
 
-          <h4>Unreg Prod</h4>
+          <h4>Unregister Producer</h4>
 
           <p class="">Click the button ‘unreg producer’.</p>
 

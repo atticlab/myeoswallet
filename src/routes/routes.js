@@ -155,6 +155,12 @@ const routes = [
         path: '/constitution',
         name: 'Constitution',
         component: Constitution,
+      },
+      {
+        path: '/voteatticlab',
+        beforeEnter(to, from, next) {
+          window.location = 'https://atticlab.net/vote/';
+        },
       }],
   },
   { path: '*', component: NotFound },
