@@ -57,7 +57,7 @@ const state = {
   eos: null,
   eosApi: null,
   eosAccount: null,
-  balance: [],
+  balance: 0,
   transaction: null,
   tokenList: null,
   airgrabs: null,

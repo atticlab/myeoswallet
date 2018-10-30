@@ -8,18 +8,21 @@
           <form>
             <div class="row">
               <div class="col-6">
-                <fg-input label="Account name" :value="getAccountName" maxlength="12" required readonly></fg-input>
+                <fg-input label="Account name" :value="getAccountName" readonly></fg-input>
               </div>
               <div class="col-6">
-                <fg-input title="Invalid name" label="Destination account" v-model="toAccount" maxlength="12" required @change="validateAccount"></fg-input>
+                <fg-input label="Destination account" v-model="transferModel.toAccount" name="toAccount" maxlength="12" required
+                          v-validate="transferModelValidation.toAccount" :error="getError('toAccount')" data-vv-as="destination account"></fg-input>
               </div>
             </div>
 
             <div class="row">
               <div class="col-6">
                 <fg-input
-                  v-model="amount" title="Invalid amount" label="Amount"
-                  type="number" min="0" required @change="validateAmount">
+                  v-model.number="transferModel.amount" label="Amount"
+                  type="number" min="0" required
+                  name="Amount" v-validate="transferModelValidation.amount" :error="getError('Amount')" data-vv-as="amount"
+                >
                 </fg-input>
               </div>
               <div class="col-6 d-flex align-items-center pt-2">
@@ -39,7 +42,8 @@
 
             <div class="row">
               <div class="col-12">
-                <fg-input v-model="memo" @change="validateMemo" type="text" title="Memo is too long" label="Memo"></fg-input>
+                <fg-input v-model="transferModel.memo" type="text" label="Memo"
+                          name="Memo" v-validate="transferModelValidation.memo" :error="getError('Memo')" data-vv-as="memo"></fg-input>
               </div>
             </div>
             <div class="row">
@@ -72,15 +76,32 @@ import ActionType from 'src/store/constants';
 
 export default {
   name: 'Transfer',
-  data: () => ({
-    toAccount: '',
-    amount: '',
-    memo: '',
-    accountError: false,
-    memoError: false,
-    amountError: false,
-    currentToken: 'EOS',
-  }),
+  data() {
+    return {
+      transferModel: {
+        toAccount: '',
+        amount: '',
+        memo: '',
+      },
+      transferModelValidation: {
+        toAccount: {
+          required: true,
+          accountExist: true,
+        },
+        amount: {
+          required: true,
+          numeric: true,
+          min_value: 0.0001,
+          noMoreThenBalance: true,
+        },
+        memo: {
+          required: false,
+          validateMemo: true,
+        },
+      },
+      currentToken: 'EOS',
+    };
+  },
   components: {
     [Select.name]: Select,
     [Option.name]: Option,
@@ -101,11 +122,12 @@ export default {
       'getTokensWithEos',
     ]),
     transferValidation() {
-      if (this.amount && this.toAccount && !this.accountError && !this.memoError &&
-        !this.amountError) {
-        return false;
-      }
-      return true;
+      // if (this.amount && this.toAccount && !this.accountError && !this.memoError &&
+      //   !this.amountError) {
+      //   return false;
+      // }
+      // return true;
+      return false;
     },
   },
   methods: {
@@ -114,6 +136,9 @@ export default {
       ActionType.SET_BALANCE,
       ActionType.SET_TOKENBALANCE,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     validateAmount() {
       const rg = /^\d{1,10}(\.\d{0,4})?$/;
       if (!this.amount || !parseFloat(this.amount) || parseFloat(this.amount) < 0 ||
@@ -122,22 +147,6 @@ export default {
       } else {
         this.amountError = false;
       }
-    },
-    validateMemo() {
-      if (bl.lengthInUtf8Bytes(this.memo) <= 255) {
-        this.memoError = false;
-      } else {
-        this.memoError = true;
-      }
-    },
-    validateAccount() {
-      this.eos.getAccount(this.toAccount)
-        .then(() => {
-          this.accountError = false;
-        })
-        .catch(() => {
-          this.accountError = true;
-        });
     },
     onTransfer() {
       const tokenObj = this.tokenList.find(token => token.symbol === this.currentToken);
@@ -154,9 +163,9 @@ export default {
               }],
               data: {
                 from: this.getAccountName,
-                to: this.toAccount,
-                quantity: `${parseFloat(this.amount).toFixed(4)} ${tokenObj.symbol}`,
-                memo: this.memo,
+                to: this.transferModel.toAccount,
+                quantity: `${parseFloat(this.transferModel.amount).toFixed(4)} ${tokenObj.symbol}`,
+                memo: this.transferModel.memo,
               },
             },
           ],

@@ -104,9 +104,9 @@ export default [
     icon: 'nc-icon nc-hat-3',
     path: '/constitution',
   },
-  {
-    name: 'Vote for ATTICLABEOSB',
-    icon: 'nc-icon nc-favourite-28',
-    path: '/voteatticlab',
-  },
+  // {
+  //   name: 'Vote offline',
+  //   icon: 'nc-icon nc-favourite-28',
+  //   path: '/voteatticlab',
+  // },
 ];

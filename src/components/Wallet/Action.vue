@@ -1,6 +1,6 @@
 <template>
 <div id="main">
-  <div class="row">
+  <div class="row" v-if="getAccountName">
     <div class="col-12">
       <div class="card card-resources">
         <div class="card-header text-center"><h5 class="card-title">Resources</h5></div>
@@ -121,6 +121,7 @@ export default {
       'getNetTotal',
       'getTokens',
       'getRefund',
+      'getAccountName',
     ]),
     isError() {
       return this.transaction && ((this.transaction.isError || this.transaction.error) ||

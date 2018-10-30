@@ -167,12 +167,6 @@ export default {
   name: 'CreateAccount',
   data() {
     return {
-      accountNameError: false,
-      ownerKeyError: false,
-      activeKeyError: false,
-      cpuStakeError: false,
-      netStakeError: false,
-      ramError: false,
       accountName: '',
       ownerKey: '',
       activeKey: '',
@@ -180,9 +174,6 @@ export default {
       netStake: '0.1',
       ram: '8192',
       transfer: false,
-      withoutAccountaccountNameError: false,
-      withoutAccountownerKeyError: false,
-      withoutAccountactiveKeyError: false,
       withoutAccountaccountName: '',
       withoutAccountownerKey: '',
       withoutAccountactiveKey: '',
@@ -192,7 +183,7 @@ export default {
   },
   components: {
     PSwitch,
-    [Tooltip.name]: Tooltip
+    [Tooltip.name]: Tooltip,
   },
   computed: {
     ...mapState([
@@ -392,12 +383,4 @@ export default {
 </script>
 
 <style scoped>
-
-  .col3 {
-    width: 33%;
-    color: #ffffff;
-    box-shadow: none;
-    background-color: #2a2b31;
-    border: 1px solid white;
-  }
 </style>

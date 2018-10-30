@@ -36,8 +36,7 @@ export default {
       });
   },
 
-  getFirstBalance: balance => ((balance && balance.length > 0) ? parseFloat(balance[0]) : 0),
-
+  getFirstBalance: balance => ((balance) ? parseFloat(balance[0]) : 0),
   logDebug: (title, obj) => {
     if (process.env.NODE_ENV === 'development') {
       console.debug(title);
@@ -55,12 +54,4 @@ export default {
     }
     renderJSON(error, idForInsert);
   },
-
-  lengthInUtf8Bytes: (str) => {
-    const m = encodeURIComponent(str)
-      .match(/%[89ABab]/g);
-    return str.length + (m ? m.length : 0);
-  },
-
-  validatePublicKey: key => (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS'),
 };
