@@ -17,7 +17,7 @@ import { faCubes, faWallet, faStickyNote, faFolderPlus, faAddressCard, faUnivers
   faTrophy, faAngleLeft, faAngleRight, faBars, faCopy, faRandom, faPlusSquare, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faCubes, faWallet, faStickyNote, faFolderPlus, faAddressCard, faUniversity, faQuestionCircle, faThLarge,
-  faTrophy, faAngleLeft, faAngleRight, faBars, faCopy, faRandom, faPlusSquare, faSignOutAlt, faSignInAlt);
+  faTrophy, faAngleLeft, faAngleRight, faBars, faCopy, faRandom, faPlusSquare, faSignOutAlt, faSignInAlt );
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import App from './App.vue';

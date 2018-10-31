@@ -15,10 +15,10 @@
           </div>
 
           <div class="row">
-            <div class="col-2">
-              <p-button @click="prodToVote = []" type="primary">Reset</p-button>
+            <div class="col-1 pull-right">
+              <p-button @click="resetProducers" type="primary">Reset</p-button>
             </div>
-            <div class="col-2">
+            <div class="col-1 pull-right">
               <p-button @click="onVote" type="primary">Vote</p-button>
             </div>
           </div>
@@ -66,7 +66,8 @@
                 align="center"
                 label="Select">
                 <template slot-scope="props">
-                  <p-checkbox :disabled="disablePickProd && !props.row.choosed" :checked="props.row.choosed" @input="addProdToVoteArray(props.row.owner, props.row.choosed, this)"></p-checkbox>
+                  <!--<p-checkbox :disabled="disablePickProd && !props.row.choosed" :checked="props.row.choosed" @input="addProdToVoteArray(props.row.owner, props.row.choosed, this)"></p-checkbox>-->
+                  <p-button :disabled="disablePickProd && !props.row.choosed" @click="addProdToVoteArray(props.row.owner, props.row.choosed)" type="primary">ADD</p-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -138,6 +139,14 @@ export default {
       const weight = Math.floor(dates / 604800) / 52;
       // eslint-disable-next-line
       return Math.pow(2, weight);
+    },
+    resetProducers() {
+      this.prodToVote = []
+      for (const index in this.producers) { // eslint-disable-line
+        this.$set(this.producers[index], 'choosed', false);
+      }
+      this.producerToDisplay = []
+      this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
     },
     onVote() {
       this.prodToVote.sort();
@@ -256,11 +265,12 @@ export default {
       if (index >= 0) {
         this.$set(this.producers[index], 'choosed', !choice);
       }
-      if (choice) {
-        this.prodDeleteHandler(prod);
-      } else {
-        this.prodToVote.push(prod);
-      }
+      // if (choice) {
+      //   this.prodDeleteHandler(prod);
+      // } else {
+      //   this.prodToVote.push(prod);
+      // }
+      this.prodToVote.push(prod);
       if (this.prodToVote.length > 2) {
         this.prodToVote = _.uniq(this.prodToVote);
       }

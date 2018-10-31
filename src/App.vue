@@ -191,7 +191,7 @@ export default {
       }
     },
     toggleMenu() {
-      this.menuVisible = !this.menuVisible
+      this.menuVisible = !this.menuVisible;
     },
     failConnectLedger(json) {
       let text = 'For more information check <a href="https://support.ledgerwallet.com/hc/en-us/articles/115005165269-Fix-connection-issues" target="_blank">documentation</a>';
@@ -296,5 +296,16 @@ export default {
 
   .popup-img {
     max-height: 20vh;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .15s
+  }
+
+  .fade-enter,
+  .fade-leave-to
+  {
+    opacity: 0
   }
 </style>

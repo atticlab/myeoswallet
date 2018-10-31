@@ -86,7 +86,7 @@ export default {
   methods: {
     async initScrollBarAsync () {
       const PerfectScroll = await import('perfect-scrollbar')
-      PerfectScroll.initialize(this.$refs.sidebarScrollArea)
+      PerfectScroll.initialize(this.$refs.sidebarScrollArea, {suppressScrollX: true})
     }
   },
   mounted () {

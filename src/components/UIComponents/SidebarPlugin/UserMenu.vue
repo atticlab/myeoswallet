@@ -1,12 +1,13 @@
 <template>
   <div class="user">
     <div class="photo icon-wrap">
-      <i class="nc-icon nc-key-25"></i>
+      <!--<i class="nc-icon nc-key-25"></i>-->
+      <font-awesome-icon icon="plus-square" class="icon"></font-awesome-icon>
     </div>
     <div class="info">
       <a data-toggle="collapse" :aria-expanded="!isClosed" @click="toggleMenu" href="#">
          <span>
-           <span v-if="getAccountName">{{ getAccountName }}</span><span v-else>Sign In</span>
+           <span v-if="getAccountName">{{ getAccountName }}</span><span v-else>Attach Account</span>
            <b class="caret"></b>
         </span>
       </a>
@@ -33,9 +34,10 @@
             <li>
               <a href="#" @click="logout">
                 <div class="photo icon-wrap">
-                  <i class="nc-icon nc-button-power icon"></i>
+                  <!--<i class="nc-icon nc-button-power icon"></i>-->
+                  <font-awesome-icon icon="sign-in-alt" class="icon"></font-awesome-icon>
                 </div>
-                <span class="sidebar-normal">Sign out</span>
+                <span class="sidebar-normal">Detach Account</span>
               </a>
             </li>
           </ul>
@@ -86,14 +88,13 @@ export default {
     margin-left: 5px !important;
   }
   .photo {
-    background-color: white;
     text-align: center;
   }
   .icon-wrap {
     line-height: 36px;
   }
   .icon {
-    color: black !important;
+    color: white !important;
     font-size: 1rem;
     width: inherit !important;
     line-height: inherit !important;

@@ -1,40 +1,42 @@
 <template>
 <div id="main">
-  <div class="row" v-if="getAccountName">
-    <div class="col-12">
-      <div class="card card-resources">
-        <div class="card-header text-center"><h5 class="card-title">Resources</h5></div>
-        <div class="card-body text-center">
-          <div class="row">
-            <div class="col">
-              <p>Total: {{ getBalance + getStacked + getRefund }} EOS</p>
-              <p>Refund: {{ getRefund }} EOS</p>
-            </div>
+  <transition name="fade" mode="out-in">
+    <div class="row" v-if="getAccountName">
+      <div class="col-12">
+        <div class="card card-resources">
+          <div class="card-header text-center"><h5 class="card-title">Resources</h5></div>
+          <div class="card-body text-center">
+            <div class="row">
+              <div class="col">
+                <p>Total: {{ getBalance + getStacked + getRefund }} EOS</p>
+                <p>Refund: {{ getRefund }} EOS</p>
+              </div>
 
-            <div class="col">
-              <p>Unstaked: {{ getBalance }} EOS</p>
-              <p>Staked: {{ getStacked }} EOS</p>
-            </div>
+              <div class="col">
+                <p>Unstaked: {{ getBalance }} EOS</p>
+                <p>Staked: {{ getStacked }} EOS</p>
+              </div>
 
-            <div class="col">
-              <p>RAM</p>
-              <p>{{ getRamUsed + ' / ' + getRamTotal }}</p>
-            </div>
+              <div class="col">
+                <p>RAM</p>
+                <p>{{ getRamUsed + ' / ' + getRamTotal }}</p>
+              </div>
 
-            <div class="col">
-              <p>CPU</p>
-              <p>{{ getCpuUsed + ' / ' + getCpuTotal }}</p>
-            </div>
+              <div class="col">
+                <p>CPU</p>
+                <p>{{ getCpuUsed + ' / ' + getCpuTotal }}</p>
+              </div>
 
-            <div class="col">
-              <p>NET</p>
-              <p>{{ getNetUsed + ' / ' + getNetTotal }}</p>
+              <div class="col">
+                <p>NET</p>
+                <p>{{ getNetUsed + ' / ' + getNetTotal }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
     <!--<div class="col-lg-3 col-sm-6">-->
       <!--<circle-chart-card :percentage="getRamPercentage"-->
                          <!--title="RAM"-->

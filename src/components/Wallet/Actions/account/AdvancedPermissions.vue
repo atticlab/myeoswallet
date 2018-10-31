@@ -20,7 +20,7 @@
             <div class="row">
               <div class="col-md-6 col-12">
                 <fg-input label="Permission" type="text" v-model="permission" required
-                          name="permission" :error="getError('permission')" v-validate="modelValidation.permission" ></fg-input>
+                          name="permission" :error="getError('permission')" v-validate="modelValidation.permission"></fg-input>
               </div>
               <div class="col-md-6 col-12">
                 <fg-input label="Parent" type="text" v-model="parent"></fg-input>
@@ -29,13 +29,16 @@
 
             <div class="row" v-for="(authority, index) in authorities" :key="index">
               <div class="col-md-4 col-12">
-                <fg-input label="Authority" type="text" v-model="authority.authority" required @change="authority.error = false"></fg-input>
+                <fg-input label="Authority" type="text" v-model="authority.authority" required
+                ></fg-input>
               </div>
               <div class="col-md-4 col-12">
-                <fg-input label="Account permission" type="text" v-model="authority.permission"></fg-input>
+                <fg-input label="Account permission" type="text" v-model="authority.permission"
+                ></fg-input>
               </div>
               <div class="col-md-4 col-12">
-                <fg-input label="Weight" type="text" v-model="authority.weight" required></fg-input>
+                <fg-input label="Weight" type="number" v-model.number="authority.weight" required
+                ></fg-input>
               </div>
             </div>
 
@@ -105,14 +108,11 @@ export default {
           numeric: true,
           min_value: 0,
         },
-        permission: {
-          required: true,
-        },
       },
       threshold: 1,
       permission: '',
       parent: '',
-      authorities: [{ authority: '', permission: '', weight: '1', error: false }],
+      authorities: [{ authority: '', permission: '', weight: 1, error: false }],
     };
   },
   components: {
@@ -138,7 +138,7 @@ export default {
           permission: this.permission,
           parent: this.parent,
           auth: {
-            threshold: parseInt(this.threshold, 10),
+            threshold: this.threshold,
             keys: [],
             accounts: [],
           },
@@ -152,7 +152,7 @@ export default {
                 actor: obj.authority,
                 permission: obj.permission,
               },
-              weight: parseInt(obj.weight, 10),
+              weight: obj.weight,
             });
           } else {
             this.authorities[i].error = true;
@@ -160,7 +160,7 @@ export default {
         } else if (bl.validatePublicKey(obj.authority)) {
           actions[0].data.auth.keys.push({
             key: obj.authority,
-            weight: parseInt(obj.weight, 10),
+            weight: obj.weight,
           });
         } else {
           this.authorities[i].error = true;
@@ -182,9 +182,6 @@ export default {
           bl.handleError(e, 'place-for-transaction');
         });
     },
-    validateThreshold() {
-      this.thresholdError = parseInt(this.threshold, 10) < 0;
-    },
     addRow() {
       this.authorities.push({ authority: '', permission: '', weight: '1', error: false });
     },
@@ -203,11 +200,7 @@ export default {
       'getAuthority',
     ]),
     validatePermission() {
-      // if (this.permission && this.authorities.every(obj => !obj.error && obj.authority && parseInt(obj.weight, 10) > 0) && !this.thresholdError) {
-      //   return false;
-      // }
-      // return true;
-      return !Object.keys(this.fields).every(key => this.fields[key].valid);
+      return !Object.keys(this.fields).every(key => this.fields[key] && this.fields[key].valid) || !this.authorities.every(obj => !obj.error && obj.authority && obj.weight > 0);
     },
   },
 };
