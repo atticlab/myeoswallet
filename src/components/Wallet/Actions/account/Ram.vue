@@ -1,30 +1,34 @@
 <template>
   <div id="main">
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Buy RAM</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-6">
-                  <fg-input label="Payer" :value="getAccountName" maxlength="12" required readonly></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Payer" :value="getAccountName" maxlength="12" readonly></fg-input>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid name" label="Receiver" type="text" v-model="receiver" maxlength="12" required @change="validateAccount"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Receiver" type="text" v-model="receiver" maxlength="12" required
+                            name="receiver" v-validate="modelValidation.receiver" :error="getError('receiver')"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6 col-12">
                   <p class="category">In bytes / In EOS</p>
                     <p-switch v-model="inEos" @change="validateRamToBuy">
                       <i class="fa fa-check" slot="on"></i>
                       <i class="fa fa-times" slot="off"></i>
                     </p-switch>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid value" :label="'Ram in ' + inEos ? 'EOS' : 'bytes'" type="number" v-model="ramToBuy" required @change="validateRamToBuy"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input :label="'Ram in ' + inEos ? 'EOS' : 'bytes'" type="number" v-model.number="ramToBuy" required
+                            name="ramToBuy" v-validate="modelValidation.ramToBuy" :error="getError('ramToBuy')" data-vv-as="ram to buy"
+                  ></fg-input>
                 </div>
               </div>
 
@@ -38,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -50,17 +54,19 @@
     </div>
 
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Sell RAM</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6 col-12">
                   <fg-input label="Seller" :value="getAccountName" maxlength="12" required readonly></fg-input>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid value" label="Ram to Sell (in bytes)" type="number" v-model="ramToSell" required @change="validateRamToSell"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Ram to Sell (in bytes)" type="number" v-model.number="ramToSell" required
+                            name="ramToSell" v-validate="sellmodelValidation.ramToSell" :error="getError('ramToSell')" data-vv-as="ram to sell"
+                  ></fg-input>
                 </div>
               </div>
 
@@ -74,7 +80,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -92,28 +98,46 @@ import ActionType from '@/store/constants';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import PSwitch from 'src/components/UIComponents/Switch.vue';
 
-
 export default {
   name: 'Ram',
   data() {
     return {
-      ramToSellError: false,
-      ramToBuyError: false,
-      receiverError: false,
-      ramToBuy: '8192',
-      ramToSell: '8192',
+      ramToBuy: 8192,
+      ramToSell: 8192,
       receiver: '',
       inEos: false,
+      modelValidation: {
+        receiver: {
+          required: true,
+          accountExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+        ramToBuy: {
+          required: true,
+          decimal: true,
+          min_value: 1,
+        },
+      },
+      sellmodelValidation: {
+        ramToSell: {
+          required: true,
+          decimal: true,
+          min_value: 1,
+        },
+      },
     };
   },
   components: {
-    PSwitch
+    PSwitch,
   },
   methods: {
     ...mapActions([
       ActionType.SET_TRANSACTION,
       ActionType.SET_BALANCE,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     onBuyRam() {
       if (this.inEos) {
         this.eos.transaction({
@@ -204,24 +228,6 @@ export default {
         bl.handleError(e, 'place-for-transaction');
       });
     },
-    validateRamToBuy() {
-      this.ramToBuyError = parseFloat(this.ramToBuy) < 0;
-      if (!this.ramToBuyError && this.inEos) {
-        const rg = /^\d{1,10}(\.\d{0,4})?$/;
-        this.ramToBuyError = parseFloat(this.getBalance) < parseFloat(this.ramToBuy) || !rg.test(this.ramToBuy);
-      } else if (!this.ramToBuyError) {
-        const rg = /^\d+$/;
-        this.ramToBuyError = !rg.test(this.ramToBuy);
-      }
-    },
-    validateRamToSell() {
-      this.ramToSellError = parseFloat(this.ramToSell) < 0 || parseFloat(this.ramToSell) > this.getFreeRamInBytes;
-    },
-    validateAccount() {
-      this.eos.getAccount(this.receiver)
-        .then(() => { this.receiverError = false; })
-        .catch(() => { this.receiverError = true; });
-    },
   },
   computed: {
     ...mapState([
@@ -235,16 +241,10 @@ export default {
       'getAuthority',
     ]),
     sellRamValidation() {
-      if (parseFloat(this.ramToSell) && !this.ramToSellError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.sellmodelValidation).every(key => this.fields[key] && this.fields[key].valid) || this.ramToSell > this.getFreeRamInBytes;
     },
     buyRamValidation() {
-      if (parseFloat(this.ramToBuy) && this.receiver && !this.receiverError && !this.ramToBuyError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
   },
   created() {

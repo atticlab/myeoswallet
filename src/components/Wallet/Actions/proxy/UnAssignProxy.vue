@@ -1,7 +1,7 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Unassign proxy</h4></div>
         <div class="card-body">
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">

@@ -1,26 +1,32 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Register Producer</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-6">
-                <fg-input label="Account name" :value="getAccountName" maxlength="12" required readonly></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Account name" :value="getAccountName" maxlength="12" readonly></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input title="Invalid name" label="Producer key" type="text" v-model="producerKey" required @change="validateKey"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Producer key" type="text" v-model="producerKey" required
+                          name="producerKey" v-validate="modelValidation.producerKey" :error="getError('producerKey')" data-vv-as="producer key"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
-                <fg-input label="Url" type="text" v-model="url"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Url" type="text" v-model="url"
+                          name="url" v-validate="modelValidation.url" :error="getError('url')"
+                ></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input label="Location" type="number" v-model="location"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Location" type="number" v-model.number="location"
+                          name="location" v-validate="modelValidation.location" :error="getError('location')"
+                ></fg-input>
               </div>
             </div>
 
@@ -34,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
@@ -57,15 +63,30 @@ export default {
   data() {
     return {
       producerKey: '',
-      producerKeyError: false,
       url: '',
-      location: '0',
+      location: 0,
+      modelValidation: {
+        producerKey: {
+          required: true,
+          max: 64,
+          publicKey: true,
+        },
+        url: {
+          url: true,
+        },
+        location: {
+          numeric: true,
+        },
+      },
     };
   },
   methods: {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     onRegister() {
       this.eos.transaction(
         {
@@ -109,10 +130,11 @@ export default {
       'getAuthority',
     ]),
     validateRegisterProducer() {
-      if (this.producerKey && !this.producerKeyError) {
-        return false;
-      }
-      return true;
+      // if (this.producerKey && !this.producerKeyError) {
+      //   return false;
+      // }
+      // return true;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
 };

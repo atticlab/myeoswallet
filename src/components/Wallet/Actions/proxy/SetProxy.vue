@@ -1,14 +1,14 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Set proxy</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
               <div class="col-12">
-                <fg-input label="Account name" :value="getAccountName" maxlength="12" required readonly></fg-input>
+                <fg-input label="Account name" :value="getAccountName" maxlength="12" readonly></fg-input>
               </div>
             </div>
 
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
@@ -33,61 +33,73 @@
   </div>
 
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Register Proxy Info</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input label="Proxy Account" :value="getAccountName" maxlength="12" required readonly></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input title="Invalid name" label="Proxy name" type="text" v-model="proxyName" maxlength="64" required></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Proxy name" type="text" v-model="proxyName" maxlength="64" required
+                          name="proxyName" v-validate="modelValidation.proxyName" :error="getError('proxyName')" data-vv-as="proxy name"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
               <div class="col-12">
-                <fg-input label="Slogan" v-model="slogan" maxlength="64"></fg-input>
+                <fg-input label="Slogan" v-model="slogan" maxlength="64"
+                          name="slogan" v-validate="modelValidation.slogan" :error="getError('slogan')"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
               <div class="col-12">
-                <fg-input label="Philosophy" v-model="philosophy" maxlength="1024" required></fg-input>
+                <fg-input label="Philosophy" v-model="philosophy" maxlength="1024" required
+                          name="philosophy" v-validate="modelValidation.philosophy" :error="getError('philosophy')"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
               <div class="col-12">
-                <fg-input label="Background Information" v-model="backgroundInformation" maxlength="1024" required></fg-input>
+                <fg-input label="Background Information" v-model="backgroundInformation" maxlength="1024" required
+                          name="backgroundInformation" v-validate="modelValidation.backgroundInformation" data-vv-as="background information"
+                          :error="getError('backgroundInformation')"></fg-input>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
-                <fg-input label="Logo URL" v-model="logourl"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Logo URL" v-model="logourl"
+                          name="logourl" v-validate="modelValidation.logourl" :error="getError('logourl')"
+                ></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input label="Website" v-model="website"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Website" v-model="website"
+                          name="website" v-validate="modelValidation.website" :error="getError('website')"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input label="Telegram" v-model="telegram"></fg-input>
               </div>
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input label="Steemit" v-model="steemit"></fg-input>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input label="Twitter" v-model="twitter"></fg-input>
               </div>
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input label="WeChat" v-model="wechat"></fg-input>
               </div>
             </div>
@@ -102,7 +114,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
@@ -124,7 +136,6 @@ export default {
   name: 'SetProxy',
   data() {
     return {
-      proxyNameError: false,
       proxyName: '',
       slogan: '',
       philosophy: '',
@@ -135,6 +146,29 @@ export default {
       twitter: '',
       wechat: '',
       website: '',
+      modelValidation: {
+        proxyName: {
+          required: true,
+          max: 64,
+        },
+        website: {
+          url: true,
+        },
+        logourl: {
+          url: true,
+        },
+        slogan: {
+          max: 64,
+        },
+        philosophy: {
+          max: 1024,
+          required: true,
+        },
+        backgroundInformation: {
+          max: 1024,
+          required: true,
+        },
+      },
     };
   },
   computed: {
@@ -147,16 +181,16 @@ export default {
       'getAuthority',
     ]),
     validateRegisterProxyInfo() {
-      if (this.proxyName && !this.proxyNameError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
   methods: {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     onSetProxy() {
       this.eos.transaction(
         {

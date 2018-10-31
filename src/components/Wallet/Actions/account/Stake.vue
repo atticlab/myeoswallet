@@ -1,26 +1,32 @@
 <template>
   <div id="main">
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Delegate stake</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-6">
-                  <fg-input label="Stake owner" :value="getAccountName" maxlength="12" required readonly></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Stake owner" :value="getAccountName" maxlength="12" readonly></fg-input>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid value" label="Recipient" type="text" v-model="recipient" maxlength="12" required @change="validateAccount"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input title="Invalid value" label="Recipient" type="text" v-model="recipient" maxlength="12" required
+                            name="recipient" v-validate="modelValidation.recipient" :error="getError('recipient')"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-6">
-                  <fg-input label="Cpu stake (in EOS)" type="number" v-model="cpuStake" required @change="validateCpuStake"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Cpu stake (in EOS)" type="number" v-model.number="cpuStake" required
+                            name="cpuStake" v-validate="modelValidation.cpuStake" :error="getError('cpuStake')" data-vv-as="cpu Stake"
+                  ></fg-input>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid value" label="Net stake (in EOS)" type="number" v-model="netStake" required @change="validateNetStake"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input title="Invalid value" label="Net stake (in EOS)" type="number" v-model.number="netStake" required
+                            name="netStake" v-validate="modelValidation.netStake" :error="getError('netStake')" data-vv-as="net Stake"
+                  ></fg-input>
                 </div>
               </div>
 
@@ -34,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -45,26 +51,32 @@
     </div>
 
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Undelegate stake</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6 col-12">
                   <fg-input label="Stake owner" :value="getAccountName" maxlength="12" required readonly></fg-input>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid name" label="Stake Holder" type="text" v-model="stakeHolder" maxlength="12" required @change="validateStakeHolder"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input title="Invalid name" label="Stake Holder" type="text" v-model="stakeHolder" maxlength="12" required
+                            name="stakeHolder" v-validate="undelegatemodelValidation.stakeHolder" :error="getError('stakeHolder')" data-vv-as="stake holder"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-6">
-                  <fg-input label="Cpu stake (in EOS)" type="number" v-model="cpuUnStake" required @change="validateCpuUnStake"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Cpu stake (in EOS)" type="number" v-model.number="cpuUnStake" required
+                            name="cpuUnStake" v-validate="undelegatemodelValidation.cpuUnStake" :error="getError('cpuUnStake')" data-vv-as="cpu unStake"
+                  ></fg-input>
                 </div>
-                <div class="col-6">
-                  <fg-input title="Invalid name" label="Net stake (in EOS)" type="number" v-model="netUnStake" required @change="validateNetUnStake"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input title="Invalid name" label="Net stake (in EOS)" type="number" v-model.number="netUnStake" required
+                            name="netUnStake" v-validate="undelegatemodelValidation.netUnStake" :error="getError('netUnStake')" data-vv-as="net unStake"
+                  ></fg-input>
                 </div>
               </div>
 
@@ -78,7 +90,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -99,19 +111,47 @@ export default {
   name: 'Stake',
   data() {
     return {
-      recipientError: false,
-      cpuStakeError: false,
-      netStakeError: false,
-      stakeHolderError: false,
-      cpuUnStakeError: false,
-      netUnStakeError: false,
       recipient: '',
       stakeHolder: '',
-      cpuStake: '0.1',
-      netStake: '0.1',
-      cpuUnStake: '0.1',
-      netUnStake: '0.1',
+      cpuStake: 0.1,
+      netStake: 0.1,
+      cpuUnStake: 0.1,
+      netUnStake: 0.1,
       transfer: false,
+      modelValidation: {
+        recipient: {
+          required: true,
+          accountExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+        cpuStake: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+        netStake: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+      },
+      undelegatemodelValidation: {
+        stakeHolder: {
+          required: true,
+          accountExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+        cpuUnStake: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+        netUnStake: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+      },
     };
   },
   methods: {
@@ -119,27 +159,8 @@ export default {
       ActionType.SET_TRANSACTION,
       ActionType.SET_BALANCE,
     ]),
-    validateAccount() {
-      this.eos.getAccount(this.recipient)
-        .then(() => { this.recipientError = false; })
-        .catch(() => { this.recipientError = true; });
-    },
-    validateStakeHolder() {
-      this.eos.getAccount(this.stakeHolder)
-        .then(() => { this.stakeHolderError = false; })
-        .catch(() => { this.stakeHolderError = true; });
-    },
-    validateCpuStake() {
-      this.cpuStakeError = parseFloat(this.cpuStake) < 0;
-    },
-    validateNetStake() {
-      this.netStakeError = parseFloat(this.netStake) < 0;
-    },
-    validateCpuUnStake() {
-      this.cpuStakeError = parseFloat(this.cpuUnStake) < 0;
-    },
-    validateNetUnStake() {
-      this.netStakeError = parseFloat(this.netUnStake) < 0;
+    getError(fieldName) {
+      return this.errors.first(fieldName);
     },
     onDelegate() {
       this.eos.transaction({
@@ -215,18 +236,20 @@ export default {
       'getAuthority',
     ]),
     delegateValidation() {
-      if (this.recipient && this.cpuStake && this.netStake &&
-        !this.recipientError && !this.cpuStakeError && !this.netStakeError) {
-        return false;
-      }
-      return true;
+      // if (this.recipient && this.cpuStake && this.netStake &&
+      //   !this.recipientError && !this.cpuStakeError && !this.netStakeError) {
+      //   return false;
+      // }
+      // return true;
+      return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
     undelegateValidation() {
-      if (this.stakeHolder && (parseFloat(this.cpuUnStake) || parseFloat(this.netUnStake)) &&
-        !this.stakeHolderError && !this.cpuUnStakeError && !this.netUnStakeError) {
-        return false;
-      }
-      return true;
+      // if (this.stakeHolder && (parseFloat(this.cpuUnStake) || parseFloat(this.netUnStake)) &&
+      //   !this.stakeHolderError && !this.cpuUnStakeError && !this.netUnStakeError) {
+      //   return false;
+      // }
+      // return true;
+      return !Object.keys(this.undelegatemodelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
   },
 };

@@ -1,38 +1,47 @@
 <template>
   <div id="main">
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Create account without existing account (for free)</h4></div>
           <div class="card-body">
-            <form>
+            <form id="withoutAccountForm">
               <div class="row">
                 <div class="col-12">
-                  <fg-input type="text" label="Account name" :value="withoutAccountaccountName" maxlength="12" required @change="withoutAccountvalidateAccount"></fg-input>
+                  <fg-input type="text" label="Account name" v-model="withoutAccountaccountName" maxlength="12" required
+                            name="withoutAccountaccountName" :error="getError('withoutAccountaccountName')" v-validate="withoutAccountmodelValidation.withoutAccountaccountName"
+                            data-vv-as="account"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-12">
-                  <fg-input type="text" label="Owner public key" :value="withoutAccountaccountName" maxlength="53" required @change="withoutAccountvalidateOwnerKey"></fg-input>
+                  <fg-input type="text" label="Owner public key" v-model="withoutAccountownerKey" maxlength="53" required
+                            name="withoutAccountownerKey" data-vv-as="owner public key" :error="getError('withoutAccountownerKey')" v-validate="withoutAccountmodelValidation.withoutAccountownerKey"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-12">
-                  <fg-input type="password" label="Owner private key" :value="withoutAccountownerKeyPriv" maxlength="51" required @change="withoutAccountvalidateOwnerKey"></fg-input>
+                  <fg-input type="password" label="Owner private key" :value="withoutAccountownerKeyPriv" maxlength="51" readonly
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-12">
-                  <fg-input type="text" label="Active public key" :value="withoutAccountactiveKey" maxlength="53" required @change="withoutAccountvalidateActiveKey"></fg-input>
+                  <fg-input type="text" label="Active public key" v-model="withoutAccountactiveKey" maxlength="53" required
+                            name="withoutAccountactiveKey" data-vv-as="active public key" :error="getError('withoutAccountactiveKey')" v-validate="withoutAccountmodelValidation.withoutAccountactiveKey"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-12">
-                  <fg-input type="password" label="Active private key" :value="withoutAccountactiveKeyPriv" maxlength="51" required @change="withoutAccountvalidateOwnerKey"></fg-input>
+                  <fg-input type="password" label="Active private key" :value="withoutAccountactiveKeyPriv" maxlength="51" readonly
+                  ></fg-input>
                 </div>
               </div>
 
@@ -68,7 +77,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -82,44 +91,57 @@
       </div>
     </div>
     <div class="row" v-if="eosAccount">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Create account</h4></div>
 
           <div class="card-body">
-            <form>
+            <form id="form">
               <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Creator" :value="getAccountName" maxlength="12" required readonly></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Creator" :value="getAccountName" maxlength="12" readonly></fg-input>
                 </div>
-                <div class="col-md-6">
-                  <fg-input title="Invalid name" label="Account name" v-model="accountName" maxlength="12" required @change="validateAccount"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Account name" v-model="accountName" maxlength="12" required
+                            name="accountName" v-validate="modelValidation.accountName" :error="getError('accountName')"
+                            data-vv-as="account name"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Owner public key" type="text" v-model="ownerKey" maxlength="53" required @change="validateOwnerKey"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Owner public key" type="text" v-model="ownerKey" maxlength="53" required
+                            name="ownerKey" v-validate="modelValidation.ownerKey" :error="getError('ownerKey')" data-vv-as="owner key"
+                  ></fg-input>
                 </div>
-                <div class="col-md-6">
-                  <fg-input title="Invalid name" label="Active public key" type="text" v-model="activeKey" maxlength="53" required @change="validateActiveKey"></fg-input>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Cpu stake (in EOS)" type="number" v-model="cpuStake" required @change="validateCpuStake"></fg-input>
-                </div>
-                <div class="col-md-6">
-                  <fg-input title="Invalid name" label="Net stake (in EOS)" type="number" v-model="netStake" required @change="validateNetStake"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Active public key" type="text" v-model="activeKey" maxlength="53"
+                            name="activeKey" v-validate="modelValidation.activeKey" :error="getError('activeKey')" data-vv-as="active key"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Ram (in bytes)" type="number" v-model="ram" required @change="validateRam"></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Cpu stake (in EOS)" type="number" v-model.number="cpuStake" required
+                            name="cpuStake" v-validate="modelValidation.cpuStake" :error="getError('cpuStake')" data-vv-as="cpu stake"
+                  ></fg-input>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-12">
+                  <fg-input label="Net stake (in EOS)" type="number" v-model.number="netStake" required
+                            name="netStake" v-validate="modelValidation.netStake" :error="getError('netStake')" data-vv-as="net stake"
+                  ></fg-input>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <fg-input label="Ram (in bytes)" type="number" v-model.number="ram" required
+                            name="ram" v-validate="modelValidation.ram" :error="getError('ram')" data-vv-as="ram"
+                  ></fg-input>
+                </div>
+                <div class="col-md-6 col-12">
                   <p class="category">Transfer</p>
                   <el-tooltip content="Transfer off: owner retains staking control and voting rights. Transfer on: New acc gains staking control and voting rights" placement="top">
                     <p-switch v-model="transfer">
@@ -143,7 +165,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -170,15 +192,61 @@ export default {
       accountName: '',
       ownerKey: '',
       activeKey: '',
-      cpuStake: '0.1',
-      netStake: '0.1',
-      ram: '8192',
+      cpuStake: 0.1,
+      netStake: 0.1,
+      ram: 8192,
       transfer: false,
       withoutAccountaccountName: '',
       withoutAccountownerKey: '',
       withoutAccountactiveKey: '',
       withoutAccountownerKeyPriv: '',
       withoutAccountactiveKeyPriv: '',
+      withoutAccountmodelValidation: {
+        withoutAccountaccountName: {
+          required: true,
+          accountNotExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+        withoutAccountownerKey: {
+          required: true,
+          publicKey: true,
+        },
+        withoutAccountactiveKey: {
+          required: true,
+          publicKey: true,
+        },
+      },
+      modelValidation: {
+        accountName: {
+          required: true,
+          accountNotExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+        ownerKey: {
+          required: true,
+          publicKey: true,
+        },
+        activeKey: {
+          required: true,
+          publicKey: true,
+        },
+        cpuStake: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+        netStake: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+        ram: {
+          required: true,
+          decimal: true,
+          min_value: 0,
+        },
+      },
+      currentToken: 'EOS',
     };
   },
   components: {
@@ -196,18 +264,10 @@ export default {
       'getAuthority',
     ]),
     createAccountValidation() {
-      if (this.accountName && this.ownerKey && this.activeKey && parseFloat(this.cpuStake) && parseFloat(this.netStake) && parseInt(this.ram, 10) &&
-        !this.accountNameError && !this.ownerKeyError && !this.activeKeyError && !this.cpuStakeError && !this.netStakeError && !this.ramError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
     withoutAccountcreateAccountValidation() {
-      if (this.withoutAccountaccountName && this.withoutAccountownerKey && this.withoutAccountactiveKey &&
-        !this.withoutAccountaccountNameError && !this.withoutAccountownerKeyError && !this.withoutAccountactiveKeyError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.withoutAccountmodelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
   },
   methods: {
@@ -215,48 +275,8 @@ export default {
       ActionType.SET_TRANSACTION,
       ActionType.SET_BALANCE,
     ]),
-    validateAccount() {
-      const rg = /^[a-z1-5]{12}$/;
-      if (this.accountName && this.accountName.length <= 12 && rg.test(this.accountName)) {
-        this.eos.getAccount(this.accountName)
-          .then(() => { this.accountNameError = true; })
-          .catch(() => { this.accountNameError = false; });
-      } else {
-        this.accountNameError = true;
-      }
-    },
-    withoutAccountvalidateAccount() {
-      const rg = /^[a-z1-5]{12}$/;
-      if (this.withoutAccountaccountName && this.withoutAccountaccountName.length <= 12 && rg.test(this.withoutAccountaccountName)) {
-        this.eosApi.getAccount(this.withoutAccountaccountName)
-          .then(() => { this.withoutAccountaccountNameError = true; })
-          .catch(() => { this.withoutAccountaccountNameError = false; });
-      } else {
-        this.withoutAccountaccountNameError = true;
-      }
-    },
-    validateActiveKey() {
-      this.activeKeyError = !bl.validatePublicKey(this.activeKey);
-    },
-    validateOwnerKey() {
-      this.ownerKeyError = !bl.validatePublicKey(this.ownerKey);
-    },
-    withoutAccountvalidateActiveKey() {
-      this.withoutAccountactiveKeyError = !bl.validatePublicKey(this.withoutAccountactiveKey);
-      console.log(this.withoutAccountactiveKeyError);
-    },
-    withoutAccountvalidateOwnerKey() {
-      this.withoutAccountownerKeyError = !bl.validatePublicKey(this.withoutAccountownerKey);
-      console.log(this.withoutAccountownerKeyError);
-    },
-    validateCpuStake() {
-      this.cpuStakeError = parseFloat(this.cpuStake) < 0;
-    },
-    validateNetStake() {
-      this.netStakeError = parseFloat(this.netStake) < 0;
-    },
-    validateRam() {
-      this.ramError = parseFloat(this.ram) < 0;
+    getError(fieldName) {
+      return this.errors.first(fieldName);
     },
     async generateRandomName() {
       function choices(population, k) {
@@ -290,7 +310,6 @@ export default {
         }));
     },
     withoutAccountonCreateAccount() {
-      // http://ethereum3.atticlab.net
       this.$http.post('newaccount', {
         name: this.withoutAccountaccountName,
         active: this.withoutAccountactiveKey,
@@ -368,12 +387,6 @@ export default {
       this.withoutAccountaccountNameError = false;
       this.withoutAccountownerKeyError = false;
       this.withoutAccountactiveKeyError = false;
-    },
-    copyActiveKeys() {
-      this.$copyText(`Active public: ${this.withoutAccountactiveKey} Active private: ${this.withoutAccountactiveKeyPriv}`);
-    },
-    copyOwnerKeys() {
-      this.$copyText(`Owner public: ${this.withoutAccountownerKey} Owner private: ${this.withoutAccountownerKeyPriv}`);
     },
     copy() {
       this.$copyText(`Name: ${this.withoutAccountaccountName}\nOwner public: ${this.withoutAccountownerKey}\nOwner private: ${this.withoutAccountownerKeyPriv}\nActive public: ${this.withoutAccountactiveKey}\nActive private: ${this.withoutAccountactiveKeyPriv}`);

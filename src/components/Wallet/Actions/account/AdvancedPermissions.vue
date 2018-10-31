@@ -1,43 +1,46 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Change Advanced Permissions</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-md-6">
-                <fg-input label="Account" :value="getAccountName" maxlength="12" required readonly></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Account" :value="getAccountName" maxlength="12" readonly></fg-input>
               </div>
-              <div class="col-md-6">
-                <fg-input title="Invalid name" label="Threshold" type="number" v-model="threshold" required @change="validateThreshold"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Threshold" type="number" v-model.number="threshold" required
+                          name="threshold" :error="getError('threshold')" v-validate="modelValidation.threshold"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-6">
-                <fg-input label="Permission" type="text" v-model="permission" required></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Permission" type="text" v-model="permission" required
+                          name="permission" :error="getError('permission')" v-validate="modelValidation.permission" ></fg-input>
               </div>
-              <div class="col-md-6">
-                <fg-input title="Invalid name" label="Parent" ype="text" v-model="parent"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Parent" type="text" v-model="parent"></fg-input>
               </div>
             </div>
 
             <div class="row" v-for="(authority, index) in authorities" :key="index">
-              <div class="col-4">
+              <div class="col-md-4 col-12">
                 <fg-input label="Authority" type="text" v-model="authority.authority" required @change="authority.error = false"></fg-input>
               </div>
-              <div class="col-4">
+              <div class="col-md-4 col-12">
                 <fg-input label="Account permission" type="text" v-model="authority.permission"></fg-input>
               </div>
-              <div class="col-4">
+              <div class="col-md-4 col-12">
                 <fg-input label="Weight" type="text" v-model="authority.weight" required></fg-input>
               </div>
             </div>
 
             <div class="row text-center">
-              <div class="col-4">
+              <div class="col-md-4 col-12">
                 <el-tooltip content="Add new row for permission" placement="top">
                   <p-button @click="addRow" type="primary">
                     Add Row
@@ -45,14 +48,14 @@
                 </el-tooltip>
               </div>
 
-              <div class="col-4">
+              <div class="col-md-4 col-12">
                 <el-tooltip content="Delete permission row" placement="top">
                   <p-button @click="deleteRow" type="primary">
                     Delete Row
                   </p-button>
                 </el-tooltip>
               </div>
-              <div class="col-4">
+              <div class="col-md-4 col-12">
                 <el-tooltip content="Update permission" placement="top">
                   <p-button @click="onUnpdate" :disabled="validatePermission" type="primary">
                     Update
@@ -67,7 +70,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
@@ -96,19 +99,32 @@ export default {
   data() {
     return {
       thresholdError: false,
-      threshold: '1',
+      modelValidation: {
+        threshold: {
+          required: true,
+          numeric: true,
+          min_value: 0,
+        },
+        permission: {
+          required: true,
+        },
+      },
+      threshold: 1,
       permission: '',
       parent: '',
       authorities: [{ authority: '', permission: '', weight: '1', error: false }],
     };
   },
   components: {
-    [Tooltip.name]: Tooltip
+    [Tooltip.name]: Tooltip,
   },
   methods: {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     onUnpdate() {
       const actions = [{
         account: 'eosio',
@@ -187,10 +203,11 @@ export default {
       'getAuthority',
     ]),
     validatePermission() {
-      if (this.permission && this.authorities.every(obj => !obj.error && obj.authority && parseInt(obj.weight, 10) > 0) && !this.thresholdError) {
-        return false;
-      }
-      return true;
+      // if (this.permission && this.authorities.every(obj => !obj.error && obj.authority && parseInt(obj.weight, 10) > 0) && !this.thresholdError) {
+      //   return false;
+      // }
+      // return true;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
 };

@@ -1,17 +1,23 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Change Permissions</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-6">
-                <fg-input label="Active Permission (key or account)" type="text" v-model="activePermission" @change="activePermissionError = false"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Active Permission (key or account)" type="text" v-model="activePermission"
+                          name="activePermission" v-validate="modelValidation.activePermission" data-vv-as="active permission"
+                          :error="getError('activePermission')"
+                ></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input title="Invalid name" label="Owner Permission (key or account)" v-model="ownerPermission" @change="ownerPermissionError = false"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Owner Permission (key or account)" v-model="ownerPermission"
+                          name="ownerPermission" v-validate="modelValidation.ownerPermission" data-vv-as="owner permission"
+                          :error="getError('ownerPermission')"
+                ></fg-input>
               </div>
             </div>
 
@@ -25,13 +31,13 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
           <div>Pay special attention this action has tangible consequences
             Control every permission you assign.
-            If you mix up and assign an account instead of a key, as permission, you risk to break down your account </div>
+            If you mix up and assign an account instead of a key, as permission, you risk to break down your account.</div>
         </div>
       </div>
     </div>
@@ -49,9 +55,17 @@ export default {
   data() {
     return {
       activePermission: '',
-      activePermissionError: false,
       ownerPermission: '',
-      ownerPermissionError: false,
+      modelValidation: {
+        activePermission: {
+          required: true,
+          max: 53,
+        },
+        ownerPermission: {
+          required: true,
+          max: 53,
+        },
+      },
     };
   },
   methods: {
@@ -154,10 +168,7 @@ export default {
       'getAuthority',
     ]),
     validatePermission() {
-      if ((this.activePermission || this.ownerPermission) && !this.ownerPermissionError && !this.activePermissionError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
 };

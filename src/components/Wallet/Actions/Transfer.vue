@@ -1,31 +1,32 @@
 <template>
   <div id="main">
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
         <div class="card-header"><h4 class="title">Transfer</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input label="Account name" :value="getAccountName" readonly></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input label="Destination account" v-model="transferModel.toAccount" name="toAccount" maxlength="12" required
-                          v-validate="transferModelValidation.toAccount" :error="getError('toAccount')" data-vv-as="destination account"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Destination account" v-model="toAccount" maxlength="12" required
+                          name="toAccount" v-validate="transferModelValidation.toAccount" :error="getError('toAccount')" data-vv-as="destination account"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <fg-input
                   v-model.number="transferModel.amount" label="Amount"
                   type="number" min="0" required
-                  name="Amount" v-validate="transferModelValidation.amount" :error="getError('Amount')" data-vv-as="amount"
+                  name="amount" v-validate="transferModelValidation.amount" :error="getError('amount')" data-vv-as="amount"
                 >
                 </fg-input>
               </div>
-              <div class="col-6 d-flex align-items-center pt-2">
+              <div class="col-md-6 col-12 d-flex align-items-center pt-2">
                 <el-select class="select-primary"
                            size="large"
                            placeholder="Token"
@@ -43,7 +44,7 @@
             <div class="row">
               <div class="col-12">
                 <fg-input v-model="transferModel.memo" type="text" label="Memo"
-                          name="Memo" v-validate="transferModelValidation.memo" :error="getError('Memo')" data-vv-as="memo"></fg-input>
+                          name="memo" v-validate="transferModelValidation.memo" :error="getError('memo')" data-vv-as="memo"></fg-input>
               </div>
             </div>
             <div class="row">
@@ -56,7 +57,7 @@
         </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -87,12 +88,12 @@ export default {
         toAccount: {
           required: true,
           accountExist: true,
+          regex: /^([a-z1-5]){12}$/,
         },
         amount: {
           required: true,
-          numeric: true,
+          decimal: true,
           min_value: 0.0001,
-          noMoreThenBalance: true,
         },
         memo: {
           required: false,
@@ -122,12 +123,7 @@ export default {
       'getTokensWithEos',
     ]),
     transferValidation() {
-      // if (this.amount && this.toAccount && !this.accountError && !this.memoError &&
-      //   !this.amountError) {
-      //   return false;
-      // }
-      // return true;
-      return false;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
   methods: {
@@ -138,15 +134,6 @@ export default {
     ]),
     getError(fieldName) {
       return this.errors.first(fieldName);
-    },
-    validateAmount() {
-      const rg = /^\d{1,10}(\.\d{0,4})?$/;
-      if (!this.amount || !parseFloat(this.amount) || parseFloat(this.amount) < 0 ||
-        (parseFloat(this.amount) > parseFloat(this.getBalance) && this.currentToken === 'EOS') || !rg.test(this.amount)) {
-        this.amountError = true;
-      } else {
-        this.amountError = false;
-      }
     },
     onTransfer() {
       const tokenObj = this.tokenList.find(token => token.symbol === this.currentToken);

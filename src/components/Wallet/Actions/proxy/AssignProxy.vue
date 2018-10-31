@@ -1,17 +1,19 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Assign proxy</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-6">
-                <fg-input label="Account" :value="getAccountName" maxlength="12" required readonly></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Account" :value="getAccountName" maxlength="12" readonly></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input title="Invalid name" label="Proxy" v-model="proxy" maxlength="12" required @change="validateAccount"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input title="Invalid name" label="Proxy" v-model="proxy" maxlength="12" required
+                          name="proxy" v-validate="modelValidation.proxy" :error="getError('proxy')"
+                ></fg-input>
               </div>
             </div>
 
@@ -25,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
@@ -47,7 +49,13 @@ export default {
   data() {
     return {
       proxy: '',
-      proxyError: false,
+      modelValidation: {
+        proxy: {
+          required: true,
+          accountExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+      },
     };
   },
   computed: {
@@ -59,24 +67,15 @@ export default {
       'getAuthority',
     ]),
     validate() {
-      if (this.getAccountName && !this.proxyError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
   methods: {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
-    validateAccount() {
-      this.eos.getAccount(this.proxy)
-        .then(() => {
-          this.proxyError = false;
-        })
-        .catch(() => {
-          this.proxyError = true;
-        });
+    getError(fieldName) {
+      return this.errors.first(fieldName);
     },
     onAssignProxy() {
       this.eos.transaction(

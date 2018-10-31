@@ -7,8 +7,6 @@ const lengthInUtf8Bytes = (str) => {
   return str.length + (m ? m.length : 0);
 };
 
-const validatePublicKey = (key) => (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS');
-
 function logInPopUP() {
   swal({
     title: 'You are not logged in',
@@ -64,6 +62,16 @@ export default [
     getMessage: field => 'Invalid value',
     validate: (value) => {
       if (value <= store.getters.getBalance) {
+        return true;
+      }
+      return false;
+    },
+  },
+  {
+    name: 'publicKey',
+    getMessage: field => 'Invalid public key',
+    validate: (key) => {
+      if (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS') {
         return true;
       }
       return false;

@@ -1,26 +1,32 @@
 <template>
   <div id="main">
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Link Auth</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Account name" :value="getAccountName" maxlength="12" required readonly></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Account name" :value="getAccountName" maxlength="12" readonly></fg-input>
                 </div>
-                <div class="col-md-6">
-                  <fg-input label="Account Permission" type="text" v-model="accountPermission" required></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Account Permission" type="text" v-model="accountPermission" required
+                            name="accountPermission" v-validate="transferModelValidation.accountPermission" :error="getError('accountPermission')"
+                  ></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Contract Name" type="text" v-model="linkContractName" required></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Contract Name" type="text" v-model="linkContractName" required
+                            name="linkContractName" v-validate="transferModelValidation.linkContractName" :error="getError('linkContractName')"
+                  ></fg-input>
                 </div>
-                <div class="col-md-6">
-                  <fg-input label="Contract Action" type="text" v-model="linkContractAction" required></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Contract Action" type="text" v-model="linkContractAction" required
+                            name="linkContractAction" v-validate="transferModelValidation.linkContractAction" :error="getError('linkContractAction')"
+                  ></fg-input>
                 </div>
               </div>
 
@@ -37,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -50,23 +56,27 @@
     </div>
 
     <div class="row">
-      <div class="col-8">
+      <div class="col-md-8 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Unlink Auth</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                   <fg-input label="Account Name" :value="getAccountName" maxlength="12" required readonly></fg-input>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-md-6">
-                  <fg-input label="Contract Name" type="text" v-model="unlinkContractName" required></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Contract Name" type="text" v-model="unlinkContractName" required
+                            name="unlinkContractName" v-validate="transferModelValidation.unlinkContractName" :error="getError('unlinkContractName')"
+                  ></fg-input>
                 </div>
-                <div class="col-md-6">
-                  <fg-input label="Contract Action" type="text" v-model="unlinkContractAction" required></fg-input>
+                <div class="col-md-6 col-12">
+                  <fg-input label="Contract Action" type="text" v-model="unlinkContractAction" required
+                            name="unlinkContractAction" v-validate="transferModelValidation.unlinkContractAction" :error="getError('unlinkContractAction')"
+                  ></fg-input>
                 </div>
               </div>
 
@@ -83,7 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-12">
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
@@ -109,6 +119,25 @@ export default {
       linkContractAction: '',
       unlinkContractName: '',
       unlinkContractAction: '',
+      modelValidation: {
+        accountPermission: {
+          required: true,
+        },
+        linkContractName: {
+          required: true,
+        },
+        linkContractAction: {
+          required: true,
+        },
+      },
+      unlinkmodelValidation: {
+        unlinkContractName: {
+          required: true,
+        },
+        unlinkContractAction: {
+          required: true,
+        },
+      },
     };
   },
   methods: {
@@ -182,16 +211,10 @@ export default {
       'getAuthority',
     ]),
     validateLinkAuth() {
-      if (this.accountPermission && this.linkContractName && this.linkContractAction) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
     validateUnlinkAuth() {
-      if (this.unlinkContractName && this.unlinkContractAction) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.unlinkmodelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
   },
 };

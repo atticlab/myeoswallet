@@ -1,23 +1,27 @@
 <template>
 <div id="main">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Bid name</h4></div>
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-6">
-                <fg-input label="Bidder" :value="getAccountName" maxlength="12" required readonly></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Bidder" :value="getAccountName" maxlength="12" readonly></fg-input>
               </div>
-              <div class="col-6">
-                <fg-input title="Invalid name" label="Account name" type="text" v-model="newname" maxlength="12" required @change="validateAccount"></fg-input>
+              <div class="col-md-6 col-12">
+                <fg-input label="Account name" type="text" v-model="newname" maxlength="12" required
+                          name="newname" v-validate="transferModelValidation.newname" :error="getError('newname')" data-vv-as="new name"
+                ></fg-input>
               </div>
             </div>
 
             <div class="row">
               <div class="col-12">
-                <fg-input label="Bid (in EOS)" type="number" v-model="bid" required @change="validateBid"></fg-input>
+                <fg-input label="Bid (in EOS)" type="number" v-model.number="bid" required
+                          name="bid" v-validate="transferModelValidation.bid" :error="getError('bid')"
+                ></fg-input>
               </div>
             </div>
 
@@ -32,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4 col-12">
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
@@ -55,26 +59,31 @@ export default {
   name: 'NameAuction',
   data() {
     return {
-      newnameError: false,
-      bidError: false,
       newname: '',
-      bid: '0',
+      bid: 0,
+      modelValidation: {
+        newname: {
+          required: true,
+          accountNotExist: true,
+          regex: /^([a-z1-5]){12}$/,
+        },
+        bid: {
+          required: true,
+          decimal: true,
+          min_value: 0.0001,
+        },
+      },
     };
   },
   methods: {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
-    validateAccount() {
-      const rg = /^[a-z1-5]{1,12}$/;
-      this.newnameError = !rg.test(this.amount);
+    getError(fieldName) {
+      return this.errors.first(fieldName);
     },
     validateBid() {
-      if (this.bid && parseFloat(this.bid) > 0 && parseFloat(this.bid) < parseFloat(this.getBalance)) {
-        this.bidError = false;
-      } else {
-        this.bidError = true;
-      }
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
     onBid() {
       this.eos.transaction(
@@ -90,7 +99,7 @@ export default {
               data: {
                 bidder: this.getAccountName,
                 newname: this.newname,
-                bid: `${parseFloat(this.bid).toFixed(4)} EOS`,
+                bid: `${this.bid.toFixed(4)} EOS`,
               },
             },
           ],
@@ -115,10 +124,7 @@ export default {
       'getAuthority',
     ]),
     bidNameValidation() {
-      if (this.newname && this.bid && !this.newnameError && !this.bidError) {
-        return false;
-      }
-      return true;
+      return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
   },
 };
