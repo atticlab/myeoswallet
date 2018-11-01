@@ -163,6 +163,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onDelegate() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction({
         actions: [
           {
@@ -195,6 +199,10 @@ export default {
       });
     },
     onUndelegate() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction({
         actions: [
           {

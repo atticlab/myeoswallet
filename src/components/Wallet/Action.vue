@@ -125,9 +125,9 @@ export default {
       'getRefund',
       'getAccountName',
     ]),
-    isError() {
-      return this.transaction && ((this.transaction.isError || this.transaction.error) ||
-        (this.transaction.status && this.transaction.status !== 200) || this.transaction.status === 0);
+    isSuccess() {
+      return this.transaction && ((!this.transaction.isError && !this.transaction.error) ||
+        (this.transaction.status === 200));
     },
   },
   components: {
@@ -145,8 +145,8 @@ export default {
     },
     initPopUp() {
       swal({
-        title: this.isError ? 'Fail' : 'Success',
-        type: this.isError ? 'error' : 'success',
+        title: this.isSuccess ? 'Success' : 'Fail',
+        type: this.isSuccess ? 'success' : 'error',
         html: '<div style="text-align: left;"><pre id="json-pop-up">' + JSON.stringify(this.transaction, null, 1) + '</pre></div>',
         buttonsStyling: false,
         showCancelButton: true,

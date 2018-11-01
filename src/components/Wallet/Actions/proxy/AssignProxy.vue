@@ -78,6 +78,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onAssignProxy() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

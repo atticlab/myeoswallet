@@ -174,6 +174,10 @@ export default {
       });
     },
     onUnlinkAuth() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

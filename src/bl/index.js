@@ -1,4 +1,5 @@
 import JSONFormatter from 'json-formatter-js';
+import swal from 'sweetalert2';
 
 function composeCurrencyBalanceRequest(identityAccount, token) {
   return {
@@ -53,5 +54,24 @@ export default {
       error = JSON.parse(e);
     }
     renderJSON(error, idForInsert);
+  },
+  logInPopUP: () => {
+    swal({
+      title: 'You are not logged in',
+      html: '<p>Please, login with Scatter on ledger on the left panel</p>',
+      buttonsStyling: false,
+      showConfirmButton: true,
+      showCloseButton: true,
+      confirmButtonClass: 'btn btn-primary',
+    }).catch((e) => {});
+  },
+  ledgerAprove: () => {
+    swal({
+      title: 'Ledger confirm',
+      buttonsStyling: false,
+      showConfirmButton: true,
+      showCloseButton: true,
+      confirmButtonClass: 'btn btn-primary',
+    }).catch((e) => {});
   },
 };

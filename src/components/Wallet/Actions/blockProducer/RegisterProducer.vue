@@ -88,6 +88,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onRegister() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

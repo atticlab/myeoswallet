@@ -46,6 +46,7 @@ export default {
       this.balanceUpdate();
     }, 20000);
     const ledgerWallet = new ExternalWallet(EXT_WALLET_TYPES.LEDGER)
+    console.log(ledgerWallet)
     this[ActionType.SET_LEDGER_WALLET](ledgerWallet)
   },
   computed: {

@@ -1,23 +1,11 @@
-import swal from 'sweetalert2';
 import store from './store';
+import bl from 'src/bl'
 
 const lengthInUtf8Bytes = (str) => {
   const m = encodeURIComponent(str)
     .match(/%[89ABab]/g);
   return str.length + (m ? m.length : 0);
 };
-
-function logInPopUP() {
-  swal({
-    title: 'You are not logged in',
-    html: '<p>Please, login with Scatter on ledger on the left panel</p>',
-    buttonsStyling: false,
-    showConfirmButton: true,
-    showCloseButton: true,
-    confirmButtonClass: 'btn btn-primary',
-  })
-    .catch(e => {});
-}
 
 export default [
   {
@@ -29,7 +17,7 @@ export default [
           .then(() => true)
           .catch(() => false);
       }
-      logInPopUP();
+      bl.logInPopUP();
       return false;
     },
   },
@@ -42,7 +30,7 @@ export default [
           .then(() => false)
           .catch(() => true);
       }
-      logInPopUP();
+      bl.logInPopUP();
       return false;
     },
   },

@@ -335,6 +335,10 @@ export default {
       // const options = {
       //   authorization: `${this.getAccountName}@${this.getAuthority}`,
       // };
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction({
         actions: [
           {

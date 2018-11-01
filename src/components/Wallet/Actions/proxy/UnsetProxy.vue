@@ -88,6 +88,10 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onSetProxy() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [
@@ -117,6 +121,10 @@ export default {
         });
     },
     onUnregisterProxyInfo() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

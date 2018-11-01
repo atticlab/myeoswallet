@@ -149,6 +149,10 @@ export default {
       this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
     },
     onVote() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.prodToVote.sort();
       this.eos.transaction(
         {

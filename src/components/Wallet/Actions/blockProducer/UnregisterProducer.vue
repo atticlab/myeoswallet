@@ -46,6 +46,10 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onUnregisterProducer() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

@@ -86,6 +86,10 @@ export default {
       return !Object.keys(this.fields).every(key => this.fields[key].valid);
     },
     onBid() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

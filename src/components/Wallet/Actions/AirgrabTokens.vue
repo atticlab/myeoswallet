@@ -95,6 +95,10 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     sendAirgrab(val) {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       const actionObj = this.airgrabs.find(obj => obj.account === val);
       if (!actionObj) return;
       const data = {};

@@ -139,6 +139,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onBuyRam() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       if (this.inEos) {
         this.eos.transaction({
           actions: [
@@ -200,6 +204,10 @@ export default {
       }
     },
     onSellRam() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction({
         actions: [
           {

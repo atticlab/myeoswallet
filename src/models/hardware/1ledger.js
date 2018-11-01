@@ -7,10 +7,9 @@ const asn1 = require('asn1-ber');
 import Actions from '../../store/constants';
 import {Blockchains} from '../Blockchains';
 import {EXT_WALLET_TYPES} from '../ExternalWallet';
-// import Transport from '@ledgerhq/hw-transport-node-hid';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import Eos from 'eosjs';
-import EosLedger from './eosledjer';
+import EosLedger from './eosledjer'
 import store from '../../store';
 
 export const LEDGER_PATHS = {
@@ -204,7 +203,6 @@ class LedgerAPI {
       return `You must open the ${this.blockchain.toUpperCase()} Ledger App in order to use it with Scatter`;
     })
   }
-
 }
 
 const foreach = (arr, callback) => {

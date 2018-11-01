@@ -136,6 +136,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onTransfer() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       const tokenObj = this.tokenList.find(token => token.symbol === this.currentToken);
       if (!tokenObj) return;
       this.eos.transaction(

@@ -23,8 +23,6 @@ var assert = require('assert');
 
 export {foreach};
 
-import bl from 'src/bl'
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var bippath = require('bip32-path');
@@ -42,24 +40,25 @@ var P1_MORE = 0x80;
 
 function serialize(chainId, transaction, types)  {
   const writer = new asn1.BerWriter();
+
   encode(writer, fcbuffer.toBuffer(types.checksum256(), chainId));
   encode(writer, fcbuffer.toBuffer(types.time(), transaction.expiration));
   encode(writer, fcbuffer.toBuffer(types.uint16(), transaction.ref_block_num));
   encode(
-  writer,
-  fcbuffer.toBuffer(types.uint32(), transaction.ref_block_prefix)
+    writer,
+    fcbuffer.toBuffer(types.uint32(), transaction.ref_block_prefix)
   );
   encode(
-  writer,
-  fcbuffer.toBuffer(types.unsigned_int(), 0) //transaction.net_usage_words
+    writer,
+    fcbuffer.toBuffer(types.unsigned_int(), 0) //transaction.net_usage_words
   );
   encode(
-  writer,
-  fcbuffer.toBuffer(types.uint8(), transaction.max_cpu_usage_ms)
+    writer,
+    fcbuffer.toBuffer(types.uint8(), transaction.max_cpu_usage_ms)
   );
   encode(
-  writer,
-  fcbuffer.toBuffer(types.unsigned_int(), transaction.delay_sec)
+    writer,
+    fcbuffer.toBuffer(types.unsigned_int(), transaction.delay_sec)
   );
 
   assert(transaction.context_free_actions.length === 0);
@@ -67,15 +66,16 @@ function serialize(chainId, transaction, types)  {
 
   assert(transaction.actions.length === 1);
   encode(writer, fcbuffer.toBuffer(types.unsigned_int(), 1));
+
   const action = transaction.actions[0];
+
   encode(writer, fcbuffer.toBuffer(types.account_name(), action.account));
   encode(writer, fcbuffer.toBuffer(types.action_name(), action.name));
 
   encode(
-  writer,
-  fcbuffer.toBuffer(types.unsigned_int(), action.authorization.length)
+    writer,
+    fcbuffer.toBuffer(types.unsigned_int(), action.authorization.length)
   );
-
   for (let i = 0; i < action.authorization.length; i += 1) {
     const authorization = action.authorization[i];
 
@@ -127,7 +127,7 @@ function foreach(arr, callback) {
  * const eos = new Eos(transport)
  */
 
-var Eos = function () {
+var EosLedger = function () {
     function Eos(transport) {
         (0, _classCallCheck3.default)(this, Eos);
 
@@ -184,14 +184,15 @@ var Eos = function () {
             var toSend = [];
             var response = void 0;
 
-            const { fc } = EosApi({httpEndpoint:process.env.VUE_APP_EOS_PROTOCOL + '://' + process.env.VUE_APP_EOS_HOST, chainId:process.env.VUE_APP_EOS_CHAIN_ID});
+            const { fc } = EosApi({httpEndpoint:process.env.EOS_PROTOCOL + '://' + process.env.EOS_HOST, chainId:process.env.EOS_CHAIN_ID});
             let b;
             try {
-              b = serialize(process.env.VUE_APP_EOS_CHAIN_ID, rawTxHex.transaction, fc.types).toString('hex');
+              b = serialize(process.env.EOS_CHAIN_ID, rawTxHex.transaction, fc.types).toString('hex');
             } catch(e){
               console.error(e);
               return null;
             }
+
           var rawTx = Buffer.from(b, "hex");
 
           var _loop = function _loop() {
@@ -214,8 +215,7 @@ var Eos = function () {
             while (offset !== rawTx.length) {
                 _loop();
             }
-          bl.ledgerAprove();
-          return foreach(toSend, function (data, i) {
+            return foreach(toSend, function (data, i) {
                 return _this.transport.send(CLA, INS_SIGN, i === 0 ? P1_FIRST : P1_MORE, 0x00, data).then(function (apduResponse) {
                     response = apduResponse;
                     return response;
@@ -227,10 +227,7 @@ var Eos = function () {
                 // return { v: v, r: r, s: s };
                 return v + r + s;
             })
-              .catch(e => {
-                console.log(e)
-                throw e
-              });
+              .catch(e => console.log(e));
         }
 
         /**
@@ -249,4 +246,4 @@ var Eos = function () {
     return Eos;
 }();
 
-export default Eos;
+export default EosLedger;

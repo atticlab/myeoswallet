@@ -192,6 +192,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onSetProxy() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [
@@ -221,6 +225,10 @@ export default {
         });
     },
     onRegisterProxyInfo() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

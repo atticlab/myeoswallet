@@ -126,6 +126,10 @@ export default {
       return this.errors.first(fieldName);
     },
     onUnpdate() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       const actions = [{
         account: 'eosio',
         name: 'updateauth',

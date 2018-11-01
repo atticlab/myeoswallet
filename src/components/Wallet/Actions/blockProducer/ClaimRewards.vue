@@ -55,6 +55,10 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onClaimReward() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction(
         {
           actions: [

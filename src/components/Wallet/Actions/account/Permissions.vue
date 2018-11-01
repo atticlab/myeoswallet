@@ -73,6 +73,10 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onUnpdate() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       const actions = [];
       const temp = {
         account: 'eosio',

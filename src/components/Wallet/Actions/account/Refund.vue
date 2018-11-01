@@ -56,6 +56,10 @@ export default {
       ActionType.SET_TRANSACTION,
     ]),
     onRefund() {
+      if (!this.eos) {
+        bl.logInPopUP();
+        return;
+      }
       this.eos.transaction({
         actions: [
           {
