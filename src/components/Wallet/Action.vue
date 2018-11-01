@@ -8,7 +8,7 @@
           <div class="card-body text-center">
             <div class="row">
               <div class="col">
-                <p>Total: {{ getBalance + getStacked + getRefund }} EOS</p>
+                <p>Total: {{ (getBalance + getStacked + getRefund).toFixed(4) }} EOS</p>
                 <p>Refund: {{ getRefund }} EOS</p>
               </div>
 

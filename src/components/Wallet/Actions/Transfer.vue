@@ -11,7 +11,7 @@
                 <fg-input label="Account name" :value="getAccountName" readonly></fg-input>
               </div>
               <div class="col-md-6 col-12">
-                <fg-input label="Destination account" v-model="toAccount" maxlength="12" required
+                <fg-input label="Destination account" v-model="transferModel.toAccount" maxlength="12" required
                           name="toAccount" v-validate="transferModelValidation.toAccount" :error="getError('toAccount')" data-vv-as="destination account"
                 ></fg-input>
               </div>
@@ -81,7 +81,7 @@ export default {
     return {
       transferModel: {
         toAccount: '',
-        amount: '',
+        amount: 0.0001,
         memo: '',
       },
       transferModelValidation: {
@@ -151,7 +151,7 @@ export default {
               data: {
                 from: this.getAccountName,
                 to: this.transferModel.toAccount,
-                quantity: `${parseFloat(this.transferModel.amount).toFixed(4)} ${tokenObj.symbol}`,
+                quantity: `${this.transferModel.amount.toFixed(4)} ${tokenObj.symbol}`,
                 memo: this.transferModel.memo,
               },
             },

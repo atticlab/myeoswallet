@@ -204,7 +204,7 @@ export default {
       withoutAccountmodelValidation: {
         withoutAccountaccountName: {
           required: true,
-          accountNotExist: true,
+          accountNotExistWitoutLogin: true,
           regex: /^([a-z1-5]){12}$/,
         },
         withoutAccountownerKey: {
@@ -332,33 +332,55 @@ export default {
         });
     },
     onCreateAccount() {
-      const options = {
-        authorization: `${this.getAccountName}@${this.getAuthority}`,
-      };
-      this.eos.transaction((tr) => {
-        tr.newaccount({
-          creator: this.getAccountName,
-          name: this.accountName,
-          owner: this.ownerKey,
-          active: this.activeKey,
-        });
-
-        tr.buyrambytes({
-          payer: this.getAccountName,
-          receiver: this.accountName,
-          bytes: parseInt(this.ram, 10),
-        });
-
-        tr.delegatebw({
-          from: this.getAccountName,
-          receiver: this.accountName,
-          stake_net_quantity: `${parseFloat(this.cpuStake).toFixed(4)} EOS`,
-          stake_cpu_quantity: `${parseFloat(this.netStake).toFixed(4)} EOS`,
-          transfer: this.transfer ? 1 : 0,
-        });
-      },
-      options,
-      ).then((res) => {
+      // const options = {
+      //   authorization: `${this.getAccountName}@${this.getAuthority}`,
+      // };
+      this.eos.transaction({
+        actions: [
+          {
+            account: 'eosio',
+            name: 'newaccount',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              creator: this.getAccountName,
+              name: this.accountName,
+              owner: this.ownerKey,
+              active: this.activeKey,
+            },
+          },
+          {
+            account: 'eosio',
+            name: 'buyrambytes',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              payer: this.getAccountName,
+              receiver: this.accountName,
+              bytes: this.ram,
+            },
+          },
+          {
+            account: 'eosio',
+            name: 'delegatebw',
+            authorization: [{
+              actor: this.getAccountName,
+              permission: this.getAuthority,
+            }],
+            data: {
+              from: this.getAccountName,
+              receiver: this.accountName,
+              stake_net_quantity: `${this.cpuStake.toFixed(4)} EOS`,
+              stake_cpu_quantity: `${this.netStake.toFixed(4)} EOS`,
+              transfer: this.transfer ? 1 : 0,
+            },
+          },
+        ],
+      }).then((res) => {
         console.debug(`${this.$options.name} RESULT`, res);
         this[ActionType.SET_TRANSACTION](res);
         bl.renderJSON(res, 'place-for-transaction');
@@ -384,9 +406,6 @@ export default {
       this.generateRandomName();
       this.generateRandomOwnerKeys();
       this.generateRandomActiveKeys();
-      this.withoutAccountaccountNameError = false;
-      this.withoutAccountownerKeyError = false;
-      this.withoutAccountactiveKeyError = false;
     },
     copy() {
       this.$copyText(`Name: ${this.withoutAccountaccountName}\nOwner public: ${this.withoutAccountownerKey}\nOwner private: ${this.withoutAccountownerKeyPriv}\nActive public: ${this.withoutAccountactiveKey}\nActive private: ${this.withoutAccountactiveKeyPriv}`);

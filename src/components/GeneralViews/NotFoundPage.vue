@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <app-navbar></app-navbar>
+    <!--<app-navbar></app-navbar>-->
     <div class="wrapper wrapper-full-page">
       <div class="full-page login-page section-image">
         <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->

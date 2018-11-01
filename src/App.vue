@@ -28,6 +28,7 @@ export default {
   data() {
     return {
       isLedgerConnected: false,
+      currentLogin: '',
     };
   },
   created() {
@@ -56,12 +57,19 @@ export default {
       'eosAccount',
       'tokenList',
       'ledgerWallet',
+      'currentNode',
     ]),
     ...mapGetters([
       'httpEndpoint',
       'eosConfig',
       'eosConfigLedger',
     ]),
+  },
+  watch: {
+    currentNode() {
+      this.initEosApi();
+      this.relogin();
+    },
   },
   methods: {
     ...mapActions([
@@ -79,11 +87,18 @@ export default {
       ActionType.SET_HARDWARE,
       ActionType.LOGOUT,
     ]),
+    relogin() {
+      if (this.currentLogin === 'scatter') {
+        this.doOnLoginDesktop();
+      } else if (this.currentLogin === 'ledger') {
+        this.connectLedger();
+      }
+    },
     isMobileDevice() {
       return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1)
     },
     logout() {
-      this[ActionType.LOGOUT]()
+      this[ActionType.LOGOUT]();
     },
     initIdentity(identity) {
       if (identity) {
@@ -111,6 +126,7 @@ export default {
     },
     initEosApi() {
       const eos = Eos(this.eosConfig);
+      console.log(this.eosConfig);
       this[ActionType.SET_EOS_JSAPI](eos);
     },
     noScatterAlert() {
@@ -122,39 +138,43 @@ export default {
       });
     },
     doOnLoginDesktop() {
+      this.currentLogin = 'scatter';
       this.logout();
+      console.log('START')
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert();
           return false;
         }
-
         const scatter = ScatterJS.scatter;
         window.scatter = null;
         this[ActionType.SET_SCATTER](scatter);
 
         const requiredFields = { accounts: [this.eosConfig] };
-        scatter.getIdentity(requiredFields).then((identity) => {
-          if (this.initIdentity(identity)) {
-            const identityAccount = this.initIdentityAccount(identity);
+        setTimeout(() => {
+          scatter.getIdentity(requiredFields).then((identity) => {
+            if (this.initIdentity(identity)) {
+              const identityAccount = this.initIdentityAccount(identity);
+              if (identityAccount) {
+                const eos = this.initEos();
 
-            if (identityAccount) {
-              const eos = this.initEos();
+                if (eos && identityAccount.name) {
+                  eos.getAccount(identityAccount.name).then((respEosAccount) => {
+                    bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
+                    this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
 
-              if (eos && identityAccount.name) {
-                eos.getAccount(identityAccount.name).then((respEosAccount) => {
-                  bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
-                  this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
-
-                  this.getTokenList();
-                  this.balanceUpdate();
-                });
+                    this.getTokenList();
+                    this.balanceUpdate();
+                  });
+                }
               }
             }
-          }
-        })
-          .catch(error => console.error(error));
-        return true;
+          })
+            .catch((error) => {
+              console.error(error);
+            });
+          return true;
+        }, 1000);
       });
     },
     getTokenList() {
@@ -212,6 +232,7 @@ export default {
     },
     connectLedger() {
       this.logout();
+      this.currentLogin = 'ledger';
       if (this.isLedgerConnected) {
         this.ledgerWallet.interface.getPublicKey(bip44Path, false)
           .then((key) => {

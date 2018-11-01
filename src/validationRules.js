@@ -47,6 +47,18 @@ export default [
     },
   },
   {
+    name: 'accountNotExistWitoutLogin',
+    getMessage: field => 'Account exist',
+    validate: (value) => {
+      if (store.state.eosApi) {
+        return store.state.eosApi.getAccount(value)
+          .then(() => false)
+          .catch(() => true);
+      }
+      return false;
+    },
+  },
+  {
     name: 'validateMemo',
     getMessage: field => 'Too long value',
     validate: (value) => {

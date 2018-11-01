@@ -175,8 +175,8 @@ export default {
             data: {
               from: this.getAccountName,
               receiver: this.recipient,
-              stake_net_quantity: `${parseFloat(this.netStake).toFixed(4)} EOS`,
-              stake_cpu_quantity: `${parseFloat(this.cpuStake).toFixed(4)} EOS`,
+              stake_net_quantity: `${this.netStake.toFixed(4)} EOS`,
+              stake_cpu_quantity: `${this.cpuStake.toFixed(4)} EOS`,
               transfer: this.transfer ? 1 : 0,
             },
           },
@@ -207,8 +207,8 @@ export default {
             data: {
               from: this.getAccountName,
               receiver: this.stakeHolder,
-              unstake_net_quantity: `${parseFloat(this.netUnStake).toFixed(4)} EOS`,
-              unstake_cpu_quantity: `${parseFloat(this.cpuUnStake).toFixed(4)} EOS`,
+              unstake_net_quantity: `${this.netUnStake.toFixed(4)} EOS`,
+              unstake_cpu_quantity: `${this.cpuUnStake.toFixed(4)} EOS`,
             },
           },
         ],
@@ -236,19 +236,9 @@ export default {
       'getAuthority',
     ]),
     delegateValidation() {
-      // if (this.recipient && this.cpuStake && this.netStake &&
-      //   !this.recipientError && !this.cpuStakeError && !this.netStakeError) {
-      //   return false;
-      // }
-      // return true;
       return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
     undelegateValidation() {
-      // if (this.stakeHolder && (parseFloat(this.cpuUnStake) || parseFloat(this.netUnStake)) &&
-      //   !this.stakeHolderError && !this.cpuUnStakeError && !this.netUnStakeError) {
-      //   return false;
-      // }
-      // return true;
       return !Object.keys(this.undelegatemodelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
   },

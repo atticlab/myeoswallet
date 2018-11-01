@@ -68,8 +68,9 @@ export default {
   [ActionType.SET_LEDGER_WALLET]: (state, ledgerWallet) => {
     state.ledgerWallet = ledgerWallet;
   },
+
   [ActionType.LOGOUT]: (state) => {
-    if (state.scatter && state.scatter.identity) {
+    if (state.scatter && state.scatter.identity && state.scatter.forgetIdentity) {
       state.scatter.forgetIdentity();
     }
     state.identity = null;
@@ -79,5 +80,9 @@ export default {
     state.balance = [];
     state.transaction = null;
     state.tokenList = null;
+  },
+
+  [ActionType.SET_NODE]: (state, node) => {
+    state.currentNode = node;
   },
 };

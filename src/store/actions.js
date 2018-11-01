@@ -34,4 +34,6 @@ export default {
   [ActionType.SET_LEDGER_WALLET]: ({ commit }, ledgerWallet) => commit(ActionType.SET_LEDGER_WALLET, ledgerWallet),
 
   [ActionType.LOGOUT]: ({ commit }) => commit(ActionType.LOGOUT),
+
+  [ActionType.SET_NODE]: ({ commit }, node) => commit(ActionType.SET_NODE, node),
 };

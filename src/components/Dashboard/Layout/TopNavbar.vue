@@ -34,85 +34,99 @@
             <!--</p>-->
           <!--</a>-->
         <!--</li>-->
-        <!--<drop-down icon="nc-icon nc-bell-55" tag="li"-->
-                   <!--position="right"-->
-                   <!--direction="none"-->
-                   <!--class="nav-item btn-rotate dropdown">-->
-          <!--<a slot="title"-->
-             <!--slot-scope="{isOpen}"-->
-             <!--class="nav-link dropdown-toggle"-->
-             <!--data-toggle="dropdown"-->
-             <!--aria-haspopup="true"-->
-             <!--:aria-expanded="isOpen">-->
-            <!--<i class="nc-icon nc-bell-55"></i>-->
-            <!--<p>-->
-              <!--<span class="d-lg-none d-md-block">Some Actions</span>-->
-            <!--</p>-->
-          <!--</a>-->
-          <!--<a class="dropdown-item" href="#">Action</a>-->
-          <!--<a class="dropdown-item" href="#">Another action</a>-->
-          <!--<a class="dropdown-item" href="#">Something else here</a>-->
-        <!--</drop-down>-->
         <li class="nav-item nav-text">
           {{ getAccountNameWithAuthority }}
         </li>
-        <li class="nav-item">
-          <a class="nav-link btn-rotate" href="#">
-            <i class="nc-icon nc-settings-gear-65"></i>
-            <p>
-              <span class="d-lg-none d-md-block">Account</span>
-            </p>
-          </a>
-        </li>
+        <el-tooltip content="Change node" placement="bottom">
+          <drop-down icon="nc-icon nc-settings-gear-65" tag="li"
+                     position="right"
+                     direction="none"
+                     class="nav-item btn-rotate dropdown">
+            <a slot="title"
+               slot-scope="{isOpen}"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               :aria-expanded="isOpen">
+              <i class="nc-icon nc-settings-gear-65"></i>
+              <p>
+                <span class="d-lg-none d-md-block">Select node</span>
+              </p>
+            </a>
+            <a :class="['dropdown-item', { active: currentNode === node }]" href="#" v-for="(node, i) in nodeList" :key="i" @click="changeNode(node)">{{ node }}</a>
+          </drop-down>
+        </el-tooltip>
+        <!--<li class="nav-item">-->
+          <!--<a class="nav-link btn-rotate" href="#">-->
+            <!--<i class="nc-icon nc-settings-gear-65"></i>-->
+            <!--<p>-->
+              <!--<span class="d-lg-none d-md-block">Account</span>-->
+            <!--</p>-->
+          <!--</a>-->
+        <!--</li>-->
       </ul>
     </template>
   </navbar>
 </template>
 <script>
-  import { Navbar, NavbarToggleButton } from 'src/components/UIComponents'
-  import { mapGetters } from 'vuex';
+import { Navbar, NavbarToggleButton } from 'src/components/UIComponents'
+import { mapGetters, mapState, mapActions } from 'vuex';
+import ActionType from 'src/store/constants';
+import { Tooltip } from 'element-ui';
 
-  export default {
-    components: {
-      Navbar,
-      NavbarToggleButton
-    },
-    data() {
-      return {
-        activeNotifications: false,
-        showNavbar: false
+export default {
+  components: {
+    Navbar,
+    NavbarToggleButton,
+    [Tooltip.name]: Tooltip,
+  },
+  data() {
+    return {
+      activeNotifications: false,
+      showNavbar: false,
+    };
+  },
+  methods: {
+    ...mapActions([
+      ActionType.SET_NODE,
+    ]),
+    changeNode(val) {
+      if (val) {
+        this[ActionType.SET_NODE](val);
       }
     },
-    methods: {
-      capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1)
-      },
-      toggleNotificationDropDown() {
-        this.activeNotifications = !this.activeNotifications
-      },
-      closeDropDown() {
-        this.activeNotifications = false
-      },
-      toggleSidebar() {
-        this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
-      },
-      hideSidebar() {
-        this.$sidebar.displaySidebar(false)
-      },
-      minimizeSidebar() {
-        this.$sidebar.toggleMinimize()
-      },
-      toggleNavbar() {
-        this.showNavbar = !this.showNavbar;
-      }
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    computed: {
-      ...mapGetters([
-        'getAccountNameWithAuthority'
-      ]),
-    }
-  }
-
+    toggleNotificationDropDown() {
+      this.activeNotifications = !this.activeNotifications;
+    },
+    closeDropDown() {
+      this.activeNotifications = false
+    },
+    toggleSidebar() {
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
+    hideSidebar() {
+      this.$sidebar.displaySidebar(false);
+    },
+    minimizeSidebar() {
+      this.$sidebar.toggleMinimize();
+    },
+    toggleNavbar() {
+      this.showNavbar = !this.showNavbar;
+    },
+  },
+  computed: {
+    ...mapGetters([
+      'getAccountNameWithAuthority',
+    ]),
+    ...mapState([
+      'currentNode',
+      'nodeList',
+    ]),
+  },
+};
 </script>
 <style>
  li.nav-text, div.nav-text {
