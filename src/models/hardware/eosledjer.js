@@ -228,7 +228,7 @@ var Eos = function () {
                 return v + r + s;
             })
               .catch(e => {
-                console.log(e)
+                console.error(e)
                 throw e
               });
         }

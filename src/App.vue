@@ -46,7 +46,6 @@ export default {
       this.balanceUpdate();
     }, 20000);
     const ledgerWallet = new ExternalWallet(EXT_WALLET_TYPES.LEDGER)
-    console.log(ledgerWallet)
     this[ActionType.SET_LEDGER_WALLET](ledgerWallet)
   },
   computed: {
@@ -127,7 +126,6 @@ export default {
     },
     initEosApi() {
       const eos = Eos(this.eosConfig);
-      console.log(this.eosConfig);
       this[ActionType.SET_EOS_JSAPI](eos);
     },
     noScatterAlert() {
@@ -141,7 +139,6 @@ export default {
     doOnLoginDesktop() {
       this.currentLogin = 'scatter';
       this.logout();
-      console.log('START')
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert();
@@ -282,7 +279,6 @@ export default {
         });
         this.ledgerWallet.interface.canConnect()
           .then((res) => {
-            console.log(res);
             swal({
               title: 'Connected!',
               buttonsStyling: false,
