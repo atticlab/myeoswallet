@@ -122,7 +122,7 @@ export default {
         recipient: {
           required: true,
           accountExist: true,
-          regex: /^([a-z1-5]){12}$/,
+          regex: /^([a-z1-5]){1,12}$/,
         },
         cpuStake: {
           required: true,
@@ -139,7 +139,7 @@ export default {
         stakeHolder: {
           required: true,
           accountExist: true,
-          regex: /^([a-z1-5]){12}$/,
+          regex: /^([a-z1-5]){1,12}$/,
         },
         cpuUnStake: {
           required: true,

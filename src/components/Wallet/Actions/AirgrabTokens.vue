@@ -31,7 +31,7 @@
                 align="center"
                 label="Grab">
                 <template slot-scope="props">
-                  <p-button @click="sendAirgrab(airgrab.account)" type="primary">AIRGRAB</p-button>
+                  <p-button @click="sendAirgrab(props.row.account)" type="primary">AIRGRAB</p-button>
                 </template>
               </el-table-column>
             </el-table>

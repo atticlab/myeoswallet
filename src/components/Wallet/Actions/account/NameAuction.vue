@@ -12,7 +12,7 @@
               </div>
               <div class="col-md-6 col-12">
                 <fg-input label="Account name" type="text" v-model="newname" maxlength="12" required
-                          name="newname" v-validate="transferModelValidation.newname" :error="getError('newname')" data-vv-as="new name"
+                          name="newname" v-validate="modelValidation.newname" :error="getError('newname')" data-vv-as="new name"
                 ></fg-input>
               </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="row">
               <div class="col-12">
                 <fg-input label="Bid (in EOS)" type="number" v-model.number="bid" required
-                          name="bid" v-validate="transferModelValidation.bid" :error="getError('bid')"
+                          name="bid" v-validate="modelValidation.bid" :error="getError('bid')"
                 ></fg-input>
               </div>
             </div>
@@ -65,7 +65,7 @@ export default {
         newname: {
           required: true,
           accountNotExist: true,
-          regex: /^([a-z1-5]){12}$/,
+          regex: /^([a-z1-5]){1,12}$/,
         },
         bid: {
           required: true,

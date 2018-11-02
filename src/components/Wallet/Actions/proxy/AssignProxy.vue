@@ -53,7 +53,7 @@ export default {
         proxy: {
           required: true,
           accountExist: true,
-          regex: /^([a-z1-5]){12}$/,
+          regex: /^([a-z1-5]){1,12}$/,
         },
       },
     };

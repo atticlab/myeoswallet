@@ -205,7 +205,7 @@ export default {
         withoutAccountaccountName: {
           required: true,
           accountNotExistWitoutLogin: true,
-          regex: /^([a-z1-5]){12}$/,
+          regex: /^([a-z1-5]){1,12}$/,
         },
         withoutAccountownerKey: {
           required: true,
@@ -220,7 +220,7 @@ export default {
         accountName: {
           required: true,
           accountNotExist: true,
-          regex: /^([a-z1-5]){12}$/,
+          regex: /^([a-z1-5]){1,12}$/,
         },
         ownerKey: {
           required: true,
@@ -288,7 +288,7 @@ export default {
         return out.join('');
       }
       function validAccountName(accountName) {
-        const re = new RegExp('^([a-z1-5]){12}$');
+        const re = new RegExp('^([a-z1-5]){1,12}$');
         return re.test(accountName);
       }
 
