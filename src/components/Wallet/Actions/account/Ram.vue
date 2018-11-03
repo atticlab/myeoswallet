@@ -20,7 +20,7 @@
               <div class="row">
                 <div class="col-md-6 col-12">
                   <p class="category">In bytes / In EOS</p>
-                    <p-switch v-model="inEos" @change="validateRamToBuy">
+                    <p-switch v-model="inEos">
                       <i class="fa fa-check" slot="on"></i>
                       <i class="fa fa-times" slot="off"></i>
                     </p-switch>
@@ -156,7 +156,7 @@ export default {
               data: {
                 payer: this.getAccountName,
                 receiver: this.receiver,
-                quant: `${parseFloat(this.ramToBuy).toFixed(4)} EOS`,
+                quant: `${this.ramToBuy.toFixed(4)} EOS`,
               },
             },
           ],
@@ -185,7 +185,7 @@ export default {
               data: {
                 payer: this.getAccountName,
                 receiver: this.receiver,
-                bytes: parseInt(this.ramToBuy, 10),
+                bytes: this.ramToBuy,
               },
             },
           ],
@@ -218,7 +218,7 @@ export default {
               permission: this.getAuthority,
             }],
             data: {
-              payer: this.getAccountName,
+              account: this.getAccountName,
               bytes: this.ramToSell,
             },
           },
@@ -255,8 +255,10 @@ export default {
       return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
     },
   },
-  created() {
-    this.ramToSell = this.getFreeRamInBytes.toString();
+  watch: {
+    getFreeRamInBytes() {
+      this.ramToSell = this.getFreeRamInBytes;
+    },
   },
 };
 </script>

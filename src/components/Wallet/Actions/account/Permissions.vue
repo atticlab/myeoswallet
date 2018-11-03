@@ -60,10 +60,12 @@ export default {
         activePermission: {
           required: true,
           max: 53,
+          publicKey: true,
         },
         ownerPermission: {
           required: true,
           max: 53,
+          publicKey: true,
         },
       },
     };
@@ -72,6 +74,9 @@ export default {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     onUnpdate() {
       if (!this.eos) {
         bl.logInPopUP();

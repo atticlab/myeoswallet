@@ -47,6 +47,13 @@ export default {
 
   renderJSON,
 
+  validatePublicKey: (key) => {
+    if (typeof key === 'string' && key.length === 53 && key.substr(0, 3) === 'EOS') {
+      return true;
+    }
+    return false;
+  },
+
   handleError: (e, idForInsert) => {
     console.error(e);
     let error = e;
