@@ -126,8 +126,10 @@ export default {
       'getAccountName',
     ]),
     isSuccess() {
-      return this.transaction && ((!this.transaction.isError && !this.transaction.error) ||
-        (this.transaction.status === 200));
+      if (this.transaction && this.transaction.hasOwnProperty('status') && this.transaction.status !== 200) { // eslint-disable-line
+        return false;
+      }
+      return this.transaction && ((!this.transaction.isError && !this.transaction.error));
     },
   },
   components: {
