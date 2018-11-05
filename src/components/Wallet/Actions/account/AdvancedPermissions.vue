@@ -29,7 +29,7 @@
 
             <div class="row" v-for="(authority, index) in authorities" :key="index">
               <div class="col-md-4 col-12">
-                <fg-input label="Authority" type="text" v-model="authority.authority" required
+                <fg-input label="Name or Pub Key" type="text" v-model="authority.authority" required
                 ></fg-input>
               </div>
               <div class="col-md-4 col-12">
@@ -149,7 +149,7 @@ export default {
         },
       }];
       this.authorities.forEach((obj, i) => {
-        if (obj.authority.length === 12) {
+        if (obj.authority.length <= 12) {
           if (obj.permission.length) {
             actions[0].data.auth.accounts.push({
               permission: {
@@ -187,7 +187,7 @@ export default {
         });
     },
     addRow() {
-      this.authorities.push({ authority: '', permission: '', weight: '1', error: false });
+      this.authorities.push({ authority: '', permission: '', weight: 1, error: false });
     },
     deleteRow() {
       if (this.authorities.length > 1) {
@@ -204,6 +204,9 @@ export default {
       'getAuthority',
     ]),
     validatePermission() {
+      console.log('validate')
+      console.log(!Object.keys(this.fields).every(key => this.fields[key]))
+      console.log(!this.authorities.every(obj => !obj.error && obj.authority && obj.weight > 0))
       return !Object.keys(this.fields).every(key => this.fields[key] && this.fields[key].valid) || !this.authorities.every(obj => !obj.error && obj.authority && obj.weight > 0);
     },
   },

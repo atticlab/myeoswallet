@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6 col-12">
                   <fg-input label="Account Permission" type="text" v-model="accountPermission" required
-                            name="accountPermission" v-validate="transferModelValidation.accountPermission" :error="getError('accountPermission')"
+                            name="accountPermission" v-validate="modelValidation.accountPermission" :error="getError('accountPermission')"
                   ></fg-input>
                 </div>
               </div>
@@ -20,12 +20,12 @@
               <div class="row">
                 <div class="col-md-6 col-12">
                   <fg-input label="Contract Name" type="text" v-model="linkContractName" required
-                            name="linkContractName" v-validate="transferModelValidation.linkContractName" :error="getError('linkContractName')"
+                            name="linkContractName" v-validate="modelValidation.linkContractName" :error="getError('linkContractName')"
                   ></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
                   <fg-input label="Contract Action" type="text" v-model="linkContractAction" required
-                            name="linkContractAction" v-validate="transferModelValidation.linkContractAction" :error="getError('linkContractAction')"
+                            name="linkContractAction" v-validate="modelValidation.linkContractAction" :error="getError('linkContractAction')"
                   ></fg-input>
                 </div>
               </div>
@@ -70,12 +70,12 @@
               <div class="row">
                 <div class="col-md-6 col-12">
                   <fg-input label="Contract Name" type="text" v-model="unlinkContractName" required
-                            name="unlinkContractName" v-validate="transferModelValidation.unlinkContractName" :error="getError('unlinkContractName')"
+                            name="unlinkContractName" v-validate="modelValidation.unlinkContractName" :error="getError('unlinkContractName')"
                   ></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
                   <fg-input label="Contract Action" type="text" v-model="unlinkContractAction" required
-                            name="unlinkContractAction" v-validate="transferModelValidation.unlinkContractAction" :error="getError('unlinkContractAction')"
+                            name="unlinkContractAction" v-validate="modelValidation.unlinkContractAction" :error="getError('unlinkContractAction')"
                   ></fg-input>
                 </div>
               </div>
@@ -144,6 +144,9 @@ export default {
     ...mapActions([
       ActionType.SET_TRANSACTION,
     ]),
+    getError(fieldName) {
+      return this.errors.first(fieldName);
+    },
     onLinkAuth() {
       this.eos.transaction(
         {
