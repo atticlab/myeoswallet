@@ -67,7 +67,7 @@
                 label="Select">
                 <template slot-scope="props">
                   <!--<p-checkbox :disabled="disablePickProd && !props.row.choosed" :checked="props.row.choosed" @input="addProdToVoteArray(props.row.owner, props.row.choosed, this)"></p-checkbox>-->
-                  <p-button :disabled="disablePickProd && !props.row.choosed" @click="addProdToVoteArray(props.row.owner, props.row.choosed)" type="primary">ADD</p-button>
+                  <p-button :disabled="disablePickProd || props.row.choosed" @click="addProdToVoteArray(props.row.owner, props.row.choosed)" type="primary">ADD</p-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -145,8 +145,7 @@ export default {
       for (const index in this.producers) { // eslint-disable-line
         this.$set(this.producers[index], 'choosed', false);
       }
-      this.producerToDisplay = []
-      this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
+      this.updateProducerToDisplay();
     },
     onVote() {
       if (!this.eos) {
@@ -189,6 +188,11 @@ export default {
       if (index > -1) {
         this.prodToVote.splice(index, 1);
       }
+      const obj = _.find(this.producers, { owner: prod });
+      if (obj) {
+        this.$set(obj, 'choosed', false);
+      }
+      this.updateProducerToDisplay();
     },
     getAlreadyVoted() {
       if (this.eosAccount && this.eosAccount.voter_info && this.eosAccount.voter_info.producers && this.producers) {
@@ -269,11 +273,7 @@ export default {
       if (index >= 0) {
         this.$set(this.producers[index], 'choosed', !choice);
       }
-      // if (choice) {
-      //   this.prodDeleteHandler(prod);
-      // } else {
-      //   this.prodToVote.push(prod);
-      // }
+
       this.prodToVote.push(prod);
       if (this.prodToVote.length > 2) {
         this.prodToVote = _.uniq(this.prodToVote);
@@ -282,10 +282,13 @@ export default {
       this.disablePickProd = this.prodToVote.length === 30;
       if (this.prodToVote.length > 30) {
         this.prodToVote.splice(-1);
-        console.log(this.producers[index])
         this.$set(this.producers[index], 'choosed', false);
-        console.log(this.producers[index])
       }
+      this.updateProducerToDisplay();
+    },
+    updateProducerToDisplay() {
+      this.producerToDisplay = [];
+      this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
     },
   },
   created() {

@@ -204,9 +204,6 @@ export default {
       'getAuthority',
     ]),
     validatePermission() {
-      console.log('validate')
-      console.log(!Object.keys(this.fields).every(key => this.fields[key]))
-      console.log(!this.authorities.every(obj => !obj.error && obj.authority && obj.weight > 0))
       return !Object.keys(this.fields).every(key => this.fields[key] && this.fields[key].valid) || !this.authorities.every(obj => !obj.error && obj.authority && obj.weight > 0);
     },
   },

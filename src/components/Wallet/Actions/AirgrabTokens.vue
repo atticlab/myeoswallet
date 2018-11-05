@@ -31,7 +31,7 @@
                 align="center"
                 label="Grab">
                 <template slot-scope="props">
-                  <p-button @click="sendAirgrab(props.row.account)" type="primary">AIRGRAB</p-button>
+                  <p-button @click="sendAirgrab(props.row.account)" type="primary" :disabled="props.row.disabled">AIRGRAB</p-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -53,6 +53,7 @@
 import bl from '@/bl';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import ActionType from '@/store/constants';
+import _ from 'lodash';
 
 export default {
   name: 'AirgrabTokens',
@@ -65,6 +66,7 @@ export default {
           symbol: 'ATD',
           site: 'https://www.atidium.io',
           description: 'Payments & Budget Management Decentralized App Leveraging the Blockchain, Cryptocurrency and AI Technologies. Drops happen every 24 hours, Airgrab Today!',
+          disabled: false,
         },
         {
           account: 'poormantoken',
@@ -72,6 +74,7 @@ export default {
           symbol: 'POOR',
           site: 'https://eostoolkit.io/airgrab',
           description: 'A reward for people who STAKE and VOTE for EOS Block Producers with MONTHLY drops.',
+          disabled: false,
         },
         {
           account: 'eosatidiumio',
@@ -79,6 +82,7 @@ export default {
           symbol: 'TRYBE',
           site: 'https://trybe.one',
           description: 'A tokenized knowledge and content sharing platform. Airgrab now for 50 TRYBE tokens (dropped 11th September). Sign up to the platform for a bonus 100 tokens.',
+          disabled: false,
         },
         {
           account: 'wizznetwork1',
@@ -86,6 +90,7 @@ export default {
           symbol: 'WIZZ',
           site: 'https://wizz.network',
           description: 'Modern Decentralized Ecosystem, Built on EOSIO. Tools, Rewards, Chat, and more. AIGRAB NOW!',
+          disabled: false,
         },
       ],
     };
@@ -133,6 +138,11 @@ export default {
           bl.handleError(e, 'place-for-transaction');
         });
     },
+    disabledAction() {
+      for (const i in this.airgrabs) { // eslint-disable-line
+        this.airgrabs[i].disabled = _.find(this.getTokens, { symbol: this.airgrabs[i].symbol });
+      }
+    },
   },
   computed: {
     ...mapState([
@@ -141,7 +151,16 @@ export default {
     ...mapGetters([
       'getAccountName',
       'getAuthority',
+      'getTokens',
     ]),
+  },
+  watch: {
+    getTokens() {
+      this.disabledAction();
+    },
+  },
+  created() {
+    this.disabledAction();
   },
 };
 </script>
