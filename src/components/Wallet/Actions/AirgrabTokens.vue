@@ -69,6 +69,14 @@ export default {
           disabled: false,
         },
         {
+          account: 'infinicoinio',
+          action: 'open',
+          symbol: 'INF',
+          site: 'https://www.infiniverse.net',
+          description: 'Infiniverse is a decentralized augmented reality platform and virtual world on top of the real world. Infinicoin lets you register land and transact on the Infiniverse marketplace.',
+          disabled: false,
+        },
+        {
           account: 'poormantoken',
           action: 'signup',
           symbol: 'POOR',
@@ -77,11 +85,19 @@ export default {
           disabled: false,
         },
         {
-          account: 'eosatidiumio',
-          action: 'trybenetwork',
+          account: 'trybenetwork',
+          action: 'claim',
           symbol: 'TRYBE',
           site: 'https://trybe.one',
           description: 'A tokenized knowledge and content sharing platform. Airgrab now for 50 TRYBE tokens (dropped 11th September). Sign up to the platform for a bonus 100 tokens.',
+          disabled: false,
+        },
+        {
+          account: 'parslseed123',
+          action: 'signup',
+          symbol: 'SEED',
+          site: 'https://www.parsl.co',
+          description: 'Parsl is a supply chain technology company. People within the cannabis industry, who pay subscription fees to use the Parsl platform need to do so using SEED tokens. SEED token holders are entitled to rewards under the terms that are specified in documents on the Parsl website.',
           disabled: false,
         },
         {
@@ -109,9 +125,16 @@ export default {
       const data = {};
       if (actionObj.action === 'claim') {
         data.claimer = this.getAccountName;
-      } else {
+      } else if (actionObj.action === 'signup' && actionObj.symbol === 'SEED') {
+        data.owner = this.getAccountName;
+        data.sym = `0.0000 ${actionObj.symbol}`;
+      } else if (actionObj.action === 'signup') {
         data.owner = this.getAccountName;
         data.quantity = `0.0000 ${actionObj.symbol}`;
+      } else if (actionObj.action === 'open') {
+        data.symbol = `0.0000 ${actionObj.symbol}`;
+        data.ram_payer = this.getAccountName;
+        data.owner = this.getAccountName;
       }
       this.eos.transaction(
         {
