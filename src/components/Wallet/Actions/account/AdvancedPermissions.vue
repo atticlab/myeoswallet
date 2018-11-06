@@ -77,13 +77,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>By this very action, you make your account irrecoverable.
-            EOS accounts are based on complex permission structures, which include parent&child relationships, where parent ones are empowered to influence child ones: to change, remove the child permissions.
-            Adding or modifying permissions
-            Threshold needs a sum of permission weights to execute an action.
-            You can add and change permissions, create new permissions, any other possibilities.
-            Weight means some measure of weight the Authority provides to the Threshold.
-            You can add or remove rows as required to meet your multisig requirements.</div>
+          <div><b>Caution:</b> this action makes your account irrecoverable. The permission structures of EOS accounts are complex, and they include parent-child relationships. Parent permissions can alter or remove child permissions. To add or modify permissions, Threshold must have a sum of permission weights. You can add, change and create new permissions. “Weight” is the amount of weight assigned to Threshold by Authority. To meet your multisig requirements, you can add or remove as many rows as you need.</div>
         </div>
       </div>
     </div>

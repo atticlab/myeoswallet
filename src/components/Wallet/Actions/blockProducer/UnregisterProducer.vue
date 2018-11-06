@@ -26,7 +26,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Click the button ‘unreg producer’.</div>
+          <div>If you wish to unregister a Block Producer, enter the account and click ‘unreg producer’.</div>
         </div>
       </div>
     </div>

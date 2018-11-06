@@ -47,9 +47,7 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
-            <div>Special permissions to set some specific actions are available through the option.
-              You can create special permissions on your account that are allowed to execute specific contract actions.
-              Please fill in the info tipped on the background and hit the button ‘link auth’.</div>
+            <div>This option provides special permissions to set some specific actions. You can add special permissions that are allowed to execute specific contract actions. Please fill in the info tipped on the background and click ‘link auth’</div>
           </div>
         </div>
       </div>
@@ -97,7 +95,7 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
-            <div>If you want to remove a link simply, specify correctly the contract name and action.</div>
+            <div>If you want to remove a link, indicate the contract name and action.</div>
           </div>
         </div>
       </div>

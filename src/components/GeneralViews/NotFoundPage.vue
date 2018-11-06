@@ -28,31 +28,31 @@
   </div>
 </template>
 <script>
-  import {Card, Checkbox, Button, InfoSection} from 'src/components/UIComponents';
-  import AppNavbar from './../Dashboard/Views/Pages/Layout/AppNavbar'
-  import AppFooter from './../Dashboard/Views/Pages/Layout/AppFooter'
-  export default {
-    components: {
-      Card,
-      AppNavbar,
-      AppFooter,
-      InfoSection,
-      [Checkbox.name]: Checkbox,
-      [Button.name]: Button
+import {Card, Checkbox, Button, InfoSection} from 'src/components/UIComponents';
+import AppNavbar from './../Dashboard/Views/Pages/Layout/AppNavbar'
+import AppFooter from './../Dashboard/Views/Pages/Layout/AppFooter'
+export default {
+  components: {
+    Card,
+    AppNavbar,
+    AppFooter,
+    InfoSection,
+    [Checkbox.name]: Checkbox,
+    [Button.name]: Button
+  },
+  methods: {
+    toggleNavbar () {
+      document.body.classList.toggle('nav-open')
     },
-    methods: {
-      toggleNavbar () {
-        document.body.classList.toggle('nav-open')
-      },
-      closeMenu () {
-        document.body.classList.remove('nav-open')
-        document.body.classList.remove('off-canvas-sidebar')
-      }
-    },
-    beforeDestroy () {
-      this.closeMenu()
+    closeMenu () {
+      document.body.classList.remove('nav-open')
+      document.body.classList.remove('off-canvas-sidebar')
     }
+  },
+  beforeDestroy () {
+    this.closeMenu()
   }
+}
 </script>
 <style>
 </style>

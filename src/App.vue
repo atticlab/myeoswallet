@@ -221,7 +221,7 @@ export default {
         text = `${text}<div style="text-align: left;"><pre id="json-pop-up">${JSON.stringify(parsedJson, null, 1)}</pre></div>`;
       }
       swal({
-        title: 'Fail to Connect!',
+        title: 'Error, connect Ledger',
         html: text,
         buttonsStyling: false,
         showCloseButton: true,
@@ -265,25 +265,31 @@ export default {
         this[ActionType.SET_EOS_JS](eos);
       } else {
         swal({
-          title: 'Connect ledger',
+          title: 'Connecting to EOS via Ledger',
           html: '<ol class="text-left">' +
-            '<li>Connect the Ledger Nano S. (<a href="https://support.ledgerwallet.com/hc/en-us/articles/360000613793-Initialize-your-device" target="_blank">Initialize your device</a>)</li>' +
+            '<li>Connect Ledger Nano S. (<a href="https://support.ledgerwallet.com/hc/en-us/articles/360000613793-Initialize-your-device" target="_blank">Initialize your device</a>)</li>' +
             '<li>Enter your password.</li>' +
-            '<li>Open EOS app on your device. (<a href="https://support.ledgerwallet.com/hc/en-us/articles/360008913653-EOS-EOS-" target="_blank">Install EOS App</a>)</li>' +
+            '<li>Open EOS on your device. (<a href="https://support.ledgerwallet.com/hc/en-us/articles/360008913653-EOS-EOS-" target="_blank">Install EOS App</a>)</li>' +
             '</ol>',
           imageUrl: '/static/img/connectledger.png',
           imageClass: 'popup-img',
           buttonsStyling: false,
           showCloseButton: true,
-          showConfirmButton: false,
+          showConfirmButton: true,
+          confirmButtonText: 'Ok',
+          confirmButtonClass: 'btn btn-primary',
         });
         this.ledgerWallet.interface.canConnect()
           .then((res) => {
             swal({
-              title: 'Connected!',
+              title: 'Success, Ledger is connected',
               buttonsStyling: false,
               showCloseButton: true,
-              showConfirmButton: false,
+              showConfirmButton: true,
+              focusConfirm: true,
+              type: 'success',
+              confirmButtonText: 'Ok',
+              confirmButtonClass: 'btn btn-primary',
             });
             this.isLedgerConnected = true;
             this.connectLedger();
@@ -325,5 +331,9 @@ export default {
   .fade-leave-to
   {
     opacity: 0
+  }
+  h4 {
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
   }
 </style>

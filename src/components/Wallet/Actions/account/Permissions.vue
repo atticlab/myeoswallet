@@ -35,9 +35,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Pay special attention this action has tangible consequences
-            Control every permission you assign.
-            If you mix up and assign an account instead of a key, as permission, you risk to break down your account.</div>
+          <div>Please be aware of the consequences of this action. Mind every permission you assign. If you accidently assign an account instead of a key as a permission, your account will become irrecoverable.</div>
         </div>
       </div>
     </div>

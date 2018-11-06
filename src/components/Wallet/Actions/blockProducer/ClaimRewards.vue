@@ -26,7 +26,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Please follow up all the tips and messages pop-uped on the background.</div>
+          <div>To receive a reward for producing blocks, enter your Block Producer’s account and click ‘claim’</div>
         </div>
       </div>
     </div>

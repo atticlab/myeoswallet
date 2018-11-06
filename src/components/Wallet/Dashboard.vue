@@ -6,9 +6,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <p>You must have <a href="http://get-scatter.com/" target="_blank">Scatter</a> installed to safely and securely send transactions to the EOS Network.
-                If you would like to ask any questions check out our
-                <a href="https://t.me/atticlabeosb/" target="_blank">Telegram group.</a></p>
+              <p>You must have <a href="http://get-scatter.com/" target="_blank">Scatter</a> installed to safely and securely send transactions to the EOS Network. If you have any questions, check out our
+                <a href="https://t.me/atticlabeosb/" target="_blank"> Telegram group.</a></p>
             </div>
           </div>
 

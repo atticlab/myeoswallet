@@ -26,7 +26,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Remove proxy from your account</div>
+          <div>After applying this command, you won’t be able to vote via proxy. You can vote via proxy again by executing the action at <router-link :to="{ name: 'AssignProxy' }">Assign Proxy</router-link></div>
         </div>
       </div>
     </div>

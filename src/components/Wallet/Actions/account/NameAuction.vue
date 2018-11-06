@@ -40,9 +40,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Enter a name you wish to bid on.
-            Enter the amount you wish to bid.
-            Click the button.</div>
+          <div>Enter the name of the account you wish to buy and your bid and click ‘bid’.</div>
         </div>
       </div>
     </div>

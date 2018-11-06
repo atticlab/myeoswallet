@@ -26,7 +26,7 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
-            <div>In case you decided to resign your proxy, click the button ‘Unreg’. Remember you cancel all the weight given by the votes.</div>
+            <div>In case you decide to unset your proxy, click ‘Unset Account’. Remember you cancel all the weight given by the votes.</div>
           </div>
         </div>
       </div>

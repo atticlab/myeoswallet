@@ -21,7 +21,7 @@ var fcbuffer = require('fcbuffer');
 
 var assert = require('assert');
 
-export {foreach};
+export { foreach };
 
 import bl from 'src/bl'
 

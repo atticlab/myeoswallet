@@ -169,7 +169,7 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
-            <div>Please follow up the tips on the background. Enter account name, owner key, active key, cpu, net and ram to stake and hit the button ‘create account’.</div>
+            <div>Please follow the tips on the background. Enter account name, owner key, active key, cpu, net and ram to stake and click ‘Create Account’.</div>
           </div>
         </div>
       </div>

@@ -65,7 +65,7 @@ export default {
   logInPopUP: () => {
     swal({
       title: 'You are not logged in',
-      html: '<p>Please, login with Scatter on ledger on the left panel</p>',
+      html: '<p>Please connect via Scatter or Ledger</p>',
       buttonsStyling: false,
       showConfirmButton: true,
       showCloseButton: true,
@@ -74,7 +74,7 @@ export default {
   },
   ledgerAprove: () => {
     swal({
-      title: 'Ledger confirm',
+      title: 'Confirm transaction',
       buttonsStyling: false,
       showConfirmButton: true,
       showCloseButton: true,

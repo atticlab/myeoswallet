@@ -153,12 +153,13 @@ export default {
         buttonsStyling: false,
         showCancelButton: true,
         showCloseButton: true,
-        showConfirmButton: false,
+        showConfirmButton: true,
         cancelButtonText: 'Copy',
         focusCancel: true,
-        focusConfirm: false,
+        focusConfirm: true,
         confirmButtonClass: 'btn btn-primary',
-        cancelButtonClass: 'btn btn-primary',
+        cancelButtonClass: 'btn btn-warning',
+        reverseButtons: true,
       })
         .catch((e) => {
           if (e === 'cancel') {

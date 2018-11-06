@@ -1,5 +1,5 @@
 <template>
-  <div id="main">By executing this action you are agreeing to the EOS constitution and this action's associated ricardian contract. The ricardian contract may be viewed in the Scatter approval prompt.</div>
+  <div id="main">By executing this action you accept the EOS constitution and this action's associated ricardian contract. The ricardian contract may be viewed in the Scatter approval prompt.</div>
 </template>
 
 <script>

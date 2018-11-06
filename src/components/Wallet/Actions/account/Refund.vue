@@ -26,8 +26,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Having connectivity issues or scatter not appearing when transacting? Please ensure
-            you have updated to the latest scatter desktop</div>
+          <div>Refunding your takes 72 hours. Be aware of the non-immediate action. Please click the button in case you want to refund.</div>
         </div>
       </div>
     </div>

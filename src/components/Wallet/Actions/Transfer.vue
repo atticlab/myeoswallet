@@ -61,7 +61,7 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
-            <div>Please fill in the info tipped on the background and transfer your tokens.</div>
+            <div>You can send EOS or EOS tokens to as many users as you like. Please be careful when checking the recipient’s address and remember the memo when sending tokens to exchange.</div>
           </div>
         </div>
       </div>

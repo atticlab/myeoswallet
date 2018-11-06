@@ -44,7 +44,7 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Help</h4></div>
           <div class="card-body pb-4">
-            <div>There are 3 Resources CPU, NET and RAM, running on the EOS network. Staking, you delegate some access for CPU and NET.</div>
+            <div>There are three resources running on the EOS network: CPU, NET and RAM. When staking, you delegate some access to CPU and NET. To stake your tokens, you need to follow the instructions tipped on the background. You can unstake tokens by clicking ‘unstake’, the period of set after the moment of clicking the button is three days.</div>
           </div>
         </div>
       </div>

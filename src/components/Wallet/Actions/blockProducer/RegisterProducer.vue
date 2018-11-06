@@ -44,8 +44,7 @@
       <div class="card">
         <div class="card-header"><h4 class="title">Help</h4></div>
         <div class="card-body pb-4">
-          <div>Enter producer key, url and location, following the instructions tipped on the background.
-            Click the button ‘register’.</div>
+          <div>Enter producer key, url and location, following the instructions tipped on the background. Click ‘Register’.</div>
         </div>
       </div>
     </div>
