@@ -1,7 +1,8 @@
 import DashboardLayout from '../components/Dashboard/Layout/DashboardLayout.vue'
 // GeneralViews
 import NotFound from '../components/GeneralViews/NotFoundPage.vue'
-import MobileDevice from '../components/MobileDevice.vue'
+
+const MobileDevice = () => import(/* webpackChunkName: "mobile" */ '../components/MobileDevice.vue')
 // Actions (general)
 const Action = () => import(/* webpackChunkName: "action" */ 'src/components/Wallet/Action.vue')
 const Dashboard = () => import(/* webpackChunkName: "dashboard" */ 'src/components/Wallet/Dashboard.vue')
@@ -166,7 +167,7 @@ const routes = [
   {
     path: '/mobile',
     name: 'MobileDevice',
-    component: MobileDevice
+    component: MobileDevice,
   },
   { path: '*', component: NotFound },
 ];
