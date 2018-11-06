@@ -1,19 +1,20 @@
 <template>
-<div id="main" class="md-layout">
-  <md-card class="md-primary md-layout-item md-elevation-0" md-theme="green-card">
-    <md-card-content>
-    <md-card-header>
-      <div class="md-subhead">Please follow and use our web version while mobile about to launch.
-        Appreciate your choice, keeping you on the safe side</div>
-    </md-card-header>
-
-    <md-card-media>
-      <div style="text-align: center">
-      <img src="@/assets/phone.png" alt="phone">
+<div id="main">
+  <div class="row">
+    <div class="col-md-8 col-12">
+      <div class="card">
+        <div class="card-header"><h4>Please follow and use our web version while mobile about to launch.
+          Appreciate your choice, keeping you on the safe side</h4></div>
+        <div class="card-body">
+          <div class="row">
+            <div style="text-align: center">
+              <img src="@/assets/phone.png" alt="phone">
+            </div>
+          </div>
+        </div>
       </div>
-    </md-card-media>
-    </md-card-content>
-  </md-card>
+    </div>
+  </div>
 </div>
 </template>
 

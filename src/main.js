@@ -78,7 +78,7 @@ const router = new VueRouter({
 
 // google analytics
 Vue.use(VueAnalytics, {
-  id: 'UA-98871974-2',
+  id: 'UA-128745434-1',
   router,
 });
 
