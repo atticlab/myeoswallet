@@ -110,7 +110,6 @@ export default {
         receiver: {
           required: true,
           accountExist: true,
-          regex: /^([a-z1-5]){1,12}$/,
         },
         ramToBuy: {
           required: true,

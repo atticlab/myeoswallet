@@ -88,7 +88,6 @@ export default {
         toAccount: {
           required: true,
           accountExist: true,
-          regex: /^([a-z1-5]){1,12}$/,
         },
         amount: {
           required: true,

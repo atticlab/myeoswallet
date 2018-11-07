@@ -63,7 +63,6 @@ export default {
         newname: {
           required: true,
           accountNotExist: true,
-          regex: /^([a-z1-5]){1,12}$/,
         },
         bid: {
           required: true,
