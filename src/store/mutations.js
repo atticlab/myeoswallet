@@ -45,7 +45,7 @@ export default {
   },
 
   [ActionType.SET_TOKENBALANCE]: (state, val) => {
-    if (!val) return;
+    if (!val || !state.tokenList) return;
     const tokenObj = state.tokenList.find(obj => obj.symbol === val.symbol);
     if (tokenObj) {
       tokenObj.balance = val.balance.length ? val.balance[0] : null;
