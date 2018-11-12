@@ -86,6 +86,7 @@ export default {
       ActionType.SET_LEDGER_WALLET,
       ActionType.SET_HARDWARE,
       ActionType.LOGOUT,
+      ActionType.RELOGIN_SCATTER_EOS,
     ]),
     relogin() {
       if (this.currentLogin === 'scatter') {
@@ -138,7 +139,8 @@ export default {
     },
     doOnLoginDesktop() {
       this.currentLogin = 'scatter';
-      this.logout();
+      // this.logout();
+      this[ActionType.RELOGIN_SCATTER_EOS]();
       ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
         if (!connected) {
           this.noScatterAlert();
@@ -229,7 +231,8 @@ export default {
       });
     },
     connectLedger() {
-      this.logout();
+      // this.logout();
+      this[ActionType.RELOGIN_SCATTER_EOS]();
       this.currentLogin = 'ledger';
       if (this.isLedgerConnected) {
         this.ledgerWallet.interface.getPublicKey(bip44Path, false)

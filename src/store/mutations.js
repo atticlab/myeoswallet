@@ -82,6 +82,16 @@ export default {
     state.tokenList = null;
   },
 
+  [ActionType.RELOGIN_SCATTER_EOS]: (state) => {
+    state.identity = null;
+    state.identityAccount = null;
+    state.eos = null;
+    state.eosAccount = null;
+    state.balance = [];
+    state.transaction = null;
+    state.tokenList = null;
+  },
+
   [ActionType.SET_NODE]: (state, node) => {
     state.currentNode = node;
   },

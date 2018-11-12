@@ -15,4 +15,5 @@ export default {
   SET_LEDGER_WALLET: 'setLedgerWallet',
   LOGOUT: 'logoutScatter',
   SET_NODE: 'setNode',
+  RELOGIN_SCATTER_EOS: 'reloginScatterEos',
 };
