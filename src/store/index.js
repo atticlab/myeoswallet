@@ -39,7 +39,7 @@ function getPercent(account, usage, quota) {
   return 0;
 }
 
-function formatMicrosecond (n) {
+function formatMicrosecond(n) {
   let parsed = us.parse(n);
   if (parsed.days) return parsed.days + ' d'
   if (parsed.hours) return parsed.hours + ' h'

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8 col-12">
         <div class="card">
-          <div class="card-header"><h4 class="title">Buy RAM</h4></div>
+          <div class="card-header"><h4 @click="test" class="title">Buy RAM</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
@@ -130,6 +130,9 @@ export default {
     PSwitch,
   },
   methods: {
+    test() {
+      this.modelValidation.ramToBuy.min_value = 2
+    },
     ...mapActions([
       ActionType.SET_TRANSACTION,
       ActionType.SET_BALANCE,
