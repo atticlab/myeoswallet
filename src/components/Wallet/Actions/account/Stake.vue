@@ -31,6 +31,16 @@
               </div>
 
               <div class="row">
+                <div class="col-12">
+                  <p class="category">Transfer</p>
+                  <p-switch v-model="transfer">
+                    <i class="fa fa-check" slot="on"></i>
+                    <i class="fa fa-times" slot="off"></i>
+                  </p-switch>
+                </div>
+              </div>
+
+              <div class="row">
                 <div class="col text-center">
                   <p-button @click="onDelegate" :disabled="delegateValidation" type="primary">Delegate</p-button>
                 </div>
@@ -106,9 +116,13 @@
 import bl from '@/bl';
 import ActionType from '@/store/constants';
 import { mapState, mapGetters, mapActions } from 'vuex';
+import PSwitch from 'src/components/UIComponents/Switch.vue';
 
 export default {
   name: 'Stake',
+  components: {
+    PSwitch,
+  },
   data() {
     return {
       recipient: '',

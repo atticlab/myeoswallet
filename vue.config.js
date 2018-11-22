@@ -10,7 +10,7 @@ module.exports = {
         'src': resolveSrc('src')
       }
     }
-  },
+  },  
   devServer: {
     https: true,
     clientLogLevel: 'warning',

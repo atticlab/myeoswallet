@@ -101,7 +101,6 @@ import CircleChartCard from 'src/components/UIComponents/Cards/CircleChartCard.v
 import ActionType from 'src/store/constants';
 import swal from 'sweetalert2';
 
-
 export default {
   name: 'Action',
   computed: {

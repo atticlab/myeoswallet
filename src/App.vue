@@ -141,41 +141,43 @@ export default {
       this.currentLogin = 'scatter';
       // this.logout();
       this[ActionType.RELOGIN_SCATTER_EOS]();
-      ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 }).then((connected) => {
-        if (!connected) {
-          this.noScatterAlert();
-          return false;
-        }
-        const scatter = ScatterJS.scatter;
-        window.scatter = null;
-        this[ActionType.SET_SCATTER](scatter);
+      ScatterJS.scatter.connect('Attic Wallet', { initTimeout: 3500 })
+        .then((connected) => {
+          if (!connected) {
+            this.noScatterAlert();
+            return false;
+          }
+          const scatter = ScatterJS.scatter;
+          window.scatter = null;
+          this[ActionType.SET_SCATTER](scatter);
+          const requiredFields = { accounts: [this.eosConfig] };
+          return setTimeout(() => {
+            scatter.getIdentity(requiredFields).then((identity) => {
+              if (this.initIdentity(identity)) {
+                const identityAccount = this.initIdentityAccount(identity);
+                if (identityAccount) {
+                  const eos = this.initEos();
 
-        const requiredFields = { accounts: [this.eosConfig] };
-        setTimeout(() => {
-          scatter.getIdentity(requiredFields).then((identity) => {
-            if (this.initIdentity(identity)) {
-              const identityAccount = this.initIdentityAccount(identity);
-              if (identityAccount) {
-                const eos = this.initEos();
+                  if (eos && identityAccount.name) {
+                    eos.getAccount(identityAccount.name).then((respEosAccount) => {
+                      bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
+                      this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
 
-                if (eos && identityAccount.name) {
-                  eos.getAccount(identityAccount.name).then((respEosAccount) => {
-                    bl.logDebug(`getAccount('${identityAccount.name}').then((eosAccount) => ...`, respEosAccount);
-                    this[ActionType.SET_EOS_ACCOUNT](respEosAccount);
-
-                    this.getTokenList();
-                    this.balanceUpdate();
-                  });
+                      this.getTokenList();
+                      this.balanceUpdate();
+                    });
+                  }
                 }
               }
-            }
-          })
-            .catch((error) => {
-              console.error(error);
-            });
-          return true;
-        }, 1000);
-      });
+            })
+              .catch((error) => {
+                console.error(error);
+              });
+            return true;
+          }, 1000);
+        }).catch((e) => {
+          console.error(e);
+        });
     },
     getTokenList() {
       if (this.eosAccount) {
