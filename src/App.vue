@@ -21,7 +21,11 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 import ActionType from 'src/store/constants';
 import axios from 'axios';
 import Eos from 'eosjs';
-import ScatterJS from 'scatter-js/dist/scatter.esm';
+// import ScatterJS from 'scatter-js/dist/scatter.esm';
+import ScatterJS from 'scatterjs-core'
+import ScatterEOS from 'scatterjs-plugin-eosjs'
+
+ScatterJS.plugins( new ScatterEOS() );
 import ExternalWallet, { EXT_WALLET_TYPES, bip44Path } from 'src/models/ExternalWallet';
 
 export default {
@@ -239,6 +243,7 @@ export default {
       if (this.isLedgerConnected) {
         this.ledgerWallet.interface.getPublicKey(bip44Path, false)
           .then((key) => {
+            console.log(key)
             this.eosApi.getKeyAccounts(key.wif)
               .then((accountFromKey) => {
                 const name = accountFromKey.account_names[0]
@@ -265,7 +270,7 @@ export default {
                 console.error(e);
               })
           })
-          .catch(e => console.log(e));
+          .catch(e => console.error(e));
         const eos = Eos(Object.assign(this.eosConfigLedger));
         this[ActionType.SET_EOS_JS](eos);
       } else {
@@ -286,6 +291,11 @@ export default {
         });
         this.ledgerWallet.interface.canConnect()
           .then((res) => {
+            if (res === 'Open and unlock your Ledger.') {
+              this.failConnectLedger({ message: 'Open and unlock your Ledger.' });
+              this.isLedgerConnected = false;
+              return
+            }
             swal({
               title: 'Success, Ledger is connected',
               buttonsStyling: false,

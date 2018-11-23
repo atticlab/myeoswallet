@@ -651,6 +651,13 @@
     core-js "^2.5.3"
     regenerator-runtime "^0.11.1"
 
+"@babel/runtime@^7.1.5":
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.1.5.tgz#4170907641cf1f61508f563ece3725150cc6fe39"
+  integrity sha512-xKnPpXG/pvK1B90JkwwxSGii90rQGKtzcMt2gI5G6+M0REXaq6rOHsGC2ay6/d0Uje7zzvSzjEzfR3ENhFlrfA==
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@7.0.0-beta.44":
   version "7.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.44.tgz#f8832f4fdcee5d59bf515e595fc5106c529b394f"
@@ -3255,7 +3262,7 @@ create-ecdh@^4.0.0:
     bn.js "^4.1.0"
     elliptic "^6.0.0"
 
-create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.1.3:
+create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.1.3, create-hash@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/create-hash/-/create-hash-1.2.0.tgz#889078af11a63756bcfb59bd221996be3a9ef196"
   integrity sha512-z00bCGNHDG8mHAkP7CtT1qVu+bFQUPjYq/4Iv3C3kWjTFV10zIjfSoeqXo9Asws8gwSHDGj/hl2u4OGIjapeCg==
@@ -4046,7 +4053,7 @@ eosjs-ecc@4.0.4, eosjs-ecc@^4.0.4:
     ecurve "^1.0.5"
     randombytes "^2.0.5"
 
-eosjs@^16.0.0, eosjs@^16.0.2:
+eosjs@^16.0.0, eosjs@^16.0.2, eosjs@^16.0.6:
   version "16.0.9"
   resolved "https://registry.yarnpkg.com/eosjs/-/eosjs-16.0.9.tgz#ee3790f2f038079e71981f20354be8d1d98de873"
   integrity sha512-aYgzbgH2RhnmYVzEmK4AD6UIboJI54PGYQUesv2i8rCqYhWij+xQx7PtALJ481cxZnQgmFn8s2KMkgG07P5/Ug==
@@ -6356,6 +6363,11 @@ isomorphic-fetch@^2.2.1:
   dependencies:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
+
+isomorphic-ws@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/isomorphic-ws/-/isomorphic-ws-4.0.1.tgz#55fd4cd6c5e6491e76dc125938dd863f5cd4f2dc"
+  integrity sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==
 
 isstream@~0.1.2:
   version "0.1.2"
@@ -8860,6 +8872,11 @@ regenerator-runtime@^0.11.0, regenerator-runtime@^0.11.1:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
+  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
+
 regenerator-transform@^0.10.0:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/regenerator-transform/-/regenerator-transform-0.10.1.tgz#1e4996837231da8b7f3cf4114d71b5691a0680dd"
@@ -9323,6 +9340,24 @@ scatter-js@^2.5.2:
     node-rsa "^1.0.1"
     socket.io-client "^2.1.1"
     web3-provider-engine "^14.0.6"
+
+scatterjs-core@2.3.8:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/scatterjs-core/-/scatterjs-core-2.3.8.tgz#20eb6f0a1eea6c35ebc46f4a975b33c0ce5bcc6f"
+  integrity sha512-vaU+fv6kxG2VaALdk2RJ3V+7TzpL0x0ChHDZo4JHKo7AIVXWQzjb56M6KWn90OX1BKZnTsCGSBCMn++oXkBWSw==
+  dependencies:
+    create-hash "^1.2.0"
+    es6-promise "^4.2.4"
+    get-random-values "^1.2.0"
+    isomorphic-ws "^4.0.1"
+    ws "^6.1.0"
+
+scatterjs-plugin-eosjs@1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/scatterjs-plugin-eosjs/-/scatterjs-plugin-eosjs-1.3.7.tgz#4b360fd69fab4d0dbb2e970ac2d67a3e4c66b81b"
+  integrity sha512-TzNZaLnX1kOOTqQ39IqAjA4h4XwDV5bUBS6e/CS/DV4uAbDzN3Q2fTi9uRU081plbqlZgrUtGjaUrbYEe0B5iw==
+  dependencies:
+    eosjs "^16.0.6"
 
 schema-utils@^0.4.0, schema-utils@^0.4.2, schema-utils@^0.4.3, schema-utils@^0.4.4, schema-utils@^0.4.5:
   version "0.4.7"
@@ -11089,6 +11124,13 @@ ws@^5.1.1:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.2.tgz#dffef14866b8e8dc9133582514d1befaf96e980f"
   integrity sha512-jaHFD6PFv6UgoIVda6qZllptQsMlDEJkTQcybzzXDYM1XO9Y8em691FGMPmM46WGyLU4z9KMgQN+qrux/nhlHA==
+  dependencies:
+    async-limiter "~1.0.0"
+
+ws@^6.1.0:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.1.2.tgz#3cc7462e98792f0ac679424148903ded3b9c3ad8"
+  integrity sha512-rfUqzvz0WxmSXtJpPMX2EeASXabOrSMk1ruMOV3JBTBjo4ac2lDjGGsbQSyxj8Odhw5fBib8ZKEjDNvgouNKYw==
   dependencies:
     async-limiter "~1.0.0"
 

@@ -49,6 +49,7 @@ export default class LedgerWallet {
         this.canConnect = hardware.eos.getAppConfiguration;
       } catch (e) {
         console.error(e)
+        throw e
       }
 
       return store.dispatch(Actions.SET_HARDWARE, hardware);
