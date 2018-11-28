@@ -56,12 +56,10 @@ export default {
       ownerPermission: '',
       modelValidation: {
         activePermission: {
-          required: true,
           max: 53,
           publicKey: true,
         },
         ownerPermission: {
-          required: true,
           max: 53,
           publicKey: true,
         },
