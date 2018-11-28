@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8 col-12">
         <div class="card">
-          <div class="card-header"><h4 @click="test" class="title">Buy RAM</h4></div>
+          <div class="card-header"><h4 class="title">Buy RAM</h4></div>
           <div class="card-body">
             <form>
               <div class="row">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-6 col-12">
                   <fg-input :label="'Ram in ' + inEos ? 'EOS' : 'bytes'" type="number" v-model.number="ramToBuy" required
-                            name="ramToBuy" v-validate="inEos ? modelValidation.ramToBuyEos : modelValidation.ramToBuyBytes" :error="getError('ramToBuy')" data-vv-as="ram to buy"
+                            name="ramToBuy" v-validate="modelValidation.ramToBuy" :error="getError('ramToBuy')" data-vv-as="ram to buy"
                   ></fg-input>
                 </div>
               </div>
@@ -111,12 +111,7 @@ export default {
           required: true,
           accountExist: true,
         },
-        ramToBuyBytes: {
-          required: true,
-          decimal: true,
-          min_value: 1,
-        },
-        ramToBuyEos: {
+        ramToBuy: {
           required: true,
           decimal: true,
           min_value: 0.0001,
@@ -135,9 +130,6 @@ export default {
     PSwitch,
   },
   methods: {
-    test() {
-      this.modelValidation.ramToBuy.min_value = 2
-    },
     ...mapActions([
       ActionType.SET_TRANSACTION,
       ActionType.SET_BALANCE,
@@ -192,7 +184,7 @@ export default {
               data: {
                 payer: this.getAccountName,
                 receiver: this.receiver,
-                bytes: this.ramToBuy,
+                bytes: parseInt(this.ramToBuy.toFixed(0), 10),
               },
             },
           ],
@@ -259,7 +251,7 @@ export default {
       return !Object.keys(this.sellmodelValidation).every(key => this.fields[key] && this.fields[key].valid) || this.ramToSell > this.getFreeRamInBytes;
     },
     buyRamValidation() {
-      return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid);
+      return !Object.keys(this.modelValidation).every(key => this.fields[key] && this.fields[key].valid );
     },
   },
   watch: {

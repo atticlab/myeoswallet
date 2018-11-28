@@ -33,6 +33,7 @@ export default {
     let t = transaction;
     if (typeof transaction === 'string') {
       t = JSON.parse(transaction);
+      console.log(JSON.stringify(t) === transaction);
     }
     state.transaction = t;
     if (transaction) {

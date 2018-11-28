@@ -18,12 +18,6 @@ function renderJSON(json, idForInsert) {
   }
 }
 
-// composeCurrencyBalanceRequest: identityAccount => ({
-//   code: 'eosio.token',
-//   account: identityAccount.account_name,
-//   symbol: 'EOS',
-// }),
-
 export default {
   requestBalance: (eos, identityAccount, token) => {
     let args;

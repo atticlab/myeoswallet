@@ -100,6 +100,7 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import CircleChartCard from 'src/components/UIComponents/Cards/CircleChartCard.vue'
 import ActionType from 'src/store/constants';
 import swal from 'sweetalert2';
+import _ from 'lodash';
 
 export default {
   name: 'Action',
@@ -125,6 +126,9 @@ export default {
       'getAccountName',
     ]),
     isSuccess() {
+      if (_.isEmpty(this.transaction)) {
+        return false;
+      }
       if (this.transaction && this.transaction.hasOwnProperty('status') && this.transaction.status !== 200) { // eslint-disable-line
         return false;
       }
