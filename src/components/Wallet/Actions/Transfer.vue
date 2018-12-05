@@ -21,7 +21,7 @@
               <div class="col-md-6 col-12">
                 <fg-input
                   v-model.number="transferModel.amount" label="Amount"
-                  type="number" min="0" required
+                  type="text" min="0"
                   name="amount" v-validate="transferModelValidation.amount" :error="getError('amount')" data-vv-as="amount"
                 >
                 </fg-input>
@@ -92,7 +92,8 @@ export default {
         amount: {
           required: true,
           decimal: true,
-          min_value: 0.0001,
+          min_value: 0,
+          validateEosAmount: true,
         },
         memo: {
           required: false,

@@ -19,12 +19,12 @@
 
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <fg-input label="Cpu stake (in EOS)" type="number" v-model.number="cpuStake" required
+                  <fg-input label="Cpu stake (in EOS)" v-model.number="cpuStake" required
                             name="cpuStake" v-validate="modelValidation.cpuStake" :error="getError('cpuStake')" data-vv-as="cpu Stake"
                   ></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
-                  <fg-input title="Invalid value" label="Net stake (in EOS)" type="number" v-model.number="netStake" required
+                  <fg-input title="Invalid value" label="Net stake (in EOS)" v-model.number="netStake" required
                             name="netStake" v-validate="modelValidation.netStake" :error="getError('netStake')" data-vv-as="net Stake"
                   ></fg-input>
                 </div>
@@ -33,10 +33,12 @@
               <div class="row">
                 <div class="col-12">
                   <p class="category">Transfer</p>
-                  <p-switch v-model="transfer">
-                    <i class="fa fa-check" slot="on"></i>
-                    <i class="fa fa-times" slot="off"></i>
-                  </p-switch>
+                  <el-tooltip content="Temp or Permanent transfer" placement="top">
+                    <p-switch v-model="transfer">
+                      <i class="fa fa-check" slot="on"></i>
+                      <i class="fa fa-times" slot="off"></i>
+                    </p-switch>
+                  </el-tooltip>
                 </div>
               </div>
 
@@ -79,12 +81,12 @@
 
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <fg-input label="Cpu stake (in EOS)" type="number" v-model.number="cpuUnStake" required
+                  <fg-input label="Cpu stake (in EOS)" v-model.number="cpuUnStake" required
                             name="cpuUnStake" v-validate="undelegatemodelValidation.cpuUnStake" :error="getError('cpuUnStake')" data-vv-as="cpu unStake"
                   ></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
-                  <fg-input title="Invalid name" label="Net stake (in EOS)" type="number" v-model.number="netUnStake" required
+                  <fg-input title="Invalid name" label="Net stake (in EOS)" v-model.number="netUnStake" required
                             name="netUnStake" v-validate="undelegatemodelValidation.netUnStake" :error="getError('netUnStake')" data-vv-as="net unStake"
                   ></fg-input>
                 </div>
@@ -117,11 +119,13 @@ import bl from '@/bl';
 import ActionType from '@/store/constants';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import PSwitch from 'src/components/UIComponents/Switch.vue';
+import { Tooltip } from 'element-ui';
 
 export default {
   name: 'Stake',
   components: {
     PSwitch,
+    [Tooltip.name]: Tooltip,
   },
   data() {
     return {
@@ -141,11 +145,13 @@ export default {
           required: true,
           decimal: true,
           min_value: 0,
+          validateEosAmount: true,
         },
         netStake: {
           required: true,
           decimal: true,
           min_value: 0,
+          validateEosAmount: true,
         },
       },
       undelegatemodelValidation: {
@@ -157,11 +163,13 @@ export default {
           required: true,
           decimal: true,
           min_value: 0,
+          validateEosAmount: true,
         },
         netUnStake: {
           required: true,
           decimal: true,
           min_value: 0,
+          validateEosAmount: true,
         },
       },
     };

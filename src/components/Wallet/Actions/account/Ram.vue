@@ -26,7 +26,7 @@
                     </p-switch>
                 </div>
                 <div class="col-md-6 col-12">
-                  <fg-input :label="'Ram in ' + inEos ? 'EOS' : 'bytes'" type="number" v-model.number="ramToBuy" required
+                  <fg-input :label="'Ram in ' + (inEos ? 'EOS' : 'bytes')" v-model.number="ramToBuy" required
                             name="ramToBuy" v-validate="modelValidation.ramToBuy" :error="getError('ramToBuy')" data-vv-as="ram to buy"
                   ></fg-input>
                 </div>
@@ -114,7 +114,8 @@ export default {
         ramToBuy: {
           required: true,
           decimal: true,
-          min_value: 0.0001,
+          min_value: 0,
+          validateEosAmount: true,
         },
       },
       sellmodelValidation: {

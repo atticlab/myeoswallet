@@ -129,6 +129,19 @@ export default {
       if (_.isEmpty(this.transaction)) {
         return false;
       }
+
+      if (this.transaction && this.transaction.name === 'TransportError') {
+        return false;
+      }
+
+      if (this.transaction && this.transaction.statusText === 'INCORRECT_DATA') {
+        return false;
+      }
+
+      if (this.transaction && this.transaction.statusCode === 27013) {
+        return false;
+      }
+
       if (this.transaction && this.transaction.hasOwnProperty('status') && this.transaction.status !== 200) { // eslint-disable-line
         return false;
       }
@@ -150,7 +163,7 @@ export default {
     },
     initPopUp() {
       swal({
-        title: this.isSuccess ? 'Success' : 'Fail',
+        title: this.isSuccess ? 'Success' : 'Failure',
         type: this.isSuccess ? 'success' : 'error',
         html: '<div style="text-align: left;"><pre id="json-pop-up">' + JSON.stringify(this.transaction, null, 1) + '</pre></div>',
         buttonsStyling: false,
@@ -187,5 +200,11 @@ export default {
 <style scoped>
   #place-for-transaction {
     overflow: auto;
+  }
+</style>
+
+<style>
+  .swal2-confirm.btn {
+    margin-left: 15px !important;
   }
 </style>

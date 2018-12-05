@@ -124,12 +124,12 @@
 
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <fg-input label="Cpu stake (in EOS)" type="number" v-model.number="cpuStake" required
+                  <fg-input label="Cpu stake (in EOS)" v-model.number="cpuStake" required
                             name="cpuStake" v-validate="modelValidation.cpuStake" :error="getError('cpuStake')" data-vv-as="cpu stake"
                   ></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
-                  <fg-input label="Net stake (in EOS)" type="number" v-model.number="netStake" required
+                  <fg-input label="Net stake (in EOS)" v-model.number="netStake" required
                             name="netStake" v-validate="modelValidation.netStake" :error="getError('netStake')" data-vv-as="net stake"
                   ></fg-input>
                 </div>
@@ -232,11 +232,13 @@ export default {
           required: true,
           decimal: true,
           min_value: 0,
+          validateEosAmount: true,
         },
         netStake: {
           required: true,
           decimal: true,
           min_value: 0,
+          validateEosAmount: true,
         },
         ram: {
           required: true,

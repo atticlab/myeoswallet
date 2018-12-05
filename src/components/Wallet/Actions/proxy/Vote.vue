@@ -15,11 +15,16 @@
           </div>
 
           <div class="row">
-            <div class="col-1 pull-right">
+            <div class="btn-group col-4 col-xs-3 col-md-2 col-sm-2" role="group">
               <p-button @click="resetProducers" type="primary">Reset</p-button>
-            </div>
-            <div class="col-1 pull-right">
               <p-button @click="onVote" type="primary">Vote</p-button>
+            </div>
+            <div class="col-8 offset-2 col-md-4 offset-md-6 col-sm-4 offset-sm-6">
+              <fg-input class="input-sm"
+                        placeholder="Search"
+                        v-model="searchQuery"
+                        addon-right-icon="nc-icon nc-zoom-split">
+              </fg-input>
             </div>
           </div>
 
@@ -111,12 +116,13 @@ export default {
       pagination: { itemPerPage: 50, totalItems: 0, page: 1 },
       producerToDisplay: [],
       disablePickProd: false,
+      searchQuery: '',
     };
   },
   components: {
     // TablePaginations,
     [Tag.name]: Tag,
-    PPagination
+    PPagination,
   },
   computed: {
     ...mapState([
@@ -128,6 +134,15 @@ export default {
       'getAccountName',
       'getAuthority',
     ]),
+    queriedData() {
+      if (!this.searchQuery) {
+        this.pagination.totalItems = this.producers.length;
+        return this.producers;
+      }
+      const res = this.producers.filter(val => val.owner.includes(this.searchQuery));
+      this.pagination.totalItems = res.length;
+      return res;
+    },
   },
   methods: {
     ...mapActions([
@@ -216,15 +231,29 @@ export default {
     },
     getProducers() {
       if (!this.eosApi) return;
+
       this.eosApi.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
         .then((response) => {
           this.chainStatus = response.rows[0];
           this.eosApi.getProducers({
             json: true,
             limit: 700,
+            lower_bound: '',
           })
-            .then((res) => {
-              this.producers = res.rows;
+            .then(async (temp) => {
+              let res = [];
+              let lowerBound = '';
+
+              while (temp.more) {
+                res = res.concat(temp.rows);
+                lowerBound = temp[temp.length - 1].owner;
+                temp = await this.eosApi.getProducers({ // eslint-disable-line
+                  json: true,
+                  limit: 700,
+                  lower_bound: lowerBound,
+                });
+              }
+              this.producers = res.concat(temp.rows);
               this.producers.sort((a, b) => b.total_votes - a.total_votes);
               let votesToRemove = 0;
               // eslint-disable-next-line
@@ -304,15 +333,15 @@ export default {
     },
     pagination: {
       handler() {
-        if (this.producers) {
-          this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
+        if (this.queriedData) {
+          this.producerToDisplay = this.queriedData.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
         }
       },
       deep: true,
     },
-    producers() {
-      if (this.producers) {
-        this.producerToDisplay = this.producers.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
+    queriedData() {
+      if (this.queriedData) {
+        this.producerToDisplay = this.queriedData.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
       }
     },
   },

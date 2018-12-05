@@ -11,17 +11,19 @@
                   <fg-input label="Account name" :value="getAccountName" maxlength="12" readonly></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
-                  <fg-input label="Account Permission" type="text" v-model="accountPermission" required
-                            name="accountPermission" v-validate="modelValidation.accountPermission" :error="getError('accountPermission')"
-                  ></fg-input>
+                  <el-tooltip content="Permission to link" placement="top">
+                    <fg-input label="Account Permission" type="text" v-model="accountPermission" required
+                              name="accountPermission" v-validate="modelValidation.accountPermission" :error="getError('accountPermission')"
+                    ></fg-input>
+                  </el-tooltip>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <fg-input label="Contract Name" type="text" v-model="linkContractName" required
-                            name="linkContractName" v-validate="modelValidation.linkContractName" :error="getError('linkContractName')"
-                  ></fg-input>
+                    <fg-input label="Contract Name" type="text" v-model="linkContractName" required
+                              name="linkContractName" v-validate="modelValidation.linkContractName" :error="getError('linkContractName')"
+                    ></fg-input>
                 </div>
                 <div class="col-md-6 col-12">
                   <fg-input label="Contract Action" type="text" v-model="linkContractAction" required
@@ -107,9 +109,13 @@
 import bl from '@/bl';
 import ActionType from '@/store/constants';
 import { mapState, mapGetters, mapActions } from 'vuex';
+import { Tooltip } from 'element-ui';
 
 export default {
   name: 'LinkAuth',
+  components: {
+    [Tooltip.name]: Tooltip,
+  },
   data() {
     return {
       accountPermission: '',

@@ -8,13 +8,13 @@
           <form>
             <div class="row">
               <div class="col-md-6 col-12">
-                <fg-input label="Active Permission (key or account)" type="text" v-model="activePermission"
+                <fg-input label="Active Permission (key or account)" type="text" v-model="activePermission" placeholder="e.g. EOS1hQ1v8vut1V2giQC1ha7J225GCzFJtF317fy8JYuN7k6fG4n11"
                           name="activePermission" v-validate="modelValidation.activePermission" data-vv-as="active permission"
                           :error="getError('activePermission')"
                 ></fg-input>
               </div>
               <div class="col-md-6 col-12">
-                <fg-input label="Owner Permission (key or account)" v-model="ownerPermission"
+                <fg-input label="Owner Permission (key or account)" v-model="ownerPermission" placeholder="e.g. EOS1hQ1v8vut1V2giQC1ha7J225GCzFJtF317fy8JYuN7k6fG4n11"
                           name="ownerPermission" v-validate="modelValidation.ownerPermission" data-vv-as="owner permission"
                           :error="getError('ownerPermission')"
                 ></fg-input>

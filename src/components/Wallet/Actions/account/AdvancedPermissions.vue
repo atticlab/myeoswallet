@@ -19,22 +19,26 @@
 
             <div class="row">
               <div class="col-md-6 col-12">
-                <fg-input label="Permission" type="text" v-model="permission" required
-                          name="permission" :error="getError('permission')" v-validate="modelValidation.permission"></fg-input>
+                <el-tooltip content="Permission which should be changed or created" placement="top">
+                  <fg-input label="Permission" type="text" v-model="permission" required placeholder="e.g. newpermission"
+                            name="permission" :error="getError('permission')" v-validate="modelValidation.permission"></fg-input>
+                </el-tooltip>
               </div>
               <div class="col-md-6 col-12">
-                <fg-input label="Parent" type="text" v-model="parent"></fg-input>
+                <el-tooltip content="The new permission must have a parent. Only owner permission can not have parent" placement="top">
+                  <fg-input label="Parent" type="text" v-model="parent" placeholder="e.g. owner"></fg-input>
+                </el-tooltip>
               </div>
             </div>
 
             <div class="row" v-for="(authority, index) in authorities" :key="index">
               <div class="col-md-4 col-12">
-                <fg-input label="Name or Pub Key" type="text" v-model="authority.authority" required
-                ></fg-input>
+                  <fg-input label="Name or Pub Key" type="text" v-model="authority.authority" required
+                  ></fg-input>
               </div>
               <div class="col-md-4 col-12">
-                <fg-input label="Account permission" type="text" v-model="authority.permission"
-                ></fg-input>
+                  <fg-input label="Account permission" type="text" v-model="authority.permission" placeholder="e.g. owner"
+                  ></fg-input>
               </div>
               <div class="col-md-4 col-12">
                 <fg-input label="Weight" type="number" v-model.number="authority.weight" required

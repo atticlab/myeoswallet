@@ -34,6 +34,9 @@ export default {
     if (typeof transaction === 'string') {
       t = JSON.parse(transaction);
     }
+    if (t.stack) {
+      delete t.stack;
+    }
     state.transaction = t;
     if (transaction) {
       state.actionInfoPopUp = true;

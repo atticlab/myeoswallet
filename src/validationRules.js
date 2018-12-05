@@ -77,4 +77,16 @@ export default [
       return false;
     },
   },
+  {
+    name: 'validateEosAmount',
+    getMessage: field => 'Invalid amount',
+    validate: (value) => {
+      let val = value;
+      if (typeof value === 'number') {
+        val = value.toString();
+      }
+      const regEx = /^\d+(\.\d{1,4})?$/;
+      return regEx.test(val);
+    },
+  },
 ];
