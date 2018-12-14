@@ -71,7 +71,6 @@
                 align="center"
                 label="Select">
                 <template slot-scope="props">
-                  <!--<p-checkbox :disabled="disablePickProd && !props.row.choosed" :checked="props.row.choosed" @input="addProdToVoteArray(props.row.owner, props.row.choosed, this)"></p-checkbox>-->
                   <p-button :disabled="disablePickProd || props.row.choosed" @click="addProdToVoteArray(props.row.owner, props.row.choosed)" type="primary">ADD</p-button>
                 </template>
               </el-table-column>
@@ -139,7 +138,7 @@ export default {
         this.pagination.totalItems = this.producers.length;
         return this.producers;
       }
-      const res = this.producers.filter(val => val.owner.includes(this.searchQuery));
+      const res = this.producers.filter(val => val && val.owner.includes(this.searchQuery));
       this.pagination.totalItems = res.length;
       return res;
     },
@@ -246,7 +245,7 @@ export default {
 
               while (temp.more) {
                 res = res.concat(temp.rows);
-                lowerBound = temp[temp.length - 1].owner;
+                lowerBound = temp.rows[temp.rows.length - 1].owner;
                 temp = await this.eosApi.getProducers({ // eslint-disable-line
                   json: true,
                   limit: 700,
