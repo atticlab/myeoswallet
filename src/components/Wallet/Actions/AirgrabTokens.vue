@@ -38,7 +38,7 @@
           </div>
 
           <div class="row mt-2 text-center">
-            <div class="col">Have an Airgrab you want here? Email us: <a href="mailto:inbox@atticlab.net"> inbox@atticlab.net</a></div>
+            <div class="col">Have an Airgrab you want here? Email us: <a href="mailto:myeoswalletsup@gmail.com"> myeoswalletsup@gmail.com</a></div>
           </div>
           <div class="row">
             <TextActionAgree/>

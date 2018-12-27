@@ -10,14 +10,13 @@
               <div class="mb-2">Selected producers ({{ prodToVote.length }}/30): </div>
               <el-tag type="primary" :closable="true"
                       :close-transition="true" v-for="(prod, i) in prodToVote" :key="i" @close="prodDeleteHandler(prod)">{{ prod }}</el-tag>
-
             </div>
           </div>
 
           <div class="row">
             <div class="btn-group col-4 col-xs-3 col-md-2 col-sm-2" role="group">
               <p-button @click="resetProducers" type="primary">Reset</p-button>
-              <p-button @click="onVote" type="primary">Vote</p-button>
+              <p-button @click="onVote" type="primary" class="ml-1">Vote</p-button>
             </div>
             <div class="col-8 offset-2 col-md-4 offset-md-6 col-sm-4 offset-sm-6">
               <fg-input class="input-sm"
@@ -353,5 +352,8 @@ export default {
 <style scoped lang="scss">
   span.el-tag:first-of-type {
     margin-left: 0 !important;
+  }
+  .ml-1 {
+    margin-left: 2px;
   }
 </style>

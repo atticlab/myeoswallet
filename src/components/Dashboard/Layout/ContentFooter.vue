@@ -4,7 +4,7 @@
       <nav class="pull-left">
         <ul>
           <li>
-            <a href="https://atticlab.net" target="_blank">
+            <a href="http://atticlab.net/eos/" target="_blank">
               ATTIC LAB
             </a>
           </li>
@@ -34,7 +34,7 @@
             </a>
           </li>
           <li>
-            <a href="https://t.me/atticlabeosb" target="_blank">
+            <a href="https://t.me/myeoswallet_support" target="_blank">
               TELEGRAM
             </a>
           </li>
