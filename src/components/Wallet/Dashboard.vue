@@ -24,8 +24,9 @@
                 <br>If you are planning to <b>use Ledger</b>, we recommend using Google Chrome.
                 <br>However, note that some of the wallet functions are not supported by the Ledger.
               </p>
-              <p>The functions that are <b>not supported</b>:</p>
+              <p>The functions that are <b>not supported</b> by ledger:</p>
               <ul>
+                <li>Create Account</li>
                 <li>Set / Unset proxy</li>
                 <li>Permissions</li>
                 <li>Claim Rewards</li>

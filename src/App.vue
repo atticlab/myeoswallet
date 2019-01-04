@@ -243,32 +243,31 @@ export default {
       if (this.isLedgerConnected) {
         this.ledgerWallet.interface.getPublicKey(bip44Path, false)
           .then((key) => {
-            console.log(key)
             this.eosApi.getKeyAccounts(key.wif)
               .then((accountFromKey) => {
-                const name = accountFromKey.account_names[0]
+                const name = accountFromKey.account_names[0];
                 this.eosApi.getAccount(name)
                   .then((account) => {
                     const authority = account.permissions.find((authObj) => {
-                      const keys = authObj.required_auth.keys
+                      const keys = authObj.required_auth.keys;
                       return keys.find((keyObj) => {
                         if (keyObj.key === key.wif) {
                           return true;
                         }
                         return false;
-                      })
-                    }).perm_name
-                    this[ActionType.SET_EOS_ACCOUNT](account)
-                    this[ActionType.SET_IDENTITY_ACCOUNT]({authority})
-                    this.getTokenList()
-                    this.balanceUpdate()
-                  })
+                      });
+                    }).perm_name;
+                    this[ActionType.SET_EOS_ACCOUNT](account);
+                    this[ActionType.SET_IDENTITY_ACCOUNT]({authority});
+                    this.getTokenList();
+                    this.balanceUpdate();
+                  });
               })
               .catch((e) => {
                 this.failConnectLedger(e);
                 this.isLedgerConnected = false;
                 console.error(e);
-              })
+              });
           })
           .catch(e => console.error(e));
         const eos = Eos(Object.assign(this.eosConfigLedger));
