@@ -23,6 +23,10 @@ export default [
         path: '/vote',
       },
       {
+        name: 'Referendums',
+        path: '/referendums',
+      },
+      {
         name: 'Set Proxy',
         path: '/setproxy',
       },

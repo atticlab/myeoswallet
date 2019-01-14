@@ -15,6 +15,7 @@ const AssignProxy = () => import(/* webpackChunkName: "assignProxy" */ 'src/comp
 const UnAssignProxy = () => import(/* webpackChunkName: "unassignProxy" */ 'src/components/Wallet/Actions/proxy/UnAssignProxy.vue')
 const UnsetProxy = () => import(/* webpackChunkName: "unsetProxy" */ 'src/components/Wallet/Actions/proxy/UnsetProxy.vue')
 const Vote = () => import(/* webpackChunkName: "vote" */ 'src/components/Wallet/Actions/proxy/Vote')
+const Referendums = () => import(/* webpackChunkName: "referendums" */ 'src/components/Wallet/Actions/proxy/Referendums')
 
 // account
 const AdvancedPermissions = () => import(/* webpackChunkName: "advancedpermissions" */ 'src/components/Wallet/Actions/account/AdvancedPermissions.vue')
@@ -69,6 +70,11 @@ const routes = [
             path: '/vote',
             name: 'Vote',
             component: Vote,
+          },
+          {
+            path: '/referendums',
+            name: 'Referendums',
+            component: Referendums,
           },
           {
             path: '/setproxy',
