@@ -54,7 +54,9 @@ export default {
     if (typeof e === 'string') {
       error = JSON.parse(e);
     }
-    renderJSON(error, idForInsert);
+    if (idForInsert) {
+      renderJSON(error, idForInsert);
+    }
   },
   logInPopUP: () => {
     swal({

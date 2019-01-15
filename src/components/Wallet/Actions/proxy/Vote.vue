@@ -233,69 +233,72 @@ export default {
       }
     },
     getProducers() {
-      if (!this.eosApi) return;
+      if (!this.eosApi) {
+        bl.logInPopUP();
+        return;
+      }
 
       this.eosApi.getTableRows(true, 'eosio', 'eosio', 'global', '', 0, -1, 1)
-          .then((response) => {
-            this.chainStatus = response.rows[0];
-            this.eosApi.getProducers({
-              json: true,
-              limit: 700,
-              lower_bound: '',
-            })
-                .then(async (temp) => {
-                  let res = [];
-                  let lowerBound = '';
+        .then((response) => {
+          this.chainStatus = response.rows[0];
+          this.eosApi.getProducers({
+            json: true,
+            limit: 700,
+            lower_bound: '',
+          })
+          .then(async (temp) => {
+            let res = [];
+            let lowerBound = '';
 
-                  while (temp.more) {
-                    res = res.concat(temp.rows);
-                    lowerBound = temp.rows[temp.rows.length - 1].owner;
-                    temp = await this.eosApi.getProducers({ // eslint-disable-line
-                      json: true,
-                      limit: 700,
-                      lower_bound: lowerBound,
-                    });
-                  }
-                  this.producers = res.concat(temp.rows);
-                  this.producers.sort((a, b) => b.total_votes - a.total_votes);
-                  let votesToRemove = 0;
-                  // eslint-disable-next-line
-                  for (const index in this.producers) {
-                    const percentageVotes = ((this.producers[index].total_votes / this.chainStatus.total_producer_vote_weight) * 100);
-                    if (percentageVotes * 200 < 100) {
-                      votesToRemove += parseFloat(this.producers[index].total_votes);
-                    }
-                  }
-                  const voteWeight = this.calculateVoteWeight();
-                  // eslint-disable-next-line
-                  for (const index in this.producers) {
-                    const position = parseInt(index, 10) + 1;
-                    let reward = 0;
-                    const percentageVotes = (this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight));
-                    const percentageVotesRewarded = ((this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight - votesToRemove)) * 100);
+            while (temp.more) {
+              res = res.concat(temp.rows);
+              lowerBound = temp.rows[temp.rows.length - 1].owner;
+              temp = await this.eosApi.getProducers({ // eslint-disable-line
+                json: true,
+                limit: 700,
+                lower_bound: lowerBound,
+              });
+            }
+            this.producers = res.concat(temp.rows);
+            this.producers.sort((a, b) => b.total_votes - a.total_votes);
+            let votesToRemove = 0;
+            // eslint-disable-next-line
+            for (const index in this.producers) {
+              const percentageVotes = ((this.producers[index].total_votes / this.chainStatus.total_producer_vote_weight) * 100);
+              if (percentageVotes * 200 < 100) {
+                votesToRemove += parseFloat(this.producers[index].total_votes);
+              }
+            }
+            const voteWeight = this.calculateVoteWeight();
+            // eslint-disable-next-line
+            for (const index in this.producers) {
+              const position = parseInt(index, 10) + 1;
+              let reward = 0;
+              const percentageVotes = (this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight));
+              const percentageVotesRewarded = ((this.producers[index].total_votes / (this.chainStatus.total_producer_vote_weight - votesToRemove)) * 100);
 
-                    reward += percentageVotesRewarded * 200;
+              reward += percentageVotesRewarded * 200;
 
-                    if (percentageVotes * 200 * 100 < 100) {
-                      reward = 0;
-                    }
+              if (percentageVotes * 200 * 100 < 100) {
+                reward = 0;
+              }
 
-                    if (position < 22) {
-                      reward += 318;
-                    }
-                    this.producers[index].position = position;
-                    this.producers[index].reward = reward.toFixed(0);
-                    this.producers[index].votesPercent = percentageVotes.toFixed(4);
-                    this.producers[index].numVotes = (this.producers[index].total_votes / voteWeight / 10000).toFixed(0);
-                    this.producers[index].choosed = false;
-                  }
-                  this.getAlreadyVoted();
-                  this.loading = false;
-                  this.pagination.totalItems = this.producers.length;
-                })
-                .catch(e => bl.handleError(e, 'place-for-transaction'));
+              if (position < 22) {
+                reward += 318;
+              }
+              this.producers[index].position = position;
+              this.producers[index].reward = reward.toFixed(0);
+              this.producers[index].votesPercent = percentageVotes.toFixed(4);
+              this.producers[index].numVotes = (this.producers[index].total_votes / voteWeight / 10000).toFixed(0);
+              this.producers[index].choosed = false;
+            }
+            this.getAlreadyVoted();
+            this.loading = false;
+            this.pagination.totalItems = this.producers.length;
           })
           .catch(e => bl.handleError(e, 'place-for-transaction'));
+        })
+        .catch(e => bl.handleError(e, 'place-for-transaction'));
     },
     changeCurrentPageHandler(val) {
       this.pagination.page = val;

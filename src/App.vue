@@ -157,7 +157,6 @@ export default {
           const requiredFields = { accounts: [this.eosConfig] };
           return setTimeout(() => {
             scatter.getIdentity(requiredFields).then((identity) => {
-              console.dir(identity);
               if (this.initIdentity(identity)) {
                 const identityAccount = this.initIdentityAccount(identity);
                 if (identityAccount) {
