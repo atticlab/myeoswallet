@@ -6,6 +6,9 @@
           <div class="card-header"><h4 class="title">Referendums</h4></div>
           <div class="card-body">
             <div class="row">
+              <TextActionAgree/>
+            </div>
+            <div class="row">
               <div id="proposals" class="col-sm-12" v-for="(proposal, i) in proposals" :key="i">
                 <stats-card type="warning"
                             :small-title="proposal.proposal_name"
