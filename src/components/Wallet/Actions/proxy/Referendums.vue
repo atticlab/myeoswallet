@@ -9,7 +9,7 @@
               <TextActionAgree/>
             </div>
             <div class="row">
-              <div id="proposals" class="col-sm-12" v-for="(proposal, i) in proposals" :key="i">
+              <div class="col-sm-12 proposals" v-for="(proposal, i) in proposals" :key="i">
                 <stats-card type="warning"
                             :small-title="proposal.proposal_name"
                             :small-title2="'by ' + proposal.proposer"
@@ -293,9 +293,6 @@ export default {
 </script>
 
 <style>
-#proposals .card-title {
-  font-size: 0.5em;
-}
 i.green {
   color: green !important;
 }
@@ -304,7 +301,35 @@ i.red {
   color: red !important;
 }
 
-#proposals button {
-  margin-left: 4px;
+.proposals button {
+  margin-left: 4px !important;
+}
+
+.proposals p {
+  font-size: 0.5em;
+}
+
+.proposals h1 {
+  font-size: 1em;
+}
+
+.proposals h2 {
+  font-size: 0.9em;
+}
+
+.proposals h3 {
+  font-size: 0.8em;
+}
+
+.proposals h4 {
+  font-size: 0.7em;
+}
+
+.proposals li {
+  font-size: 0.5em;
+}
+
+.proposals li p {
+  font-size: 1em;
 }
 </style>

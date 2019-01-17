@@ -10,7 +10,7 @@ module.exports = {
         'src': resolveSrc('src')
       }
     }
-  },  
+  },
   devServer: {
     https: true,
     clientLogLevel: 'warning',
@@ -25,6 +25,6 @@ module.exports = {
       aggregateTimeout: 300,
     }
   },
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? './' : '/'
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/' : '/'
 };
