@@ -141,7 +141,7 @@ export default {
         r.curUser = null;
       }
       this.proposals = res;
-      this.getVoters();
+      setTimeout(() => this.getVoters(), 2000);
     },
     async getVoters() {
       if (!this.eosApi) return;
@@ -192,13 +192,12 @@ export default {
       for (let r of this.proposals) { // eslint-disable-line
         if (this.mapProposalsVoter.has(r.proposal_name)) {
           const temp = this.mapProposalsVoter.get(r.proposal_name)
-          // this.$set(r, 'yes', temp.yes);
-          // this.$set(r, 'no', temp.no);
           r.no = temp.no;
           r.yes = temp.yes;
           r.curUser = temp.curUser;
         }
       }
+      setTimeout(() => this.getVoters(), 5000);
     },
     onExpire(proposalName) {
       if (!proposalName) {
@@ -241,7 +240,7 @@ export default {
       });
     },
     eosForumWrapper(action, data) {
-      if (!this.eos) {
+      if (!this.getAccountName) {
         bl.logInPopUP();
         return;
       }
@@ -272,7 +271,7 @@ export default {
           });
     },
     updateUser() {
-      const curUser = this.getAccountName
+      const curUser = this.getAccountName;
       if (!curUser) return;
 
       for (const v of this.voters) { // eslint-disable-line
