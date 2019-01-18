@@ -141,7 +141,7 @@ export default {
         r.curUser = null;
       }
       this.proposals = res;
-      setTimeout(() => this.getVoters(), 2000);
+      this.getVoters();
     },
     async getVoters() {
       if (!this.eosApi) return;
