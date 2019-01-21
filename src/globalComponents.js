@@ -14,7 +14,7 @@ const GlobalComponents = {
     Vue.component(Radio.name, Radio)
     Vue.component(Button.name, Button)
     Vue.component(Card.name, Button)
-    Vue.component('TextActionAgree', TextActionAgree);
+    Vue.component('TextActionAgree', TextActionAgree)
   }
 }
 

@@ -1,10 +1,10 @@
 import JSONFormatter from 'json-formatter-js';
 import swal from 'sweetalert2';
 
-function composeCurrencyBalanceRequest(identityAccount, token) {
+function composeCurrencyBalanceRequest(account, token) {
   return {
     code: token ? token.account : 'eosio.token',
-    account: identityAccount.account_name,
+    account: account.account_name,
     symbol: token ? token.symbol : 'EOS',
   };
 }
@@ -19,10 +19,10 @@ function renderJSON(json, idForInsert) {
 }
 
 export default {
-  requestBalance: (eos, identityAccount, token) => {
+  requestBalance: (eos, account, token) => {
     let args;
-    if (identityAccount) {
-      args = composeCurrencyBalanceRequest(identityAccount, token);
+    if (account) {
+      args = composeCurrencyBalanceRequest(account, token);
     }
     return eos.getCurrencyBalance(args.code, args.account, args.symbol)
       .catch((e) => {
