@@ -111,7 +111,7 @@ export default [
   {
     name: 'Privacy Policy',
     icon: 'nc-icon nc-paper',
-    path: '/static/pdf/privacy_policy.pdf',
+    path: '/privacy_policy',
   },
   // {
   //   name: 'Vote offline',

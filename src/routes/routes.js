@@ -170,8 +170,11 @@ const routes = [
         },
       },
       {
-        path: '/static/pdf/privacy_policy.pdf',
+        path: '/privacy_policy',
         name: 'PrivacyPolicy',
+        beforeEnter(to, from, next) {
+          window.location = '/static/pdf/privacy_policy.pdf';
+        },
       }],
   },
   {
