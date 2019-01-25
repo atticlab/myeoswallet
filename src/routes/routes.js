@@ -168,6 +168,10 @@ const routes = [
         beforeEnter(to, from, next) {
           window.location = 'https://atticlab.net/vote/';
         },
+      },
+      {
+        path: '/static/pdf/privacy_policy.pdf',
+        name: 'PrivacyPolicy',
       }],
   },
   {

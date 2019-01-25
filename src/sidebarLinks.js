@@ -108,6 +108,11 @@ export default [
     icon: 'nc-icon nc-hat-3',
     path: '/constitution',
   },
+  {
+    name: 'PrivacyPolicy',
+    icon: 'nc-icon nc-hat-3',
+    path: '/static/pdf/privacy_policy.pdf',
+  },
   // {
   //   name: 'Vote offline',
   //   icon: 'nc-icon nc-favourite-28',
