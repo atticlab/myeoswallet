@@ -109,8 +109,8 @@ export default [
     path: '/constitution',
   },
   {
-    name: 'PrivacyPolicy',
-    icon: 'nc-icon nc-hat-3',
+    name: 'Privacy Policy',
+    icon: 'nc-icon nc-paper',
     path: '/static/pdf/privacy_policy.pdf',
   },
   // {
