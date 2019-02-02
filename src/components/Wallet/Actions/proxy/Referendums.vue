@@ -5,14 +5,27 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Referendums</h4></div>
           <div class="card-body">
-            <p-button type="primary" class="pull-right" @click="getVoters">
-              Refresh
-            </p-button>
             <div class="row">
-              <TextActionAgree/>
+              <div class="col-8">
+                <TextActionAgree/>
+              </div>
+              <div class="col-4">
+                <div class="pull-right">
+                <p-pagination class=""
+                              v-model="pagination.page"
+                              :per-page="pagination.itemPerPage"
+                              :total="pagination.totalItems">
+                </p-pagination>
+                <p class="text-right">
+                  <p-button type="primary" @click="getProposals" :disabled="!isLoaded">
+                    Refresh
+                  </p-button>
+                </p>
+                </div>
+              </div>
             </div>
             <div class="row">
-              <div class="col-sm-12 proposals" v-for="(proposal, i) in proposals" :key="i">
+              <div class="col-sm-12 proposals" v-for="(proposal, i) in proposalsToDisplay" :key="i">
                 <stats-card type="warning"
                             :small-title="proposal.proposal_name"
                             :small-title2="'by ' + proposal.proposer"
@@ -59,6 +72,18 @@
                 </stats-card>
               </div>
             </div>
+            <!--pagination-->
+            <div class="row mt-3">
+              <div class="col">
+                <div class="pull-right">
+                  <p-pagination
+                          v-model="pagination.page"
+                          :per-page="pagination.itemPerPage"
+                          :total="pagination.totalItems">
+                  </p-pagination>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -68,9 +93,10 @@
 
 <script>
 import bl from '@/bl';
-import {mapActions, mapGetters, mapState} from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import ActionType from '../../../../store/constants';
 import StatsCard from 'src/components/UIComponents/Cards/StatsCard';
+import PPagination from 'src/components/UIComponents/Pagination.vue';
 import { Tooltip } from 'element-ui';
 
 export default {
@@ -78,12 +104,16 @@ export default {
   components: {
     StatsCard,
     [Tooltip.name]: Tooltip,
+    PPagination,
   },
   data() {
     return {
       proposals: [],
+      proposalsToDisplay: [],
       voters: [],
       mapProposalsVoter: new Map(),
+      isLoaded: false,
+      pagination: { itemPerPage: 50, totalItems: 0, page: 1 },
     };
   },
   mounted() {
@@ -96,6 +126,14 @@ export default {
     },
     getAccountName() {
       this.updateUser();
+    },
+    pagination: {
+      handler() {
+        if (this.proposals) {
+          this.proposalsToDisplay = this.proposals.slice(this.pagination.itemPerPage * (this.pagination.page - 1), this.pagination.itemPerPage * this.pagination.page);
+        }
+      },
+      deep: true,
     },
   },
   computed: {
@@ -115,6 +153,7 @@ export default {
     async getProposals() {
       if (!this.eosApi) return;
 
+      this.isLoaded = false;
       this.proposals = []
       let lowerBound = 0
       let tempRes = []
@@ -136,15 +175,21 @@ export default {
           if (!tempRes.more) break;
         } catch (e) {
           bl.handleError(e);
+          this.isLoaded = true;
         }
       }
-      for (let r of res) { // eslint-disable-line
-        r.proposal_json = JSON.parse(r.proposal_json);
-        r.yes = 0;
-        r.no = 0;
-        r.curUser = null;
+      for (let i = 0; i < res.length; i++) { // eslint-disable-line
+        if (res[i].expires_at && new Date((res[i].expires_at)).getTime() < new Date().getTime()) {
+          delete res[i]
+          continue // eslint-disable-line
+        }
+        res[i].proposal_json = JSON.parse(res[i].proposal_json);
+        res[i].yes = 0;
+        res[i].no = 0;
+        res[i].curUser = null;
       }
-      this.proposals = res;
+      this.proposals = res.filter(el => el);
+      this.pagination.totalItems = this.proposals.length;
       this.getVoters();
     },
     async getVoters() {
@@ -171,6 +216,7 @@ export default {
           if (!tempRes.more) break;
         } catch (e) {
           bl.handleError(e);
+          this.isLoaded = true;
         }
       }
       const curUser = this.getAccountName
@@ -203,6 +249,8 @@ export default {
         }
       }
       this.proposals.sort((a, b) => b.total - a.total);
+      this.isLoaded = true;
+      // setTimeout(() => this.getVoters(), 30000);
     },
     onExpire(proposalName) {
       if (!proposalName) {
@@ -265,15 +313,15 @@ export default {
           ],
         },
       )
-          .then((res) => {
-            console.debug(`${this.$options.name} RESULT`, res);
-            this[ActionType.SET_TRANSACTION](res);
-            bl.renderJSON(res, 'place-for-transaction');
-          })
-          .catch((e) => {
-            this[ActionType.SET_TRANSACTION](e);
-            bl.handleError(e, 'place-for-transaction');
-          });
+        .then((res) => {
+          console.debug(`${this.$options.name} RESULT`, res);
+          this[ActionType.SET_TRANSACTION](res);
+          bl.renderJSON(res, 'place-for-transaction');
+        })
+        .catch((e) => {
+          this[ActionType.SET_TRANSACTION](e);
+          bl.handleError(e, 'place-for-transaction');
+        });
     },
     updateUser() {
       const curUser = this.getAccountName;
@@ -346,5 +394,8 @@ i.red {
 }
 .proposals button {
   margin-top: 2px !important;
+}
+.text-right {
+  text-align: right;
 }
 </style>

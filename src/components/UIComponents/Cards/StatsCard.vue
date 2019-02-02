@@ -7,7 +7,7 @@
             <div class="numbers">
               <p class="card-category">{{smallTitle}} {{smallTitle2}}</p>
               <collapse>
-                <collapse-item :title="title ? title.slice(0, 60) + '...' : ''">
+                <collapse-item :title="title ? title.slice(0, 50) + '...' : ''">
                   <vue-markdown>{{title}}</vue-markdown>
                 </collapse-item>
               </collapse>
