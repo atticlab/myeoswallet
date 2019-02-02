@@ -5,6 +5,9 @@
         <div class="card">
           <div class="card-header"><h4 class="title">Referendums</h4></div>
           <div class="card-body">
+            <p-button type="primary" class="pull-right" @click="getVoters">
+              Refresh
+            </p-button>
             <div class="row">
               <TextActionAgree/>
             </div>
@@ -17,30 +20,31 @@
                 >
                   <div class="stats" slot="footer">
                     <el-tooltip content="vote yes" placement="top">
-                      <p-button type="info" round icon class="btn-icon-mini btn-neutral" @click="onVote(proposal.proposal_name, 1)">
+                      <p-button type="info" round icon class="btn-icon-mini btn-neutral proposal-action" @click="onVote(proposal.proposal_name, 1)">
                         <i :class="['nc-icon', 'nc-simple-add', proposal.curUser === 1 ? 'green' : '']"></i>
                       </p-button>
                     </el-tooltip>
                     <el-tooltip content="vote no" placement="top">
-                      <p-button type="info" round icon class="btn-icon-mini btn-neutral" @click="onVote(proposal.proposal_name, 0)">
+                      <p-button type="info" round icon class="btn-icon-mini btn-neutral proposal-action" @click="onVote(proposal.proposal_name, 0)">
                         <i :class="['nc-icon', 'nc-simple-delete', proposal.curUser === 0 ? 'red' : '']"></i>
                       </p-button>
                     </el-tooltip>
                     <el-tooltip content="unvote allows a user to remove their vote" placement="top">
-                      <p-button type="info" round icon class="btn-icon-mini btn-neutral" @click="onUnVote(proposal.proposal_name)">
+                      <p-button type="info" round icon class="btn-icon-mini btn-neutral proposal-action" @click="onUnVote(proposal.proposal_name)">
                         <i class="nc-icon nc-simple-remove"></i>
                       </p-button>
                     </el-tooltip>
-                    <el-tooltip content="expires" placement="top">
-                        <i class="nc-icon nc-time-alarm"> {{ new Date(proposal.expires_at).toLocaleDateString()}}</i>
-                    </el-tooltip>
-                    <el-tooltip content="yes" placement="top">
-                      <i class="nc-icon nc-minimal-up"> {{ proposal.yes }}</i>
-                    </el-tooltip>
-                    <el-tooltip content="no" placement="top">
-                      <i class="nc-icon nc-minimal-down"> {{ proposal.no }}</i>
-                    </el-tooltip>
-
+                    <div class="proposal-info">
+                      <el-tooltip content="expires" placement="top">
+                          <i class="nc-icon nc-time-alarm"> {{ new Date(proposal.expires_at).toLocaleDateString()}}</i>
+                      </el-tooltip>
+                      <el-tooltip content="yes" placement="top">
+                        <i class="nc-icon nc-minimal-up"> {{ proposal.yes }}</i>
+                      </el-tooltip>
+                      <el-tooltip content="no" placement="top">
+                        <i class="nc-icon nc-minimal-down"> {{ proposal.no }}</i>
+                      </el-tooltip>
+                    </div>
                     <el-tooltip content="expire is used to modify the value of expires_at to the current time" placement="top">
                       <p-button type="primary" class="pull-right" @click="onExpire(proposal.proposal_name)">
                         expire
@@ -194,10 +198,11 @@ export default {
           const temp = this.mapProposalsVoter.get(r.proposal_name)
           r.no = temp.no;
           r.yes = temp.yes;
+          r.total = temp.no + temp.yes;
           r.curUser = temp.curUser;
         }
       }
-      setTimeout(() => this.getVoters(), 5000);
+      this.proposals.sort((a, b) => b.total - a.total);
     },
     onExpire(proposalName) {
       if (!proposalName) {
@@ -330,5 +335,16 @@ i.red {
 
 .proposals li p {
   font-size: 1em;
+}
+.proposals .proposal-action {
+  padding-left: 8px;
+}
+.proposal-info {
+  vertical-align: -webkit-baseline-middle;
+  display: inline-block;
+  margin-left: 20px;
+}
+.proposals button {
+  margin-top: 2px !important;
 }
 </style>

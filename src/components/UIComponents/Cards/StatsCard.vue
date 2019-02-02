@@ -5,8 +5,7 @@
         <div class="col-12">
           <slot name="content">
             <div class="numbers">
-              <p class="card-category">{{smallTitle}}</p>
-              <p class="card-category">{{smallTitle2}}</p>
+              <p class="card-category">{{smallTitle}} {{smallTitle2}}</p>
               <collapse>
                 <collapse-item :title="title ? title.slice(0, 60) + '...' : ''">
                   <vue-markdown>{{title}}</vue-markdown>

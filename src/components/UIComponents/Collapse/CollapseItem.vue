@@ -90,4 +90,7 @@
   }
 </script>
 <style>
+  .card-header:after {
+    content: unset !important;
+  }
 </style>
