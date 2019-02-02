@@ -317,6 +317,7 @@ export default {
           console.debug(`${this.$options.name} RESULT`, res);
           this[ActionType.SET_TRANSACTION](res);
           bl.renderJSON(res, 'place-for-transaction');
+          this.getVoters();
         })
         .catch((e) => {
           this[ActionType.SET_TRANSACTION](e);
